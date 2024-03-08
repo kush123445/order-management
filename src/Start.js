@@ -3,8 +3,8 @@
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Menu from './Menu';
-import Cart from './Cart'; // Import the CartPage component
+import Menu from './Components/Menu.js';
+import Cart from './Components/Cart.js'; // Import the CartPage component
 
 const App = () => {
   const [cart, setCart] = useState([]);
