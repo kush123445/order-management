@@ -45,8 +45,10 @@
     font-size: 18px;
   }
   
-  .item-price {
-    font-size: 16px;
+  .item-pricee {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
   }
   
   .add-to-cart-btn {
@@ -83,6 +85,7 @@
   .quantity-control {
     display: flex;
     align-items: center;
+    margin: 10px;
   }
   
 
