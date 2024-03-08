@@ -1,38 +1,124 @@
-.App {
+/* App.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+/* App.css */
+
+/* ... your existing styles ... */
+
+.cvv header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  text-align: left;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  margin-right:30px;
+  align-items: center; /* Align items vertically */
+}
+
+.social-links a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+
+.cv {
+  width: 800px;
+  display: flex;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.cvv{
+  
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.center-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.right-column {
+  flex: 1;
+  padding: 20px;
+  border-left: 1px solid #ddd;
+}
+
+header {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  margin: 0;
+  color: #333;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p {
+  margin: 5px 0;
+  color: #555;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills-columns {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
 }
 
-.App-link {
-  color: #61dafb;
+.column {
+  flex: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.column ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.job,
+.project,
+.certificate,
+.education {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+section h2 {
+  color: #007bff;
+}
+
+section {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+section:last-child {
+  border-bottom: none;
 }

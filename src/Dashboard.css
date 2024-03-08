@@ -1,0 +1,84 @@
+.containerr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+ 
+  
+}
+
+/* Assuming Qr and Appp components are direct children of the container */
+
+
+/* Adjust styles for responsiveness */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+
+
+Copy code
+/* Centering the title */
+.title {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 2.5rem;
+  color: #4CAF50; /* Green color for title */
+  margin-bottom: 30px;
+}
+
+/* Styling the container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling the QR container */
+.qr-container {
+  margin-right: 20px; /* Add some space between QR and Appp */
+}
+
+/* Styling the Appp container */
+.appp-container {
+  width: 60%; /* Set width to 50% */
+}
+
+/* Funky styles */
+.container {
+  background-color: #f0f0f0; /* Light gray background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+
+.appp-container {
+  border: 2px solid #4CAF50; /* Green border for Appp container */
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #ffffff; /* White background for Appp container */
+}
+
+/* Add some animation */
+.appp-container:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+/* Styling the QR code */
+.Qr {
+  max-width: 100%;
+}
+
+/* Making it responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+    text-align: center; /* Center-align elements */
+  }
+
+  .appp-container {
+    width: 80%; /* Adjust width for smaller screens */
+  }
+}

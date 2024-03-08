@@ -1,0 +1,407 @@
+.menu-container {
+    margin: 20px;
+  }
+  
+  .menu-title {
+    font-family: cursive; /* Use a cursive font */
+    font-size: 38px; /* Increase the font size */
+    font-weight: bold; /* Set font weight to bold */
+    color: #4CAF50;  /* Set the text color */
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 2px; /* Add letter spacing for better readability */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+    /* Add border */
+    /* Add padding */
+    border-radius: 10px; /* Add border radius */
+  }
+  .categories {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .category {
+    margin-bottom: 20px;
+    color:#fc8019;
+  }
+  
+  .category-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+   
+  }
+  
+  .item-name {
+    font-size: 18px;
+  }
+  
+  .item-price {
+    font-size: 16px;
+  }
+  
+  .add-to-cart-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .cart {
+    margin-top: 20px;
+  }
+  
+  .cart-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .cart-items {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .cart-items li {
+    margin-bottom: 5px;
+  }
+  .quantity-control {
+    display: flex;
+    align-items: center;
+  }
+  
+
+  .quantity-btnn {
+    background-color: #FFE364;
+    /* background-color: grey; */
+    color: black;
+    border: none;
+    font-weight: 200;
+    /* padding: 8px 12px; */
+    text-align: center;
+    text-decoration: none;
+    font-size: 2rem;
+    cursor: pointer;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .quantity-btn:hover {
+    background-color: #45a049; /* Darker shade on hover */
+  }
+  
+  
+  .quantity {
+    font-size: 16px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+
+  /* Menu.css */
+
+.browse-menu-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .browse-menu-btnn {
+    position: fixed;
+    bottom: 25px;
+    left: 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .browse-menu-btn:hover {
+    background-color: #45a049; /* Darker shade on hover */
+  }
+/* Menu.css */
+
+
+
+.dropdown-container {
+    position: relative;
+  }
+  
+  .icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Make container circular */
+    width: 50px; /* Set container width */
+    height: 50px; /* Set container height */
+    background-color: #000000; /* Background color for container */
+  }
+  
+  .icon-container span {
+    margin-top: 5px; /* Adjust text margin */
+  }
+  
+  .browse-menu-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 4px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50%; /* Make button circular */
+    transition: background-color 0.3s ease;
+    box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.1), /* First box shadow */
+    0 8px 16px rgba(0, 0, 0, 0.2), /* Second box shadow */
+    0 12px 24px rgba(0, 0, 0, 0.3); /* Third box shadow */
+
+ 
+  }
+  .browse-menu-btn:hover {
+    background-color: #45a049; /* Darker shade on hover */
+  }
+  
+  .dropdown-menu {
+    position: fixed; /* Ensure the menu stays in place even when scrolling */
+    bottom: 10px; /* Adjust the distance from the bottom */
+    right: 10px; /* Adjust the distance from the right */
+    max-height: 200px; /* Set maximum height for scrollability */
+    overflow-y: auto; /* Enable vertical scrolling */
+    z-index: 1;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hide the dropdown */
+  }
+  
+  .dropdown-container:hover .dropdown-menu {
+    display: block; /* Show the dropdown on hover */
+  }
+  
+  .dropdown-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-list li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-list li:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Add this CSS to your existing stylesheet */
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0;
+  }
+  
+  .close-btn:hover {
+    color: #333;
+  }
+  .bottom-link {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .bottom-link a {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bottom-link a:hover {
+    background-color: #45a049;
+  }  
+
+  .menu-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .menu-svg path {
+    fill: #ff9700; /* Fill color */
+    stroke: none; /* No stroke */
+  }
+  
+  .menu-title {
+    position: relative;
+    z-index: 1;
+    /* Add other styles for your menu title */
+  }
+
+           
+  .btn-grad {
+    background-image: linear-gradient(to right, #F09819 0%, #EDDE5D  51%, #F09819  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .btn-grad:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+ 
+  .dropdown-menu {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1;
+    background-color: #000; /* Black background */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: none;
+    animation: slideIn 0.5s ease; /* Entrance animation */
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .dropdown-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-list li {
+    padding: 15px;
+    cursor: pointer;
+    color: #fff; /* White text color */
+    font-size: 18px; /* Increased font size */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .dropdown-list li:hover {
+    background-color: #333; /* Darker background on hover */
+  }
+
+  .accordion-icon {
+  float: right;
+  margin-right: 20px;
+  color: #000;
+  font-size:larger;
+}
+
+.category.closed {
+  border: 1px solid #ccc; /* Add border for closed category */
+  /* background-image: linear-gradient(
+  90deg,
+  hsl(39deg 100% 63%) 0%,
+  hsl(37deg 99% 69%) 14%,
+  hsl(36deg 97% 73%) 25%,
+  hsl(34deg 95% 77%) 35%,
+  hsl(33deg 92% 80%) 43%,
+  hsl(32deg 89% 83%) 50%,
+  hsl(31deg 84% 85%) 55%,
+  hsl(29deg 79% 87%) 61%,
+  hsl(27deg 70% 90%) 65%,
+  hsl(23deg 58% 92%) 70%,
+  hsl(14deg 40% 93%) 76%,
+  hsl(323deg 19% 95%) 83%,
+  hsl(240deg 60% 97%) 100%
+); */
+background-color: #f9f9f9;
+
+  /* Add background color for closed category */
+  border-radius: 5px; 
+}
+
+.category-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 5px;
+  margin-top: 10px;
+}
+
+         
+.category-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4CAF50; /* Match with your project's color scheme */
+  padding: 10px 15px;
+  background-color: #fff; /* Match with your project's background */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  
+}
+.category {
+  /* Your existing styles */
+  /* Add border-top to all categories except the first one */
+  border-top: 1.3px solid #000000;
+}
+
+/* Remove border-top from the first category */
+.category:first-child {
+  border-top: none;
+}

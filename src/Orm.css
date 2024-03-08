@@ -1,0 +1,133 @@
+.App {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  
+  align-items: flex-start;
+ 
+}
+
+.section {
+  flex: 1;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.simulate-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.simulate-button:hover {
+  background-color: #0056b3;
+}
+
+.order-item, .table-item {
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.order-info, .table-info {
+  margin: 5px 0;
+}
+
+.accept-button, .complete-button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accept-button:hover, .complete-button:hover {
+  background-color: #45a049;
+}
+
+.blue-background {
+  background-color: #cce5ff;
+}
+
+.yellow-background {
+  background-color: #ffffcc;
+}
+
+.blue {
+  background-color: #007bff;
+}
+
+.with-order {
+  background-color: #90ee90;
+}
+
+.without-order {
+  background-color: #ffc0cb;
+}
+
+/* Ensuring consistent color for order management and completed orders */
+.order-item.pending,
+.table-item.with-order {
+  background-color: #ffc107; /* Light red for pending orders and occupied tables */
+}
+.order-item.pending,
+.table-item.with-order {
+  background-color: #ffc107; /* Light red for pending orders and occupied tables */
+}
+
+.order-item.accepted,
+.table-item.without-order {
+  background-color: #28a745; /* Light green for accepted orders and free tables */
+}
+
+/* Applying blue background for a specific table */
+.table-item.blue-background {
+  background-color: #cce5ff;
+}
+
+/* Applying yellow background for a specific table */
+.table-item.yellow-background {
+  background-color: #ffffcc;
+}
+
+.order-item.accepted,
+.table-item.without-order {
+  background-color: #28a745; /* Light green for accepted orders and free tables */
+}
+
+/* Applying blue background for a specific table */
+.table-item.blue-background {
+  background-color: #cce5ff;
+}
+
+/* Applying yellow background for a specific table */
+.table-item.yellow-background {
+  background-color: #ffffcc;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section {
+    width: 100%;
+  }
+}

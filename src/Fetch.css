@@ -1,0 +1,124 @@
+/* src/components/Fetch.css */
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 60px;
+  }
+  /* src/components/Fetch.css */
+/* ... (existing styles) */
+/* src/components/Fetch.css */
+/* ... (existing styles) */
+/* src/components/Fetch.css */
+/* ... (existing styles) */
+
+.username-list-item {
+    font-style: italic; /* Add italic style to the username */
+    color: #121311; /* Change the color to your preferred color */
+    
+    font-size: medium;
+    font-size:larger
+  }
+  
+  /* ... (other existing styles) */
+  
+.platform-name {
+    font-size:xx-large; /* Adjust the font size based on your design preference */
+    font-family: 'Monospace', monospace; /* Use monospace font family */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.802); /* Add a drop shadow */
+    font-weight: bolder;
+    color: #000000;
+  }
+  
+  /* ... (other existing styles) */
+  
+.profile-link {
+    margin-top: 10px; /* Add space between list items */
+  }
+  
+  .link-icon {
+    margin-left: 5px; /* Adjust the space between text and icon */
+  }
+  
+  /* ... (media queries and other existing styles) */
+  
+  
+  .card {
+    background-color: #f7f7f7;
+    background-image: linear-gradient(45deg, #ffe6e6, #ff99cc);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    width: 300px;
+    margin: 10px;
+    animation: cardEntryAnimation 0.8s ease-in-out;
+    display: flex;
+  }
+  
+  .card:nth-child(even) {
+    background-image: linear-gradient(45deg, #99ccff, #f2b656);
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  @keyframes cardEntryAnimation {
+    from {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .card h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    color: #555;
+  }
+  
+  .card ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .card li {
+    margin-bottom: 5px;
+  }
+  
+  .card-image-container {
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(80%);
+    transition: filter 0.3s ease-in-out;
+  }
+  
+  .card:hover .card-image {
+    filter: brightness(100%);
+  }
+  
+  @media (max-width: 600px) {
+    .card {
+      width: 100%;
+    }
+  }
+  

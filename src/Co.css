@@ -1,0 +1,401 @@
+.table-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .with-order {
+    background-color: #ffff99; /* Light yellow background for tables with orders */
+  }
+  
+  .without-order {
+    background-color: #b3d9ff; /* Light blue background for tables without orders */
+  }
+  
+  .table-info {
+    margin: 5px 0;
+  }
+  .App {
+    text-align: center;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+  
+  .section {
+    flex: 1; /* Each section will take equal space */
+    margin-right: 20px; /* Add some space between sections */
+  }
+  
+  .order-list {
+    max-height: 400px; /* Set a maximum height for the list */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+    margin-top: 20px; /* Add some space between sections */
+  }
+  
+  .order-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  .App {
+    text-align: center;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+  
+  .section {
+    width: 400px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .dashboard-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Align items with space between */
+    align-items: flex-start; /* Align items at the top */
+    padding: 20px; /* Add padding for spacing */
+  }
+  
+  /* Style for Qr component */
+  .Qr {
+    flex: 1; /* Make the component take up available space */
+    margin-right: 20px; /* Add margin for spacing */
+  }
+  
+  /* Style for Appp component */
+  .Appp {
+    flex: 1; /* Make the component take up available space */
+    margin-left: 20px; /* Add margin for spacing */
+  }
+
+
+  /* Styles for order list */
+.order-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .order-info {
+    margin: 5px 0;
+  }
+  
+  /* Styles for buttons */
+  .simulate-button,
+  .accept-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .simulate-button:hover,
+  .accept-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .accept-button {
+    background-color: #28a745;
+  }
+  
+  .accept-button:hover {
+    background-color: #218838;
+  }
+  /* Styles for order list */
+.order-item {
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .pending {
+    background-color: #ffc0cb; /* Light red background for unaccepted orders */
+  }
+  
+  .accepted {
+    background-color: #90ee90; /* Light green background for accepted orders */
+  }
+  
+  /* Rest of your styles */
+  .order-item-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap to the next line if necessary */
+  }
+  
+  .order-item {
+    flex: 1 0 200px; /* Flex-grow, flex-shrink, flex-basis */
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+  }
+  
+  .with-order {
+    background-color: #ffffcc; /* Light yellow background */
+  }
+  
+  .without-order {
+    background-color: #cce5ff; /* Light blue background */
+  }
+  
+  .order-info {
+    margin: 5px 0;
+  }
+  
+  .accept-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .accept-button:hover {
+    background-color: #45a049;
+  }
+  .container {
+    display: flex;
+  }
+  
+  .section {
+    flex: 1; /* Each section will take equal space */
+    margin-right: 20px; /* Add some space between sections */
+  }
+  
+  .order-item {
+    margin-bottom: 10px; /* Add some space between order items */
+  }
+  
+  /* Add styles for accept button */
+  .accept-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .accept-button:hover {
+    background-color: #45a049;
+  }  
+
+  .order-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .order-item.pending {
+    border-color: #ffc107; /* Bootstrap warning color */
+  }
+  
+  .order-item.accepted {
+    border-color: #28a745; /* Bootstrap success color */
+  }
+  
+  .order-info {
+    margin: 0;
+  }
+  
+  .simulate-button {
+    margin-bottom: 20px;
+  }
+  
+  .accept-button {
+    margin-top: 10px;
+  }
+  
+  /* Modal styles */
+  .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+  }
+  .order-item-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap to the next line if necessary */
+    max-height: 300px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+  }
+  
+  .modal-content {
+    border-radius: 8px;
+  }
+  
+  .modal-body {
+    max-height: calc(100vh - 200px); /* Adjust based on your design needs */
+    overflow-y: auto;
+  }
+  
+  .modal-footer {
+    justify-content: center;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  .App {
+    text-align: center;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+  
+  .section {
+    flex: 1; /* Each section will take equal space */
+    margin-right: 20px; /* Add some space between sections */
+  }
+  
+  .order-list {
+    max-height: 400px; /* Set a maximum height for the list */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+    margin-top: 20px; /* Add some space between sections */
+  }
+  
+  .order-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .order-info {
+    margin: 5px 0;
+  }
+  
+  .accept-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .accept-button:hover {
+    background-color: #45a049;
+  }
+  
+  .table-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .table-info {
+    margin: 5px 0;
+  }
+  
+  .complete-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .complete-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  .order-info {
+    margin: 5px 0;
+  }
+  
+  .accept-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .accept-button:hover {
+    background-color: #45a049;
+  }
+  
+  .table-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .table-info {
+    margin: 5px 0;
+  }
+  
+  .complete-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .complete-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  .complete-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .complete-button:hover {
+    background-color: #45a049;
+  }
+  

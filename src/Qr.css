@@ -1,0 +1,84 @@
+.scan-container {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Heading styling */
+.heading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* Input container styling */
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Input field styling */
+.url-input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Error message styling */
+.error-text {
+  color: red;
+  margin: 0;
+}
+
+/* Close button styling */
+.close-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Generate button styling */
+.generate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.generate-btn:hover {
+  background-color: #0056b3;
+}
+
+/* QR code container styling */
+.qrcode-container {
+  margin: 20px auto;
+}
+
+/* Instructions styling */
+.instructions {
+  margin-bottom: 10px;
+}
+
+/* Download button styling */
+.download-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+  background-color: #45a049;
+}
