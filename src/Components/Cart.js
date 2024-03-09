@@ -33,13 +33,6 @@ const Cart = ({ cart, setCart }) => {
     }
   };
 
-  // Function to handle placing order
-  // const placeOrder = () => {
-  //   setOrderPlaced(true);
-  //   setTimelineOpen(true); // Open the timeline when order is placed
-  //   setAccordionOpen(false); // Close the accordion when timeline is opened
-  // };
-
   const placeOrder = () => {
     setOrderPlaced(true);
     setShowCancelButton(true);
@@ -108,6 +101,13 @@ const Cart = ({ cart, setCart }) => {
     return () => clearInterval(timerInterval);
   }, [showCancelButton]);
 
+  useEffect(() => {
+    if (orderPlaced && !showCancelButton) {
+        setTimelineOpen(true);
+    }
+  }, [orderPlaced, showCancelButton]);
+  
+
   return (
     <div className="cart-page">
       <h2 className="menu-titleC" style={{ marginTop: '35px', marginLeft: '0px' }}>Your Orders</h2>
@@ -153,7 +153,7 @@ const Cart = ({ cart, setCart }) => {
       Cancel Order ({cancelTimer}s)
     </button>
   )}
-        {orderPlaced && (
+        {orderPlaced && timelineOpen && (
           <VerticalTimeline className="custom-timeline">
             <VerticalTimelineElement
               className=""
