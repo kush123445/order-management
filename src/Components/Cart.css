@@ -64,6 +64,24 @@
     text-align: right;
   }
   
+  .cooking-instructions-btn {
+    background-color: white;
+    border: none;
+    color: lightgrey; /* Adjust padding as needed */
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+
+  }
+  
+  /* Optional: Style hover and focus states */
+  .cooking-instructions-btn:hover{
+    color: black;
+  }
+
+  .cooking-instructions-btn:focus {
+  }
+
   .place-order-btn {
     background-color: #4CAF50;
     color: white;

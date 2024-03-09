@@ -46,12 +46,12 @@ const Menu = ({ cart, setCart }) => {
     if (existingItem) {
       setCart(cart.map(cartItem => {
         if (cartItem.id === item.id) {
-          return { ...cartItem, quantity: cartItem.quantity + 1 };
+          return { ...cartItem, quantity: cartItem.quantity + (cartItem.half ? 0.5 : 1) };
         }
         return cartItem;
       }));
     } else {
-      setCart([...cart, { ...item, quantity: 1 }]);
+      setCart([...cart, { ...item, quantity: (item.half ? 0.5 : 1) }]);
     }
   };
 
