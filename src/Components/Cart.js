@@ -52,6 +52,19 @@ const Cart = ({ cart, setCart }) => {
     setAccordionOpen(!accordionOpen);
   };
 
+  const addCookingInstructions = (index) => {
+    const newCart = [...cart];
+    // Here you can implement the logic to add cooking instructions to the item
+    // For now, let's just log a message indicating that the instructions are added
+    console.log("Cooking instructions added for:", newCart[index].name);
+  };
+
+  const deleteItem = (index) => {
+    const newCart = [...cart];
+    newCart.splice(index, 1);
+    setCart(newCart);
+  };
+
   return (
     <div className="cart-page">
          <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
@@ -74,11 +87,15 @@ const Cart = ({ cart, setCart }) => {
               <div className="item-details">
                 <p className="item-name">{item.name}</p>
                 <p className="item-price">Price: ₹ {item.price} x {item.quantity}</p>
+                {/* Add cooking instructions button */}
+              <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(index)}>Add Cooking Instructions</button>
               </div>
               <div className="quantity-actions">
                 <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>-</button>
                 <span className="quantity">{item.quantity}</span>
                 <button className="quantity-btn" onClick={() => increaseQuantity(index)}>+</button>
+                {/* Add delete button */}
+              <button className="delete-btn" onClick={() => deleteItem(index)}>🗑️</button>
               </div>
             </li>
           ))}
