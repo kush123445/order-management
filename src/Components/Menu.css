@@ -124,7 +124,7 @@
     position: fixed;
     bottom: 20px;
     right: 8px;
-    background-color: #4CAF50;
+    background-color: black;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -149,7 +149,7 @@
   }
   
   .browse-menu-btn:hover {
-    background-color: #45a049; /* Darker shade on hover */
+    background-color: black; /* Darker shade on hover */
   }
 /* Menu.css */
 
@@ -194,13 +194,13 @@
  
   }
   .browse-menu-btn:hover {
-    background-color: #45a049; /* Darker shade on hover */
+    background-color: black; /* Darker shade on hover */
   }
   
   .dropdown-menu {
     position: fixed; /* Ensure the menu stays in place even when scrolling */
-    bottom: 10px; /* Adjust the distance from the bottom */
-    right: 10px; /* Adjust the distance from the right */
+    bottom: 30px; /* Adjust the distance from the bottom */
+    right: 30px; /* Adjust the distance from the right */
     max-height: 200px; /* Set maximum height for scrollability */
     overflow-y: auto; /* Enable vertical scrolling */
     z-index: 1;
@@ -208,6 +208,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
     display: none; /* Initially hide the dropdown */
   }
   
@@ -242,6 +243,7 @@
     font-size: 16px;
     color: #ffffff;
     padding: 0;
+    margin-bottom: 2px;
   }
   
   .close-btn:hover {
@@ -307,8 +309,8 @@
  
   .dropdown-menu {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 20px;
+    right: 5px;
     max-height: 300px;
     overflow-y: auto;
     z-index: 1;
@@ -407,4 +409,18 @@ background-color: #f9f9f9;
 /* Remove border-top from the first category */
 .category:first-child {
   border-top: none;
+}
+.category-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-count {
+  margin-left: 10px; /* Adjust spacing between count and category name */
+}
+
+.dropdown-list li.selected {
+  background-color: rgb(0, 0, 0);
+  color :goldenrod
 }

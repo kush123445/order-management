@@ -65,8 +65,12 @@ const Cart = ({ cart, setCart }) => {
 </div>
       {accordionOpen && ( // Render the cart items only if accordion is open
         <ul className="cart-items">
+           <p className="order-id">
+  <span style={{ color: 'red' }}>Order ID:</span> <span style={{ color: 'black' }}>xx00044</span>
+</p>
           {cart.map((item, index) => (
             <li key={index} className="cart-item">
+             
               <div className="item-details">
                 <p className="item-name">{item.name}</p>
                 <p className="item-price">Price: ₹ {item.price} x {item.quantity}</p>
