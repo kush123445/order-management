@@ -87,7 +87,7 @@ const Cart = ({ cart, setCart }) => {
         
       )}
       <div className="cart-total">
-       
+    
         <button className="place-order-btn " onClick={placeOrder}>Place Order</button>
         {orderPlaced && (
          <VerticalTimeline className="custom-timeline">
