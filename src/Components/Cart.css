@@ -36,9 +36,40 @@
     display: flex;
     align-items: center;
   }
+  .menu-titleC {
+    position: relative;
+    z-index: 1;
+    /* Add other styles for your menu title */
+  }
+  .moving-svg {
+    position: absolute;
+    fill:#ff9700;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    transform: rotate(180deg); /* Rotate the SVG */
+  }
 
-           
-
+  .menu-titleC {
+    font-family: cursive; /* Use a cursive font */
+    font-size: 28px; /* Increase the font size */
+    font-weight: bold; /* Set font weight to bold */
+    color: #4CAF50;  /* Set the text color */
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 2px; /* Add letter spacing for better readability */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+    /* Add border */
+    /* Add padding */
+    border-radius: 10px; /* Add border radius */
+  }        
+  .accordion-header.closed {
+    background-color: #f0f0f0; /* Light grey background color */
+    padding: 10px; /* Add padding */
+    border-radius: 5px; /* Add border-radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box-shadow */
+    /* Add any other styles you want for the closed accordion header */
+  }
  
   
   .quantity-btn {
@@ -65,7 +96,7 @@
   }
   
   .place-order-btn {
-    background-color: #4CAF50;
+    background-image: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -78,4 +109,65 @@
   .place-order-btn:hover {
     background-color: #45a049; /* Darker shade on hover */
   }
+  .timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
   
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .timeline-dot {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .timeline-content {
+    font-size: 14px;
+  }
+  
+  .completed .timeline-dot {
+    background-color: #4caf50; /* Green color for completed items */
+  }
+
+  .order-box {
+  background-color: #f2f2f2; /* Light gray background */
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.order-heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333; /* Dark text color */
+}
+
+
+
+.cart-page {
+  position: relative; /* Position relative to contain absolutely positioned SVG */
+}
+
+
+
+
+.circle-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #333; /* Background color for the circle */
+  color: #fff; /* Text color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
