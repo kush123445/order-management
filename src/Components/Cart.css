@@ -23,6 +23,11 @@
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
   }
+  .cart-item.removed {
+    text-decoration: line-through;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
   
   .item-name {
     font-weight: bold;

@@ -3,6 +3,8 @@ import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
+import { RiDeleteBinLine } from 'react-icons/ri';
+
 
 const Cart = ({ cart, setCart }) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -58,12 +60,22 @@ const Cart = ({ cart, setCart }) => {
     // For now, let's just log a message indicating that the instructions are added
     console.log("Cooking instructions added for:", newCart[index].name);
   };
+  const [removedItems, setRemovedItems] = useState([]);
 
   const deleteItem = (index) => {
     const newCart = [...cart];
     newCart.splice(index, 1);
     setCart(newCart);
   };
+
+  const toggleStrikeThrough = (itemId) => {
+    if (removedItems.includes(itemId)) {
+      setRemovedItems(removedItems.filter((id) => id !== itemId));
+    } else {
+      setRemovedItems([...removedItems, itemId]);
+    }
+  };
+
 
   return (
     <div className="cart-page">
@@ -77,30 +89,29 @@ const Cart = ({ cart, setCart }) => {
   <h3 className="category-name">Order List</h3>
 </div>
       {accordionOpen && ( // Render the cart items only if accordion is open
-        <ul className="cart-items">
-           <p className="order-id">
+       <ul className="cart-items">
+         <p className="order-id">
   <span style={{ color: 'red' }}>Order ID:</span> <span style={{ color: 'black' }}>xx00044</span>
 </p>
-          {cart.map((item, index) => (
-            <li key={index} className="cart-item">
-             
-              <div className="item-details">
-                <p className="item-name">{item.name}</p>
-                <p className="item-price">Price: ₹ {item.price} x {item.quantity}</p>
-                {/* Add cooking instructions button */}
-              <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(index)}>Add Cooking Instructions</button>
-              </div>
-              <div className="quantity-actions">
-                <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>-</button>
-                <span className="quantity">{item.quantity}</span>
-                <button className="quantity-btn" onClick={() => increaseQuantity(index)}>+</button>
-                {/* Add delete button */}
-              <button className="delete-btn" onClick={() => deleteItem(index)}>🗑️</button>
-              </div>
-            </li>
-          ))}
-           <p className='cart-total'>Total Price: ₹ {totalPrice}</p>
-        </ul>
+       {cart.map((item, index) => (
+         <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
+           <div className="item-details">
+             <p className="item-name">{item.name}</p>
+             <p className="item-price">Price: ₹ {item.price} x {item.quantity}</p>
+             <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(index)}>Add Cooking Instructions</button>
+           </div>
+           <div className="quantity-actions">
+             <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>-</button>
+             <span className="quantity">{item.quantity}</span>
+             <button className="quantity-btn" onClick={() => increaseQuantity(index)}>+</button>
+             <button className="delete-btn " style={{ background: 'white', border: 'none', color :"red" , fontSize:"20px"}}  onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+               <RiDeleteBinLine   />
+             </button>
+           </div>
+         </li>
+       ))}
+          <p className='cart-total'>Total Price: ₹ {totalPrice}</p>
+     </ul>
         
       )}
       <div className="cart-total">
