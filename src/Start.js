@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Menu from './Components/Menu.js';
+import Dashboard from './Dashboard.js'
 import Cart from './Components/Cart.js'; // Import the CartPage component
 
 const App = () => {
