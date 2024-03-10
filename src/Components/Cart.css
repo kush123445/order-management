@@ -133,20 +133,31 @@
     background-color: #45a049; /* Darker shade on hover */
   }
   .cancel-order-btn{
-    background-image: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+   background-color: #ffffff;
+    color: red;
+  border-color: red;
+    padding: 10px 10px;
+    font-size: 10px;
     cursor: pointer;
     border-radius: 5px;
     margin-left: 2px;
     transition: background-color 0.3s ease;
   }
 
-  .cancel-order-btn:hover {
-    background-color: #45a049; /* Darker shade on hover */
+  .cancel{
+    
+    padding: 10px 10px;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+
+
   }
+
+  .cancel:hover {
+    background-color: #ff000094 !important;
+    color: white;
+}
   .timeline {
     display: flex;
     align-items: center;

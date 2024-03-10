@@ -41,6 +41,7 @@ const Cart = ({ cart, setCart }) => {
     setTimeout(() => {
       setCancelTimer(10); 
       setShowCancelButton(false);
+      setAccordionOpen(!accordionOpen)
     }, 10000);
   };
 
@@ -83,10 +84,11 @@ const Cart = ({ cart, setCart }) => {
   };
 
   // Function to cancel the order
-  const cancelOrder = () => {
+  const cancelOrder =  () => {
     setOrderPlaced(false);
     setShowCancelButton(false);
     setCancelTimer(10);
+   
     // You might also want to clear the cart or take other actions related to canceling the order
   };
 
@@ -110,16 +112,22 @@ const Cart = ({ cart, setCart }) => {
 
   return (
     <div className="cart-page">
+         <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
+          
+          <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" fill="#ff9700" />
+        </svg>
       <h2 className="menu-titleC" style={{ marginTop: '35px', marginLeft: '0px' }}>Your Orders</h2>
       <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
         <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
         <h3 className="category-name">Order List</h3>
       </div>
-      {accordionOpen && (
+      {accordionOpen  && (
         <ul className="cart-items">
-          <p className="order-id">
+          {
+            timelineOpen && (<p className="order-id">
             <span style={{ color: 'red' }}>Order ID:</span> <span style={{ color: 'black' }}>xx00044</span>
-          </p>
+          </p>)
+          }
           {cart.map((item, index) => (
             <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
               <div className="item-details">
@@ -150,10 +158,10 @@ const Cart = ({ cart, setCart }) => {
 
   {showCancelButton && (
     <button className="cancel-order-btn" onClick={cancelOrder}>
-      Cancel Order ({cancelTimer}s)
+      Cancel Order ({cancelTimer})
     </button>
   )}
-        {orderPlaced && timelineOpen && (
+        {orderPlaced && timelineOpen &&  (
           <VerticalTimeline className="custom-timeline">
             <VerticalTimelineElement
               className=""
