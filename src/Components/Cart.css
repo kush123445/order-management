@@ -70,7 +70,7 @@
   }        
   .accordion-header.closed {
     background-color: #f0f0f0; /* Light grey background color */
-    padding: 10px; /* Add padding */
+    padding: 0.5px; /* Add padding */
     border-radius: 5px; /* Add border-radius */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box-shadow */
     /* Add any other styles you want for the closed accordion header */
@@ -230,4 +230,15 @@
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.timer-container {
+  display: flex; /* Use flexbox */
+  align-items: center; 
+  justify-content: flex-end;/* Align items vertically */
+}
+
+.cancel-order-btn {
+  /* Your cancel order button styles */
+  margin-left: 10px; /* Add margin for spacing */
 }

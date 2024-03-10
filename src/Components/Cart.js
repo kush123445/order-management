@@ -4,6 +4,7 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 
 const Cart = ({ cart, setCart }) => {
@@ -152,24 +153,37 @@ const Cart = ({ cart, setCart }) => {
         {/* <button className="place-order-btn " onClick={placeOrder}>Place Order</button> */}
         
         
-        {!orderPlaced && !showCancelButton && (
+        {!orderPlaced && !showCancelButton && cart.length!=0 && (
     <button className="place-order-btn " onClick={placeOrder}>Place Order</button>
   )}
 
   {showCancelButton && (
-    <button className="cancel-order-btn" onClick={cancelOrder}>
-      Cancel Order ({cancelTimer})
-    </button>
+     <div className="timer-container">
+     <CountdownCircleTimer
+       isPlaying
+       duration={10}
+       colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+       colorsTime={[7, 5, 2, 0]}
+       size={50} // Adjust the size as needed
+       strokeWidth={5} // Adjust the stroke width as needed
+     >
+       {({ remainingTime }) => remainingTime}
+     </CountdownCircleTimer>
+     <button className="cancel-order-btn" onClick={cancelOrder}>
+       Cancel Order
+     </button>
+   </div>
   )}
         {orderPlaced && timelineOpen &&  (
-          <VerticalTimeline className="custom-timeline">
+          <VerticalTimeline className="custom-timeline" lineColor={ 'lightgray' } >
             <VerticalTimelineElement
               className=""
               contentStyle={{ background: '#D0FFBC', color: '#333', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
-              contentArrowStyle={{ borderRight: '7px solid #f0f0f0' }}
+              contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
               date="Order Placed"
               iconStyle={{ background: '#333', color: '#fff' }}
               icon={<div className="circle-icon">1</div>}
+              lineColor={ 'black' }
             />
             <VerticalTimelineElement
               className=""
