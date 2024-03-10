@@ -197,20 +197,20 @@
     background-color: black; /* Darker shade on hover */
   }
   
-  .dropdown-menu {
-    position: fixed; /* Ensure the menu stays in place even when scrolling */
-    bottom: 30px; /* Adjust the distance from the bottom */
-    right: 30px; /* Adjust the distance from the right */
-    max-height: 200px; /* Set maximum height for scrollability */
-    overflow-y: auto; /* Enable vertical scrolling */
+  /* .dropdown-menu {
+    position: fixed; /* Ensure the menu stays in place even when scrolling *
+    bottom: 30px; /* Adjust the distance from the bottom *
+    right: 30px; /* Adjust the distance from the right *
+    max-height: 200px; /* Set maximum height for scrollability *
+    overflow-y: auto; /* Enable vertical scrolling *
     z-index: 1;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
-    display: none; /* Initially hide the dropdown */
-  }
+    display: none; /* Initially hide the dropdown 
+  } */
   
   .dropdown-container:hover .dropdown-menu {
     display: block; /* Show the dropdown on hover */
@@ -227,9 +227,7 @@
     cursor: pointer;
   }
   
-  .dropdown-list li:hover {
-    background-color: #f0f0f0;
-  }
+  
 
   /* Add this CSS to your existing stylesheet */
 
@@ -314,7 +312,7 @@
     max-height: 300px;
     overflow-y: auto;
     z-index: 1;
-    background-color: #000; /* Black background */
+    background-color: #932828; /* Black background */
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     display: none;
