@@ -117,9 +117,7 @@
   .cooking-instructions-btn:hover{
     color: black;
   }
-  
-  .cooking-instructions-btn:focus {
-  }
+  /* fjbvjb */
   
   .place-order-btn {
     background-image: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%);

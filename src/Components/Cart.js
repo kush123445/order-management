@@ -229,6 +229,7 @@ const Cart = ({ cart, setCart }) => {
           </VerticalTimeline>
         )}
       </div>
+      {/* nfjvn */}
     </div>
   );
 }
