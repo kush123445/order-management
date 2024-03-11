@@ -1,0 +1,370 @@
+/* Cart.css */
+
+.cart-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .cart-items {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+  .cart-item.removed {
+    text-decoration: line-through;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .item-name {
+    font-weight: bold;
+  }
+  
+  .item-price {
+    color: #666;
+  }
+  
+  .quantity-actions {
+    display: flex;
+    align-items: center;
+  }
+  .menu-titleC {
+    position: relative;
+    z-index: 1;
+    /* Add other styles for your menu title */
+  }
+  .moving-svg {
+    position: absolute;
+    fill:#ff9700;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    transform: rotate(180deg); /* Rotate the SVG */
+  }
+  
+  .menu-titleC {
+    font-family: cursive; /* Use a cursive font */
+    font-size: 28px; /* Increase the font size */
+    font-weight: bold; /* Set font weight to bold */
+    color: #4CAF50;  /* Set the text color */
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 2px; /* Add letter spacing for better readability */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+    /* Add border */
+    /* Add padding */
+    border-radius: 10px; /* Add border radius */
+  }        
+  .accordion-header.closed {
+    background-color: #f0f0f0; /* Light grey background color */
+    padding: 0.5px; /* Add padding */
+    border-radius: 5px; /* Add border-radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box-shadow */
+    /* Add any other styles you want for the closed accordion header */
+  }
+  
+  
+  .quantity-btn {
+    background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    color: white;
+    border: none;
+    
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  
+  .quantity {
+    font-size: 18px;
+    margin: 0 5px;
+  }
+  
+  .cart-total {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  .cooking-instructions-btn {
+    background-color: #ffffcc;
+    border: none;
+    color: #666; /* Adjust color as per the situation */
+    cursor: pointer;
+    
+    margin: 0;
+    border-top: 1px dashed #999;
+  }
+  
+  .cooking-instructions-btn svg {
+    margin-right: 8px;
+  }
+  /* Optional: Style hover and focus states */
+  .cooking-instructions-btn:hover{
+    color: black;
+  }
+  
+  .cooking-instructions-btn:focus {
+  }
+  
+  .place-order-btn {
+    background-image: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .place-order-btn:hover {
+    background-color: #45a049; /* Darker shade on hover */
+  }
+  .cancel-order-btn{
+   background-color: #ffffff;
+    color: red;
+  border-color: red;
+    padding: 10px 10px;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 2px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cancel{
+    
+    padding: 10px 10px;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  
+  
+  }
+  
+  .cancel:hover {
+    background-color: #ff000094 !important;
+    color: white;
+  }
+  .timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .timeline-dot {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .timeline-content {
+    font-size: 14px;
+  }
+  
+  .completed .timeline-dot {
+    background-color: #4caf50; /* Green color for completed items */
+  }
+  
+  .order-box {
+  background-color: #f2f2f2; /* Light gray background */
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  }
+  
+  .order-heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333; /* Dark text color */
+  }
+  
+  
+  
+  .cart-page {
+  position: relative; /* Position relative to contain absolutely positioned SVG */
+  }
+  
+  
+  
+  
+  .circle-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #333; /* Background color for the circle */
+  color: #fff; /* Text color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  }
+  
+  
+  .order-id {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    background-color: #ffffcc;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .timer-container {
+  display: flex; /* Use flexbox */
+  align-items: center; 
+  justify-content: flex-end;/* Align items vertically */
+  }
+  
+  .cancel-order-btn {
+  /* Your cancel order button styles */
+  margin-left: 10px; /* Add margin for spacing */
+  }
+  
+  .invoice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+  }
+  
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px dashed #ccc;
+  }
+  
+  .header-item {
+    flex: 1;
+    font-weight: bold;
+    font-size: 16px; /* Adjust font size */
+  }
+  
+  .invoice-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .invoice-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+  }
+  
+  .item-name,
+  .item-quantity,
+  .item-price {
+    flex: 1;
+    font-size: 14px; /* Adjust font size */
+  }
+  
+  /* Additional Styles for Print */
+  @media print {
+    .invoice-list {
+      font-size: 12px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+  
+    .invoice-header,
+    .invoice-item,
+    .invoice-total {
+      page-break-inside: avoid;
+    }
+  
+    .header-item {
+      text-align: left;
+    }
+  
+    .item-name {
+      text-align: left;
+    }
+  
+    .item-price {
+      text-align: right;
+    }
+  
+    .invoice-header,
+    .invoice-item {
+      background-color: #f9f9f9;
+    }
+  
+    .invoice-total {
+      background-color: #eee;
+    }
+  }
+  .invoice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+  
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px dashed #ccc;
+    background-color: lightyellow; /* Light background for heading box */
+  }
+  
+  .header-item {
+    flex: 1;
+    font-weight: bold;
+  }
+  
+  .invoice-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .invoice-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+    background-color: lightyellow; /* Light background for total price box */
+    border-top: 1px dashed #ccc;
+  }
+  
+  .total-label {
+    flex: 1;
+  }
+  
+  .total-value {
+    font-weight: normal;
+  }
