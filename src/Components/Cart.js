@@ -39,13 +39,6 @@ const Cart = ({ cart, setCart }) => {
   const placeOrder = () => {
     setOrderPlaced(true);
     setShowCancelButton(true);
-
-    // Automatically hide cancel button after 10 seconds
-    setTimeout(() => {
-      setCancelTimer(10);
-      setShowCancelButton(false);
-      setAccordionOpen(!accordionOpen)
-    }, 10000);
   };
 
   // Function to handle accepting order
@@ -97,13 +90,28 @@ const Cart = ({ cart, setCart }) => {
 
   useEffect(() => {
     let timerInterval;
-    if (showCancelButton) {
-      timerInterval = setInterval(() => {
-        setCancelTimer(prevTime => prevTime - 1);
-      }, 1000);
-    }
+if (showCancelButton) {
+  let secondsElapsed = 0; // Initialize a variable to track elapsed seconds
 
-    return () => clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    setCancelTimer(prevTime => {
+      // Check if the elapsed time is 10 seconds
+      if (secondsElapsed === 10) {
+        clearInterval(timerInterval);
+        setShowCancelButton(false);
+          setAccordionOpen(!accordionOpen) // Clear the interval
+        return prevTime;
+      } else {
+        // Increment the elapsed time and return the updated value
+        secondsElapsed++;
+        return prevTime - 1;
+      }
+    });
+  }, 1000);
+}
+
+return () => clearInterval(timerInterval);
+
   }, [showCancelButton]);
 
   useEffect(() => {
