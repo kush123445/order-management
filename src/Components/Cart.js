@@ -7,7 +7,9 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import Modal from 'react-modal';
 
+Modal.setAppElement('#root');
 
 const Cart = ({ cart, setCart }) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -16,7 +18,10 @@ const Cart = ({ cart, setCart }) => {
   const [accordionOpen, setAccordionOpen] = useState(true); // State for accordion open/close
   const [showCancelButton, setShowCancelButton] = useState(false);
   const [cancelTimer, setCancelTimer] = useState(10);
-
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog open/close
+  const [dialogInput, setDialogInput] = useState(''); // State to manage input in the dialog
+  const [currentItem, setCurrentItem] = useState(null); // State to store the index of the current item
+  
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -57,12 +62,36 @@ const Cart = ({ cart, setCart }) => {
     setAccordionOpen(!accordionOpen);
   };
 
-  const addCookingInstructions = (index) => {
-    const newCart = [...cart];
-    // Here you can implement the logic to add cooking instructions to the item
-    // For now, let's just log a message indicating that the instructions are added
-    console.log("Cooking instructions added for:", newCart[index].name);
+  const addCookingInstructions = (item) => {
+    setDialogInput(item.instruction)
+    setCurrentItem(item);
+    setIsDialogOpen(true);
   };
+  const saveCookingInstructions = () => {
+    if (dialogInput.trim() !== '') {
+      console.log(currentItem);
+      setCart(cart.map(cartItem => {
+        if (cartItem.name === currentItem.name) {
+        console.log(cartItem,"ander");
+          return { ...cartItem, instruction: dialogInput };
+        }
+        
+        return cartItem;
+      }));
+      setDialogInput('');
+      setIsDialogOpen(false);
+    }
+    
+  };
+  
+  // Function to clear the input field when the clear button is clicked
+  const clearCookingInstructions = () => {
+    setDialogInput('');
+  };
+
+  const CustomiseInstructions=()=>{
+    //logic write here 
+  }
   const [removedItems, setRemovedItems] = useState([]);
 
   const deleteItem = (index) => {
@@ -142,10 +171,11 @@ return () => clearInterval(timerInterval);
                   <div className="item-details">
                     <p className="item-name">{item.name}</p>
                     <p className="item-price"> ₹ {item.price} x {item.quantity}</p>
-                    <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(index)}>
+                    <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(item)}>
                       <FontAwesomeIcon icon={faPlus} />
                       Add Cooking Instructions
                     </button>
+      {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
                   </div>
                   <div className="quantity-actions">
                     <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>-</button>
@@ -193,10 +223,13 @@ return () => clearInterval(timerInterval);
       <div className="cart-total">
         {/* <button className="place-order-btn " onClick={placeOrder}>Place Order</button> */}
 
-
+        {!orderPlaced && !showCancelButton && cart.length != 0 && (
+          <button className="customise-instructions" onClick={CustomiseInstructions}>Customise Instructions</button>
+        )}
         {!orderPlaced && !showCancelButton && cart.length != 0 && (
           <button className="place-order-btn " onClick={placeOrder}>Place Order</button>
         )}
+        
 
         {showCancelButton && (
           <div className="timer-container">
@@ -237,7 +270,24 @@ return () => clearInterval(timerInterval);
           </VerticalTimeline>
         )}
       </div>
-      {/* nfjvn */}
+      <Modal
+        isOpen={isDialogOpen}
+        onRequestClose={() => setIsDialogOpen(false)}
+        contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
+        className="modal" 
+      >
+        <h3>{`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}</h3>
+        <input
+          type="text"
+          value={dialogInput}
+          onChange={(e) => setDialogInput(e.target.value)}
+          placeholder="Enter cooking instructions..."
+        />
+        <button onClick={saveCookingInstructions} disabled={!dialogInput || !dialogInput.trim()}>Save</button>
+        <button onClick={clearCookingInstructions}>Clear</button>
+        <button onClick={()=>setIsDialogOpen(false)}>Close</button>
+      
+      </Modal>
     </div>
   );
 }

@@ -98,15 +98,19 @@ const Menu = ({ cart, setCart }) => {
         {shouldTruncate && !expandedDescriptions[itemId] ? (
           <>
             <span >{`${description.substring(0, maxLength)} `}</span>
-            <button className="read-more-button" style={{ background: 'white', border: 'none', color: 'black', padding: '0px' }} onClick={() => toggleDescriptionExpansion(itemId)}>Read more...
-            </button>
+            <button className="read-more-button" style={{ background: 'white', border: 'none', color: 'black', padding: '0px' }} onClick={() => toggleDescriptionExpansion(itemId)}>Read more...</button>
           </>
         ) : (
-          <span>{description}</span>
+          <>
+            <span>{description}</span>
+            {shouldTruncate && (
+              <button className="read-more-button" style={{ background: 'white', border: 'none', color: 'black', padding: '0px' }} onClick={() => toggleDescriptionExpansion(itemId)}>Read less</button>
+            )}
+          </>
         )}
       </div>
     );
-  };
+}
 
 
   const scrollToCategory = (category) => {
