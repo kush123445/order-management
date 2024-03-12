@@ -17,8 +17,9 @@ function App() {
   const [cart, setCart] = useState([]);
 
   useEffect(()=>{
-    console.log("chirag",JSON.parse(localStorage.getItem('orderPlaced')))
-  setCart(JSON.parse(localStorage.getItem('orderPlaced')));
+    if(localStorage.getItem('orderPlaced')){
+      setCart(JSON.parse(localStorage.getItem('orderPlaced')));
+        }
     
   },[])
   return (
