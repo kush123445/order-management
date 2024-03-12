@@ -313,7 +313,7 @@
     /* vmvvm  */
     overflow-y: auto;
     z-index: 1;
-    background-color: #932828; /* Black background */
+    background-color: #FF6347; /* Black background */
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     display: none;
@@ -345,9 +345,9 @@
     transition: background-color 0.3s ease; /* Smooth hover effect */
   }
   
-  .dropdown-list li:hover {
-    background-color: #333; /* Darker background on hover */
-  }
+  /* .dropdown-list li:hover {
+    /* background-color: #333; Darker background on hover */
+  /* }  */
 
   .accordion-icon {
   float: right;
@@ -420,6 +420,6 @@ background-color: #f9f9f9;
 }
 
 .dropdown-list li.selected {
-  background-color: rgb(0, 0, 0);
-  color :goldenrod
+  /* background-color: rgb(0, 0, 0); */
+  color :black
 }

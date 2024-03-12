@@ -21,7 +21,8 @@ const Cart = ({ cart, setCart }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog open/close
   const [dialogInput, setDialogInput] = useState(''); // State to manage input in the dialog
   const [currentItem, setCurrentItem] = useState(null); // State to store the index of the current item
-  
+  const [customize , setCustomize]=useState('');
+  const [removedItems, setRemovedItems] = useState([]);
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -91,8 +92,9 @@ const Cart = ({ cart, setCart }) => {
 
   const CustomiseInstructions=()=>{
     //logic write here 
+    setCustomize();
   }
-  const [removedItems, setRemovedItems] = useState([]);
+
 
   const deleteItem = (index) => {
     const newCart = [...cart];
@@ -149,7 +151,12 @@ return () => clearInterval(timerInterval);
     }
   }, [orderPlaced, showCancelButton]);
 
-
+useEffect(()=>{
+  console.log("kushal",cart)
+  if(cart.length>0){
+  localStorage.setItem('orderPlaced',JSON.stringify( cart));
+}
+},[cart])
   return (
     <div className="cart-page">
       <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
@@ -221,10 +228,9 @@ return () => clearInterval(timerInterval);
         </>
       )}
       <div className="cart-total">
-        {/* <button className="place-order-btn " onClick={placeOrder}>Place Order</button> */}
 
         {!orderPlaced && !showCancelButton && cart.length != 0 && (
-          <button className="customise-instructions" onClick={CustomiseInstructions}>Customise Instructions</button>
+          <button className="customise-instructions" onClick={CustomiseInstructions} >Customise</button>
         )}
         {!orderPlaced && !showCancelButton && cart.length != 0 && (
           <button className="place-order-btn " onClick={placeOrder}>Place Order</button>

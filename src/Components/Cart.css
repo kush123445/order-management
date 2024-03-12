@@ -123,12 +123,12 @@
   }
   /* fjbvjb */
   .customise-instructions{
-    background-image: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%);
+    background-color: darkgoldenrod;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
     margin: 0px 10px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -138,8 +138,8 @@
     background-image: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%);
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 10px;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Menu.css'; // Import your CSS file for styling
 import { Link } from 'react-router-dom';
 import { FaBook, FaShoppingCart } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 const Menu = ({ cart, setCart }) => {
-  //const [cart, setCart] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -126,7 +125,12 @@ const Menu = ({ cart, setCart }) => {
     setShowDropdown(!showDropdown);
     console.log(uniqueCategories)
   };
-
+  useEffect(()=>{
+    console.log("kushal",cart)
+    if(cart.length>0){
+    localStorage.setItem('orderPlaced',JSON.stringify( cart));
+  }
+  },[cart])
   return (
     <div className="menu-container">
       <svg className="menu-svg" width="100vw" height="100" xmlns="http://www.w3.org/2000/svg">
