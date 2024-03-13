@@ -6,6 +6,7 @@ import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import Modal from 'react-modal';
 
@@ -23,6 +24,8 @@ const Cart = ({ cart, setCart }) => {
   const [currentItem, setCurrentItem] = useState(null); // State to store the index of the current item
   const [customize , setCustomize]=useState('');
   const [removedItems, setRemovedItems] = useState([]);
+  const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
+
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -90,9 +93,14 @@ const Cart = ({ cart, setCart }) => {
     setDialogInput('');
   };
 
+  const clearInstructions=()=>{
+    setCustomize('');
+    
+  }
+
   const CustomiseInstructions=()=>{
     //logic write here 
-    setCustomize();
+    setisDialogOpeninstruction(true);
   }
 
 
@@ -161,7 +169,7 @@ useEffect(()=>{
     <div className="cart-page">
       <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
 
-        <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" fill="#ff9700" />
+        <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z"  />
       </svg>
       <h2 className="menu-titleC" style={{ marginTop: '35px', marginLeft: '0px' }}>Your Orders</h2>
       <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
@@ -180,15 +188,22 @@ useEffect(()=>{
                     <p className="item-price"> ₹ {item.price} x {item.quantity}</p>
                     <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(item)}>
                       <FontAwesomeIcon icon={faPlus} />
-                      Add Cooking Instructions
+                      Add Instructions
                     </button>
       {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
                   </div>
                   <div className="quantity-actions">
-                    <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>-</button>
-                    <span className="quantity">{item.quantity}</span>
-                    <button className="quantity-btn" onClick={() => increaseQuantity(index)}>+</button>
-                    <button className="delete-btn " style={{ background: 'white', border: 'none', color: "red", fontSize: "20px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+                  <div className='counterbox'>
+      <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
+        <FaMinus />
+      </button>
+      <span className="quantity">{item.quantity}</span>
+      <button className="quantity-btn" onClick={() => increaseQuantity(index)}>
+        <FaPlus />
+      </button>
+    </div>
+                    
+                    <button className="delete-btn " style={{ background: 'white', border: 'none', color: "red", fontSize: "30px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
                       <RiDeleteBinLine />
                     </button>
                   </div>
@@ -254,6 +269,7 @@ useEffect(()=>{
             </button>
           </div>
         )}
+        {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>}
         {orderPlaced && timelineOpen && (
           <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
             <VerticalTimelineElement
@@ -292,6 +308,30 @@ useEffect(()=>{
         <button onClick={saveCookingInstructions} disabled={!dialogInput || !dialogInput.trim()}>Save</button>
         <button onClick={clearCookingInstructions}>Clear</button>
         <button onClick={()=>setIsDialogOpen(false)}>Close</button>
+      
+      </Modal>
+      <Modal
+        isOpen={isDialogOpeninstruction}
+        onRequestClose={() => setisDialogOpeninstruction(false)}
+        // contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
+        className="modal" 
+      >
+        <h3>{`Add Customise Instructions `}</h3>
+        <div>
+        <textarea
+          length="5"
+          type="text"
+          value={customize}
+          onChange={(e) => setCustomize(e.target.value)}
+          placeholder="Enter cooking instructions..."
+        />
+        </div>
+        <div>
+        <button onClick={()=>setisDialogOpeninstruction(false)}>Save</button>
+        <button onClick={clearInstructions}>Clear</button>
+        <button onClick={()=>setisDialogOpeninstruction(false)}>Close</button>
+        </div>
+        
       
       </Modal>
     </div>

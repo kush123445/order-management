@@ -3,7 +3,7 @@ import './Menu.css'; // Import your CSS file for styling
 import { Link } from 'react-router-dom';
 import { FaBook, FaShoppingCart } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp,FaPlus,FaMinus } from 'react-icons/fa';
 const Menu = ({ cart, setCart }) => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -126,7 +126,7 @@ const Menu = ({ cart, setCart }) => {
     console.log(uniqueCategories)
   };
   useEffect(()=>{
-    console.log("kushal",cart)
+    // console.log("kushal",cart)
     if(cart.length>0){
     localStorage.setItem('orderPlaced',JSON.stringify( cart));
   }
@@ -188,10 +188,11 @@ const Menu = ({ cart, setCart }) => {
                         <p className="item-pricee"> ₹ {menuItem.price}</p>
                         {renderDescription(menuItem.description, menuItem.id)}
                       </div>
-                      <div className="quantity-control">
-                        <button className="quantity-btn" onClick={() => removeFromCart(menuItem)}>-</button>
+                      <div className="counterbox">
+                        <button className="quantity-btn" onClick={() => removeFromCart(menuItem)}><FaMinus /></button>
                         <span className="quantity">{(cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity}</span>
-                        <button className="quantity-btn" onClick={() => addToCart(menuItem)}>+</button>
+                        <button className="quantity-btn" onClick={() => addToCart(menuItem)}><FaPlus /></button>
+                        
                       </div>
                     </div>
                   ))}
