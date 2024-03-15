@@ -11,7 +11,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete ,MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea } from '@mantine/core';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea,Accordion } from '@mantine/core';
 import { Transition } from '@mantine/core';
 import emptyCartSvg from './catering-icon.png';
 
@@ -30,6 +30,7 @@ const Cart = ({ cart, setCart }) => {
   const [currentItem, setCurrentItem] = useState(null); // State to store the index of the current item
   const [customize, setCustomize] = useState('');
   const [removedItems, setRemovedItems] = useState([]);
+  const [expanded, setExpanded] = React.useState(false);
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
 
   // Calculate total price
@@ -133,6 +134,7 @@ const Cart = ({ cart, setCart }) => {
 
     // You might also want to clear the cart or take other actions related to canceling the order
   };
+  
   const slideUpTransition = {
     in: { transform: 'translateY(0)' },
     out: { transform: 'translateY(100%)' },
@@ -164,6 +166,30 @@ const Cart = ({ cart, setCart }) => {
 
   }, [showCancelButton]);
 
+  const renderDescription = (description) => {
+    const maxLength = 50; // Maximum length of truncated description
+    const shouldTruncate = description.length > maxLength;
+
+  
+    const handleToggleExpansion = () => {
+      setExpanded(!expanded);
+    };
+  
+    return (
+      <div style={{ color: 'gray' }}>
+        {shouldTruncate ? (
+          <>
+            <span>{expanded ? description : `${description.substring(0, maxLength)} `}</span>
+            <button className="read-more-button" style={{ background: 'white', border: 'none', color: 'black', padding: '0px' }} onClick={handleToggleExpansion}>
+              {expanded ? "Read less" : "Read more..."}
+            </button>
+          </>
+        ) : (
+          <span>{description}</span>
+        )}
+      </div>
+    );
+  };
   useEffect(() => {
     if (orderPlaced && !showCancelButton) {
       setTimelineOpen(true);
@@ -180,22 +206,18 @@ const Cart = ({ cart, setCart }) => {
 
     <div className="cart-page">
        {cart.length === 0 ? (
-        <div className="center-container">
-          <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
-
-<path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
-</svg>
-  <img src={emptyCartSvg} alt="Empty Cart" width="200" height="200" />
-  <p className="empty-cart-message">Your cart is empty</p>
-
-  <div className="bottom-svg-container">
-  <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
-  </svg>
-</div>
-
-
-</div>
+        <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
+        </svg>
+        <img src={emptyCartSvg} alt="Empty Cart" width="150" height="150" />
+        <p className="empty-cart-message">Your cart is empty</p>
+        <div className="bottom-svg-container" style={{ marginTop: 'auto' }}>
+          <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 H1000 V50 H0 Z" />
+          </svg>
+        </div>
+      </div>
   ) : (
     <>
       <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
@@ -243,10 +265,22 @@ const Cart = ({ cart, setCart }) => {
 
               {/* <div className='d-flex     flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
               <div class="containerk">
-                <div class="itemk">  <button className="customise-instructions" onClick={open} ><FontAwesomeIcon icon={faPlus} /> Add Instructions</button></div>
-                <div class="itemkp">Total Price: ₹ {totalPrice}</div>
-
-              </div>
+  <div class="itemk">
+    <button className="customise-instructions" onClick={open}>
+      <FontAwesomeIcon icon={faPlus} /> Add Instructions
+    </button>
+    {!isDialogOpeninstruction && (
+       <Accordion variant="separated" defaultValue="Apples">
+          <Accordion.Item key={'Apples'} value={'Apples'}>
+      <Accordion.Control icon={'🍊'}>{'Apples'}</Accordion.Control>
+      <Accordion.Panel>{renderDescription(customize)}</Accordion.Panel>
+    </Accordion.Item>
+       
+     </Accordion>
+    )}
+  </div>
+  <div class="itemkp">Total: ₹ {totalPrice}</div>
+</div>
             </ul>) : (
 
 
@@ -284,13 +318,17 @@ const Cart = ({ cart, setCart }) => {
         {/* {!orderPlaced && !showCancelButton && cart.length != 0 && (
           <button className="customise-instructions" onClick={open} >Customise</button>
         )} */}
-        {!orderPlaced && !showCancelButton && cart.length != 0 && (
-          <button className="place-order-btn " onClick={placeOrder}>Place Order</button>
+        {!orderPlaced && !opened &&!showCancelButton && cart.length != 0 && (
+       <Button fullWidth onClick={placeOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
+
         )}
 
 
         {showCancelButton && (
-          <div className="timer-container">
+          <div className="" >
+          
+            <Button variant="light"  className="" onClick={cancelOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', marginLeft:'5px',
+              marginRight:'5px',transform: 'translateX(-50%)', zIndex: '999' }} fullWidth >
             <CountdownCircleTimer
               isPlaying
               duration={10}
@@ -298,12 +336,12 @@ const Cart = ({ cart, setCart }) => {
               colorsTime={[7, 5, 2, 0]}
               size={45} // Adjust the size as needed
               strokeWidth={5} // Adjust the stroke width as needed
+              style={{marginRight:'10px'}}
             >
               {({ remainingTime }) => remainingTime}
             </CountdownCircleTimer>
-            <button className="cancel-order-btn" onClick={cancelOrder}>
               Cancel Order
-            </button>
+            </Button>
           </div>
         )}
         {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}

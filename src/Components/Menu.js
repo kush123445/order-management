@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaBook, FaShoppingCart } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaAngleDown, FaAngleUp,FaPlus,FaMinus } from 'react-icons/fa';
+import { MdOutlineCancel  } from 'react-icons/md';
 const Menu = ({ cart, setCart }) => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -135,7 +136,7 @@ const Menu = ({ cart, setCart }) => {
     <div className="menu-container">
       <svg className="menu-svg" width="100vw" height="100" xmlns="http://www.w3.org/2000/svg">
         <g transform="rotate(180, 500, 50)">
-          <path d="M0 50 C50 0, 150 100, 200 50 C250 0, 350 100, 400 50 C450 0, 550 100, 600 50 C650 0, 750 100, 800 50 C850 0, 950 100, 1000 50 L1000 100 L0 100 Z" fill="#1FAB89" />
+          <path d="M0 50 C50 0, 150 100, 200 50 C250 0, 350 100, 400 50 C450 0, 550 100, 600 50 C650 0, 750 100, 800 50 C850 0, 950 100, 1000 50 L1000 100 L0 100 Z" fill="#54B4D3" />
         </g>
       </svg>
       <h2 className="menu-title" style={{ marginTop: '20px', marginLeft: '0px' }}>Menu</h2>
@@ -149,7 +150,7 @@ const Menu = ({ cart, setCart }) => {
 
         {showDropdown && (
         <div className="dropdown-menu" style={{ width: "60%" }}>
-          <button className="close-btn" onClick={toggleDropdown}>X</button> {/* Cross button */}
+          <button className="close-btn" onClick={toggleDropdown}><MdOutlineCancel /></button> {/* Cross button */}
           <ul className="dropdown-list">
             {uniqueCategories.map((category) => (
               <li key={category} onClick={() => handleClick(category)} className={selectedCategory === category ? 'selected' : ''}>

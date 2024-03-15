@@ -222,10 +222,10 @@ body{
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    color: #ffffff;
+    font-size: 20px;
+    color: #000000;
     padding: 0;
-    margin-bottom: 2px;
+    margin-bottom: 8px;
   }
   
   .close-btn:hover {
@@ -258,7 +258,7 @@ body{
   }
   
   .menu-svg path {
-    fill: #ff9700; /* Fill color */
+    fill: #54B4D3; /* Fill color */
     stroke: none; /* No stroke */
   }
   
@@ -297,7 +297,7 @@ body{
     /* vmvvm  */
     overflow-y: auto;
     z-index: 1;
-    background-color: #FF6347; /* Black background */
+    background-color: 	gainsboro; /* Black background */
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     display: none;
