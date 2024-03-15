@@ -1,5 +1,11 @@
 /* Cart.css */
 
+body{
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+}
+
 .cart-page {
     max-width: 600px;
     margin: 0 auto;
@@ -107,7 +113,7 @@
 }
   
   .counterbox button {
-    color: darkred;
+    color: orangered;
     /* background-color: #45a049; /* Green button color */
     border: none;
     border-radius: 4px;

@@ -1,25 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Gidugu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gidugu&family=Pacifico&display=swap');
+
+.gidugu-regular {
+  font-family: "Gidugu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body{
   margin: 0px;
   padding: 0px;
   background-color: white;
 }
+.navbark{
+
+}
+         
+
+
+
+         
+.btn-gradk {
+  background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
+  /* margin: 10px; */
+  padding: 10px 0px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  /* border-radius: 10px; */
+  display: block;
+  position: sticky;
+  top: 0;
+}
+
+
+.btn-gradk:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+         
+.btn-gradc {
+  background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
+  /* margin: 10px; */
+  padding: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  /* border-radius: 10px; */
+  display: block;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+
+.btn-gradc:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
 
 .menu-container {
     margin: 20px;
   }
   
   .menu-title {
-    font-family: cursive; /* Use a cursive font */
-    font-size: 38px; /* Increase the font size */
-    font-weight: bold; /* Set font weight to bold */
-    color: #4CAF50;  /* Set the text color */
-    text-transform: uppercase; /* Convert text to uppercase */
-    letter-spacing: 2px; /* Add letter spacing for better readability */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
-    /* Add border */
-    /* Add padding */
-    border-radius: 10px; /* Add border radius */
-  }
+    font-family: cursive;
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+   
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
   .categories {
     display: flex;
     flex-direction: column;
@@ -42,18 +109,18 @@ body{
     justify-content: space-between;
    
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     margin-bottom: 10px;
    
   }
   
   .item-name {
-    font-size: 18px;
+    font-size: 20px;
   }
   
   .item-pricee {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 600;
     color: black;
   }
   
@@ -97,7 +164,7 @@ body{
   .quantity {
     font-size: 16px;
     padding: 8px;
-    color: black !important;
+    color: #4CAF50 !important;
     /* background-color: #f9f9f9; */
     border-radius: 5px;
   }
@@ -121,8 +188,8 @@ body{
   .browse-menu-btnn {
     position: fixed;
     bottom: 25px;
-    left: 20px;
-    background-color: #000000;
+    left: 2px;
+ 
     color: white;
     border: none;
     padding: 10px 20px;
@@ -139,7 +206,7 @@ body{
 
 
 
-.dropdown-container {
+.dropdown-containerk {
     position: relative;
   }
   
@@ -181,7 +248,7 @@ body{
     background-color: black; /* Darker shade on hover */
   }
   
-  /* .dropdown-menu {
+  /* .dropdown-menuk {
     position: fixed; /* Ensure the menu stays in place even when scrolling *
     bottom: 30px; /* Adjust the distance from the bottom *
     right: 30px; /* Adjust the distance from the right *
@@ -196,7 +263,7 @@ body{
     display: none; /* Initially hide the dropdown 
   } */
   
-  .dropdown-container:hover .dropdown-menu {
+  .dropdown-containerk:hover .dropdown-menuk {
     display: block; /* Show the dropdown on hover */
   }
   
@@ -289,7 +356,7 @@ body{
     text-decoration: none;
   }
  
-  .dropdown-menu {
+  .dropdown-menuk {
     position: fixed;
     bottom: 20px;
     right: 5px;
@@ -297,7 +364,7 @@ body{
     /* vmvvm  */
     overflow-y: auto;
     z-index: 1;
-    background-color: 	gainsboro; /* Black background */
+    background-image: linear-gradient(to right, #fd746c 0%, #ff9068  61%);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     display: none;
@@ -324,7 +391,7 @@ body{
   .dropdown-list li {
     padding: 15px;
     cursor: pointer;
-    color: #fff; /* White text color */
+    color: white; /* White text color */
     font-size: 18px; /* Increased font size */
     transition: background-color 0.3s ease;
   }
@@ -374,14 +441,14 @@ background-color: #f9f9f9;
 
          
 .category-heading {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
-  color: #4CAF50; /* Match with your project's color scheme */
-  padding: 10px 15px;
-  background-color: #fff; /* Match with your project's background */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  
+  color: #4CAF50;
+  padding: 5px 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: gidugu-regular;
 }
 .category {
   /* Your existing styles */

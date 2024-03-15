@@ -204,7 +204,7 @@ const Cart = ({ cart, setCart }) => {
   }, [cart])
   return (
 
-    <div className="cart-page">
+    <div>
        {cart.length === 0 ? (
         <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -219,7 +219,7 @@ const Cart = ({ cart, setCart }) => {
         </div>
       </div>
   ) : (
-    <>
+    <div  className="cart-page">
       <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
 
         <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
@@ -319,7 +319,10 @@ const Cart = ({ cart, setCart }) => {
           <button className="customise-instructions" onClick={open} >Customise</button>
         )} */}
         {!orderPlaced && !opened &&!showCancelButton && cart.length != 0 && (
-       <Button fullWidth onClick={placeOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
+       <Button 
+       variant="gradient"
+       gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+       fullWidth onClick={placeOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
 
         )}
 
@@ -476,7 +479,7 @@ const Cart = ({ cart, setCart }) => {
         
       
       </Modal> */}
-        </>
+        </div>
   )}
     </div>
   

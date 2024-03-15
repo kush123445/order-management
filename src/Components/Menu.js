@@ -5,6 +5,7 @@ import { FaBook, FaShoppingCart } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaAngleDown, FaAngleUp,FaPlus,FaMinus } from 'react-icons/fa';
 import { MdOutlineCancel  } from 'react-icons/md';
+import 'bootstrap/dist/css/bootstrap.min.css';
 const Menu = ({ cart, setCart }) => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -133,14 +134,26 @@ const Menu = ({ cart, setCart }) => {
   }
   },[cart])
   return (
+    <>
+    <div className='btn-gradk'>
+    <div className="menu-title" style={{ marginTop: '0px', marginLeft: '0px' ,paddingBottom:'5px'}}>Food Catalog</div>
+    </div>
+
+    {/* <nav class="navbar  navbark bg-primary"  style={{  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.4)' ,position:'sticky' , top:'0'}}>
+    <div class="container-fluid">
+      <a class="navbar-brand"><div className="menu-title" style={{ marginTop: '0px', marginLeft: '0px' ,paddingBottom:'5px'}}>Food Catalog</div></a>
+     
+    </div>
+  </nav> */}
     <div className="menu-container">
-      <svg className="menu-svg" width="100vw" height="100" xmlns="http://www.w3.org/2000/svg">
+     
+      {/* <svg className="menu-svg" width="100vw" height="100" xmlns="http://www.w3.org/2000/svg">
         <g transform="rotate(180, 500, 50)">
           <path d="M0 50 C50 0, 150 100, 200 50 C250 0, 350 100, 400 50 C450 0, 550 100, 600 50 C650 0, 750 100, 800 50 C850 0, 950 100, 1000 50 L1000 100 L0 100 Z" fill="#54B4D3" />
         </g>
-      </svg>
-      <h2 className="menu-title" style={{ marginTop: '20px', marginLeft: '0px' }}>Menu</h2>
-      <div className="dropdown-container">
+      </svg> */}
+      {/* <h2 className="menu-title" style={{ marginTop: '20px', marginLeft: '0px' }}>Food Catalog</h2> */}
+      <div className="dropdown-containerk">
         <button className="browse-menu-btn" onClick={toggleDropdown}>
           <div className="icon-container">
             <FaBook size={24} /> {/* Book icon */}
@@ -149,7 +162,7 @@ const Menu = ({ cart, setCart }) => {
         </button>
 
         {showDropdown && (
-        <div className="dropdown-menu" style={{ width: "60%" }}>
+        <div className="dropdown-menuk" style={{ width: "60%" }}>
           <button className="close-btn" onClick={toggleDropdown}><MdOutlineCancel /></button> {/* Cross button */}
           <ul className="dropdown-list">
             {uniqueCategories.map((category) => (
@@ -208,13 +221,14 @@ const Menu = ({ cart, setCart }) => {
         )}
       </div>
       <div className="browse-menu-btnn">
-        <Link to="/cart" style={{ textDecoration: 'none', color: 'white' }}>
-          <FaShoppingCart style={{ marginRight: '10px' }} /> {/* Font Awesome cart icon */}
+        <Link to="/cart" style={{ textDecoration: 'none', color: 'white' }} className='btn-gradc'>
+          <FaShoppingCart style={{ marginRight: '10px' ,fontSize:'16px' }} /> {/* Font Awesome cart icon */}
           Order
         </Link>
       </div>
       {/* njbmm */}
     </div>
+    </>
   );
 }
 
