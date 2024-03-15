@@ -8,11 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import Modal from 'react-modal';
+//import Modal from 'react-modal';
+import { MdDelete ,MdOutlineCancel } from "react-icons/md";
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea } from '@mantine/core';
+import { Transition } from '@mantine/core';
+import emptyCartSvg from './catering-icon.png';
 
-Modal.setAppElement('#root');
+//Modal.setAppElement('#root');
 
 const Cart = ({ cart, setCart }) => {
+  const [opened, { open, close }] = useDisclosure(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
@@ -22,7 +28,7 @@ const Cart = ({ cart, setCart }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog open/close
   const [dialogInput, setDialogInput] = useState(''); // State to manage input in the dialog
   const [currentItem, setCurrentItem] = useState(null); // State to store the index of the current item
-  const [customize , setCustomize]=useState('');
+  const [customize, setCustomize] = useState('');
   const [removedItems, setRemovedItems] = useState([]);
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
 
@@ -35,6 +41,7 @@ const Cart = ({ cart, setCart }) => {
     newCart[index].quantity++;
     setCart(newCart);
   };
+
 
   // Function to handle decreasing item quantity
   const decreaseQuantity = (index) => {
@@ -76,29 +83,29 @@ const Cart = ({ cart, setCart }) => {
       console.log(currentItem);
       setCart(cart.map(cartItem => {
         if (cartItem.name === currentItem.name) {
-        console.log(cartItem,"ander");
+          console.log(cartItem, "ander");
           return { ...cartItem, instruction: dialogInput };
         }
-        
+
         return cartItem;
       }));
       setDialogInput('');
       setIsDialogOpen(false);
     }
-    
+
   };
-  
+
   // Function to clear the input field when the clear button is clicked
   const clearCookingInstructions = () => {
     setDialogInput('');
   };
 
-  const clearInstructions=()=>{
+  const clearInstructions = () => {
     setCustomize('');
-    
+
   }
 
-  const CustomiseInstructions=()=>{
+  const CustomiseInstructions = () => {
     //logic write here 
     setisDialogOpeninstruction(true);
   }
@@ -126,30 +133,34 @@ const Cart = ({ cart, setCart }) => {
 
     // You might also want to clear the cart or take other actions related to canceling the order
   };
-
+  const slideUpTransition = {
+    in: { transform: 'translateY(0)' },
+    out: { transform: 'translateY(100%)' },
+    transitionProperty: 'transform',
+  };
   useEffect(() => {
     let timerInterval;
-if (showCancelButton) {
-  let secondsElapsed = 0; // Initialize a variable to track elapsed seconds
+    if (showCancelButton) {
+      let secondsElapsed = 0; // Initialize a variable to track elapsed seconds
 
-  timerInterval = setInterval(() => {
-    setCancelTimer(prevTime => {
-      // Check if the elapsed time is 10 seconds
-      if (secondsElapsed === 10) {
-        clearInterval(timerInterval);
-        setShowCancelButton(false);
-          setAccordionOpen(!accordionOpen) // Clear the interval
-        return prevTime;
-      } else {
-        // Increment the elapsed time and return the updated value
-        secondsElapsed++;
-        return prevTime - 1;
-      }
-    });
-  }, 1000);
-}
+      timerInterval = setInterval(() => {
+        setCancelTimer(prevTime => {
+          // Check if the elapsed time is 10 seconds
+          if (secondsElapsed === 10) {
+            clearInterval(timerInterval);
+            setShowCancelButton(false);
+            setAccordionOpen(!accordionOpen) // Clear the interval
+            return prevTime;
+          } else {
+            // Increment the elapsed time and return the updated value
+            secondsElapsed++;
+            return prevTime - 1;
+          }
+        });
+      }, 1000);
+    }
 
-return () => clearInterval(timerInterval);
+    return () => clearInterval(timerInterval);
 
   }, [showCancelButton]);
 
@@ -159,17 +170,37 @@ return () => clearInterval(timerInterval);
     }
   }, [orderPlaced, showCancelButton]);
 
-useEffect(()=>{
-  console.log("kushal",cart)
-  if(cart.length>0){
-  localStorage.setItem('orderPlaced',JSON.stringify( cart));
-}
-},[cart])
+  useEffect(() => {
+    console.log("kushal", cart)
+    if (cart.length > 0) {
+      localStorage.setItem('orderPlaced', JSON.stringify(cart));
+    }
+  }, [cart])
   return (
+
     <div className="cart-page">
+       {cart.length === 0 ? (
+        <div className="center-container">
+          <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
+
+<path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
+</svg>
+  <img src={emptyCartSvg} alt="Empty Cart" width="200" height="200" />
+  <p className="empty-cart-message">Your cart is empty</p>
+
+  <div className="bottom-svg-container">
+  <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
+  </svg>
+</div>
+
+
+</div>
+  ) : (
+    <>
       <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
 
-        <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z"  />
+        <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
       </svg>
       <h2 className="menu-titleC" style={{ marginTop: '35px', marginLeft: '0px' }}>Your Orders</h2>
       <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
@@ -178,79 +209,85 @@ useEffect(()=>{
       </div>
       {accordionOpen && (
         <>
-          { (!orderPlaced && !showCancelButton) || ( orderPlaced && showCancelButton)? (
+          {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
             <ul className="cart-items">
-              
+
               {cart.map((item, index) => (
                 <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
                   <div className="item-details">
                     <p className="item-name">{item.name}</p>
                     <p className="item-price"> ₹ {item.price} x {item.quantity}</p>
-                    <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(item)}>
+                    {/* <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(item)}>
                       <FontAwesomeIcon icon={faPlus} />
                       Add Instructions
-                    </button>
-      {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
+                    </button> */}
+                    {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
                   </div>
                   <div className="quantity-actions">
-                  <div className='counterbox'>
-      <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
-        <FaMinus />
-      </button>
-      <span className="quantity">{item.quantity}</span>
-      <button className="quantity-btn" onClick={() => increaseQuantity(index)}>
-        <FaPlus />
-      </button>
-    </div>
-                    
-                    <button className="delete-btn " style={{ background: 'white', border: 'none', color: "red", fontSize: "30px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
-                      <RiDeleteBinLine />
+                    <div className='counterbox'>
+                      <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
+                        <FaMinus />
+                      </button>
+                      <span className="quantity">{item.quantity}</span>
+                      <button className="quantity-btn" onClick={() => increaseQuantity(index)}>
+                        <FaPlus />
+                      </button>
+                    </div>
+
+                    <button className="delete-btn " style={{ background: 'white', border: 'none', color: "#F72B2B ", fontSize: "30px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+                      <MdDelete />
                     </button>
                   </div>
                 </li>
               ))}
-              <p className='cart-total'>Total Price: ₹ {totalPrice}</p>
-            </ul> ) : (
-          
 
-         
-         
-           
-           <ul className="invoice-list">
-             {
-            timelineOpen && (<p className="order-id">
-            <span style={{ color: 'red' }}>Order ID:</span> <span style={{ color: 'black' }}>xx00044</span>
-          </p>)
-          }
-           <li className="invoice-header">
-             <span className="header-item">Item</span>
-             <span className="header-item">Quantity</span>
-             <span className="header-item">Price</span>
-           </li>
-           {cart.map((item, index) => (
-             <li key={index} className="invoice-item">
-               <span className="item-name">{item.name}</span>
-               <span className="item-quantity">{item.quantity}</span>
-               <span className="item-price">₹ {item.price * item.quantity}</span>
-             </li>
-           ))}
-           <li className="invoice-total">
-             <span>Total:</span>
-             <span>₹ {totalPrice}</span>
-           </li>
-         </ul>
+              {/* <div className='d-flex     flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
+              <div class="containerk">
+                <div class="itemk">  <button className="customise-instructions" onClick={open} ><FontAwesomeIcon icon={faPlus} /> Add Instructions</button></div>
+                <div class="itemkp">Total Price: ₹ {totalPrice}</div>
+
+              </div>
+            </ul>) : (
+
+
+
+
+
+            <ul className="invoice-list">
+              {
+                timelineOpen && (<p className="order-id">
+                  <span style={{ color: 'red' }}>Order ID:</span> <span style={{ color: 'black' }}>xx00044</span>
+                </p>)
+              }
+              <li className="invoice-header">
+                <span className="header-item">Item</span>
+                <span className="header-item">Quantity</span>
+                <span className="header-item">Price</span>
+              </li>
+              {cart.map((item, index) => (
+                <li key={index} className="invoice-item">
+                  <span className="item-name">{item.name}</span>
+                  <span className="item-quantity">{item.quantity}</span>
+                  <span className="item-price">₹ {item.price * item.quantity}</span>
+                </li>
+              ))}
+              <li className="invoice-total">
+                <span>Total:</span>
+                <span>₹ {totalPrice}</span>
+              </li>
+            </ul>
           )}
         </>
       )}
       <div className="cart-total">
 
-        {!orderPlaced && !showCancelButton && cart.length != 0 && (
-          <button className="customise-instructions" onClick={CustomiseInstructions} >Customise</button>
-        )}
+        {/* {!orderPlaced && !showCancelButton && cart.length != 0 && (
+          <button className="customise-instructions" onClick={open} >Customise</button>
+        )} */}
         {!orderPlaced && !showCancelButton && cart.length != 0 && (
           <button className="place-order-btn " onClick={placeOrder}>Place Order</button>
         )}
-        
+
 
         {showCancelButton && (
           <div className="timer-container">
@@ -269,7 +306,7 @@ useEffect(()=>{
             </button>
           </div>
         )}
-        {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>}
+        {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
         {orderPlaced && timelineOpen && (
           <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
             <VerticalTimelineElement
@@ -292,7 +329,7 @@ useEffect(()=>{
           </VerticalTimeline>
         )}
       </div>
-      <Modal
+      {/* <Modal
         isOpen={isDialogOpen}
         onRequestClose={() => setIsDialogOpen(false)}
         contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
@@ -309,8 +346,75 @@ useEffect(()=>{
         <button onClick={clearCookingInstructions}>Clear</button>
         <button onClick={()=>setIsDialogOpen(false)}>Close</button>
       
-      </Modal>
-      <Modal
+      </Modal> */}
+
+      <Drawer opened={opened} onClose={close} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up' , duration: 600}} mb='2'>
+        <Textarea
+          data-autofocus
+          label="Cutomize your order "
+          placeholder="Enter cooking instructions..."
+          value={customize}
+          onChange={(e) => setCustomize(e.target.value)}
+          // Set a minimum height for better visibility
+          variant="filled"
+          autosize
+          minRows={4}
+          maxRows={8}
+          mb={3}
+          mt={3}
+          closeButtonProps={{
+            icon: <MdOutlineCancel  size={20} stroke={1.5} />,
+          }}
+
+        />
+        <Divider my="md" /> {/* Add a divider to separate input from buttons */}
+        <Group position="right">
+          <Button onClick={clearInstructions} variant="outline">
+            Clear
+          </Button>
+          <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button>
+          <Button type="submit" variant="gradient">
+            Save
+          </Button>
+        </Group>
+      </Drawer>
+
+
+      {/*<Modal
+      opened={opened}
+      onClose={close}
+      title="Focus demo"
+      transition={slideUpTransition}
+      // Additional styling for a more polished look
+      overlayColor="rgba(0, 0, 0, 0.5)" // Semi-transparent overlay
+      padding="md" // Add moderate padding
+      radius="md" // Rounded corners
+      style={{  position: 'absolute', bottom: 0, left: 0, right: 0 ,backgroundColor:"red"} }
+      transitionProps={{ transition: 'slide-up' }}
+    
+    >
+      <TextInput
+        data-autofocus
+        label="Input with initial focus"
+        placeholder="Enter cooking instructions..."
+        value={customize}
+        onChange={(e) => setCustomize(e.target.value)}
+        multiline // Allow multiple lines of text
+        minHeight={150} // Set a minimum height for better visibility
+        variant="filled" // Use the filled variant for a cleaner look
+      />
+      <Divider my="md" /> /* Add a divider to separate input from buttons 
+      <Group position="right">
+        <Button onClick={clearInstructions} variant="outline">
+          Clear
+        </Button>
+        <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button>
+        <Button type="submit" variant="gradient">
+          Save
+        </Button>
+      </Group>
+    </Modal>*/}
+      {/* <Modal
         isOpen={isDialogOpeninstruction}
         onRequestClose={() => setisDialogOpeninstruction(false)}
         // contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
@@ -333,8 +437,11 @@ useEffect(()=>{
         </div>
         
       
-      </Modal>
+      </Modal> */}
+        </>
+  )}
     </div>
+  
   );
 }
 
