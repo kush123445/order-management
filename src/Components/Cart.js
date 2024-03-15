@@ -39,7 +39,8 @@ const Cart = ({ cart, setCart }) => {
   // Function to handle increasing item quantity
   const increaseQuantity = (index) => {
     const newCart = [...cart];
-    newCart[index].quantity++;
+    // newCart[index].quantity++;
+    newCart[index].quantity= newCart[index].quantity + (newCart[index].half ? 0.5:1);
     setCart(newCart);
   };
 
@@ -47,8 +48,12 @@ const Cart = ({ cart, setCart }) => {
   // Function to handle decreasing item quantity
   const decreaseQuantity = (index) => {
     const newCart = [...cart];
-    if (newCart[index].quantity > 1) {
-      newCart[index].quantity--;
+    if (newCart[index].half && newCart[index].quantity > 0.5 ) {
+      newCart[index].quantity= newCart[index].quantity - (newCart[index].half ? 0.5:1);
+      setCart(newCart);
+    }
+    else if(!newCart[index].half && newCart[index].quantity > 1){
+      newCart[index].quantity= newCart[index].quantity - (newCart[index].half ? 0.5:1);
       setCart(newCart);
     }
   };
@@ -197,11 +202,16 @@ const Cart = ({ cart, setCart }) => {
   }, [orderPlaced, showCancelButton]);
 
   useEffect(() => {
-    console.log("kushal", cart)
+    // console.log("kushal", cart)
     if (cart.length > 0) {
       localStorage.setItem('orderPlaced', JSON.stringify(cart));
     }
   }, [cart])
+
+ const saving=()=>{
+  close();
+  setisDialogOpeninstruction(false);
+ }
   return (
 
     <div>
@@ -250,7 +260,7 @@ const Cart = ({ cart, setCart }) => {
                       <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
                         <FaMinus />
                       </button>
-                      <span className="quantity">{item.quantity}</span>
+                      <span className="quantity">{Math.max(item.quantity,0)}</span>
                       <button className="quantity-btn" onClick={() => increaseQuantity(index)}>
                         <FaPlus />
                       </button>
@@ -410,11 +420,11 @@ const Cart = ({ cart, setCart }) => {
         />
         <Divider my="md" /> {/* Add a divider to separate input from buttons */}
         <Group position="right">
-          <Button onClick={clearInstructions} variant="outline">
+          <Button onClick={()=>{setCustomize("")}} variant="outline">
             Clear
           </Button>
-          <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button>
-          <Button type="submit" variant="gradient">
+          {/* <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button> */}
+          <Button type="submit" variant="gradient" onClick={saving}>
             Save
           </Button>
         </Group>

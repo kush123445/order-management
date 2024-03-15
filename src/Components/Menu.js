@@ -74,7 +74,7 @@ const Menu = ({ cart, setCart }) => {
       } else {
         setCart(cart.map(cartItem => {
           if (cartItem.id === item.id) {
-            return { ...cartItem, quantity: cartItem.quantity - 1 };
+            return { ...cartItem, quantity: cartItem.quantity - (cartItem.half ? 0.5 : 1) };
           }
           return cartItem;
         }));
@@ -204,7 +204,7 @@ const Menu = ({ cart, setCart }) => {
                       </div>
                       <div className="counterbox">
                         <button className="quantity-btn" onClick={() => removeFromCart(menuItem)}><FaMinus /></button>
-                        <span className="quantity">{(cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity}</span>
+                        <span className="quantity">{Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}</span>
                         <button className="quantity-btn" onClick={() => addToCart(menuItem)}><FaPlus /></button>
                         
                       </div>
