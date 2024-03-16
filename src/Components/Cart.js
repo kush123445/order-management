@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import { SwipeableButton } from "react-swipeable-button";
 import 'react-vertical-timeline-component/style.min.css';
 import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -12,9 +11,16 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion } from '@mantine/core';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon } from '@mantine/core';
 import { Transition } from '@mantine/core';
 import emptyCartSvg from './catering-icon.png';
+import { Timeline } from '@mantine/core';
+// import  IconMessageDots  from '@tabler/icons-react';
+// import  IconGitBranch from '@tabler/icons-react';
+import { SwipeableButton } from "react-swipeable-button";
+// import { IconArrowLeft } from '@tabler/icons-react';
+
+
 
 //Modal.setAppElement('#root');
 
@@ -40,7 +46,8 @@ const Cart = ({ cart, setCart }) => {
   // Function to handle increasing item quantity
   const increaseQuantity = (index) => {
     const newCart = [...cart];
-    newCart[index].quantity++;
+    // newCart[index].quantity++;
+    newCart[index].quantity = newCart[index].quantity + (newCart[index].half ? 0.5 : 1);
     setCart(newCart);
   };
 
@@ -48,8 +55,12 @@ const Cart = ({ cart, setCart }) => {
   // Function to handle decreasing item quantity
   const decreaseQuantity = (index) => {
     const newCart = [...cart];
-    if (newCart[index].quantity > 1) {
-      newCart[index].quantity--;
+    if (newCart[index].half && newCart[index].quantity > 0.5) {
+      newCart[index].quantity = newCart[index].quantity - (newCart[index].half ? 0.5 : 1);
+      setCart(newCart);
+    }
+    else if (!newCart[index].half && newCart[index].quantity > 1) {
+      newCart[index].quantity = newCart[index].quantity - (newCart[index].half ? 0.5 : 1);
       setCart(newCart);
     }
   };
@@ -198,16 +209,16 @@ const Cart = ({ cart, setCart }) => {
   }, [orderPlaced, showCancelButton]);
 
   useEffect(() => {
-    console.log("kushal", cart)
+    // console.log("kushal", cart)
     if (cart.length > 0) {
       localStorage.setItem('orderPlaced', JSON.stringify(cart));
     }
   }, [cart])
 
-  const onSuccess = () => {
-    console.log("Successfully Swiped!");
-  };
-
+  const saving = () => {
+    close();
+    setisDialogOpeninstruction(false);
+  }
   return (
 
     <div>
@@ -235,7 +246,6 @@ const Cart = ({ cart, setCart }) => {
             <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
             <h3 className="category-name">Order List</h3>
           </div>
-
           {accordionOpen && (
             <>
               {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
@@ -253,17 +263,17 @@ const Cart = ({ cart, setCart }) => {
                         {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
                       </div>
                       <div className="quantity-actions">
-                        <div className='counterbox'>
+                        <div className='counterbox' style={{ maxWidth: "150px" }}>
                           <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
                             <FaMinus />
                           </button>
-                          <span className="quantity">{item.quantity}</span>
+                          <span className="quantity">{Math.max(item.quantity, 0)}</span>
                           <button className="quantity-btn" onClick={() => increaseQuantity(index)}>
                             <FaPlus />
                           </button>
                         </div>
 
-                        <button className="delete-btn " style={{ background: 'white', border: 'none', color: "#F72B2B ", fontSize: "30px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+                        <button className="delete-btn " style={{ background: 'white', border: 'none', color: "#a6a6a6", fontSize: "23px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
                           <MdDelete />
                         </button>
                       </div>
@@ -271,8 +281,8 @@ const Cart = ({ cart, setCart }) => {
                   ))}
 
                   {/* <div className='d-flex     flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
-                  <div class="containerk">
-                    <div class="itemk">
+                  <div className="containerk">
+                    <div className="itemk">
                       <button className="customise-instructions" onClick={open}>
                         <FontAwesomeIcon icon={faPlus} /> Add Instructions
                       </button>
@@ -286,7 +296,7 @@ const Cart = ({ cart, setCart }) => {
                         </Accordion>
                       )}
                     </div>
-                    <div class="itemkp">Total: ₹ {totalPrice}</div>
+                    <div className="itemkp">Total: ₹ {totalPrice}</div>
                   </div>
                 </ul>) : (
 
@@ -325,35 +335,21 @@ const Cart = ({ cart, setCart }) => {
             {/* {!orderPlaced && !showCancelButton && cart.length != 0 && (
           <button className="customise-instructions" onClick={open} >Customise</button>
         )} */}
-
-            <div className="w-[500px] h-[100px] bg-white"
-             style={{ height: '55px', position: 'fixed', bottom: '10px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}
-             >
-              <SwipeableButton
-                onSuccess={onSuccess} //callback function
-                text="Swipe me!" //string 
-                text_unlocked="yeee" //string
-                color="#16362d" //css hex color
-              />
-            </div>
-
-
             {!orderPlaced && !opened && !showCancelButton && cart.length != 0 && (
-              <div className="w-[1000px] h-[100px] bg-white"
-         
+
+              <div className="w-[500px] h-[100px] bg-white"
               >
-               <SwipeableButton
-                 onSuccess={placeOrder} //callback function
-                 text="Order me!" //string 
-                 text_unlocked="yeee" //string
-                 color="#016D53 " //css hex color
-               
-               />
-             </div>
-              // <Button
-              //   variant="gradient"
-              //   gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-              //   fullWidth onClick={placeOrder} style={{ height: '55px', position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
+                <SwipeableButton
+                  onSuccess={placeOrder} //callback function
+                  text="Order me me!" //string 
+                  text_unlocked="yeee" //string
+                  color="#16362d" //css hex color
+                />
+              </div>
+              //  <Button 
+              //  variant="gradient"
+              //  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+              //  fullWidth onClick={placeOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
 
             )}
 
@@ -380,6 +376,7 @@ const Cart = ({ cart, setCart }) => {
                 </Button>
               </div>
             )}
+
             {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
             {orderPlaced && timelineOpen && (
               <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
@@ -401,6 +398,7 @@ const Cart = ({ cart, setCart }) => {
                   icon={<div className="circle-icon">2</div>}
                 />
               </VerticalTimeline>
+
             )}
           </div>
           {/* <Modal
@@ -443,11 +441,11 @@ const Cart = ({ cart, setCart }) => {
             />
             <Divider my="md" /> {/* Add a divider to separate input from buttons */}
             <Group position="right">
-              <Button onClick={clearInstructions} variant="outline">
+              <Button onClick={() => { setCustomize("") }} variant="outline">
                 Clear
               </Button>
-              <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button>
-              <Button type="submit" variant="gradient">
+              {/* <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button> */}
+              <Button type="submit" variant="gradient" onClick={saving}>
                 Save
               </Button>
             </Group>

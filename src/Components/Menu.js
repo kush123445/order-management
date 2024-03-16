@@ -6,6 +6,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaAngleDown, FaAngleUp,FaPlus,FaMinus } from 'react-icons/fa';
 import { MdOutlineCancel  } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Divider } from '@mantine/core';
+
 const Menu = ({ cart, setCart }) => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -74,7 +76,7 @@ const Menu = ({ cart, setCart }) => {
       } else {
         setCart(cart.map(cartItem => {
           if (cartItem.id === item.id) {
-            return { ...cartItem, quantity: cartItem.quantity - 1 };
+            return { ...cartItem, quantity: cartItem.quantity - (cartItem.half ? 0.5 : 1) };
           }
           return cartItem;
         }));
@@ -190,8 +192,10 @@ const Menu = ({ cart, setCart }) => {
                 }
               </span>
             </h3>
+            
             {/* Show menu items if this category is open */}
             {accordionState[category] && (
+              <>
               <div className="accordion-content">
                 {menuItems
                   .filter(item => item.category === category)
@@ -204,17 +208,23 @@ const Menu = ({ cart, setCart }) => {
                       </div>
                       <div className="counterbox">
                         <button className="quantity-btn" onClick={() => removeFromCart(menuItem)}><FaMinus /></button>
-                        <span className="quantity">{(cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity}</span>
+                        <span className="quantity">{Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}</span>
                         <button className="quantity-btn" onClick={() => addToCart(menuItem)}><FaPlus /></button>
                         
                       </div>
                     </div>
                   ))}
               </div>
+              <Divider size={15} ml={-20} mr={-20} mt={20}/>
+           </>
+              
             )}
+          
 
           </div>
-        ))}
+        ))
+// </>
+}
         {/* Order line */}
         {!Object.values(accordionState).some(state => state) && (
           <div className="order-line">Order line content here...</div>

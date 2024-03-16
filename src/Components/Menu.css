@@ -17,9 +17,6 @@ body{
   padding: 0px;
   background-color: white;
 }
-.navbark{
-
-}
          
 
 
@@ -28,7 +25,7 @@ body{
 .btn-gradk {
   background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
   /* margin: 10px; */
-  padding: 10px 0px;
+  padding: 3px 0px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -79,7 +76,7 @@ body{
   
   .menu-title {
     font-family: cursive;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     color: #ffffff;
     text-transform: uppercase;
@@ -450,11 +447,7 @@ background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: gidugu-regular;
 }
-.category {
-  /* Your existing styles */
-  /* Add border-top to all categories except the first one */
-  border-top: 1.3px solid #000000;
-}
+
 
 /* Remove border-top from the first category */
 .category:first-child {

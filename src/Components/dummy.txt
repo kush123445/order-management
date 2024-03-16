@@ -1,0 +1,43 @@
+<Timeline color="lime" active={1} bulletSize={24} lineWidth={2}>
+      <Timeline.Item title="ThemeIcon"
+        bullet={
+          <ThemeIcon
+            size={22}
+            variant="gradient"
+            // gradient={{ from: 'lime', to: 'cyan' }}
+            radius="xl"
+            color="rgba(168, 168, 168, 1)"
+          >
+            {/* <IconVideo size="0.8rem" /> */}
+          </ThemeIcon>}>
+        <Text c="dimmed" size="sm">You&apos;ve created new branch <Text variant="link" component="span" inherit>fix-notifications</Text> from master</Text>
+        {/* <Text size="xs" mt={4}>2 hours ago</Text> */}
+      </Timeline.Item>
+
+      <Timeline.Item title="ThemeIcon"
+        bullet={
+          <ThemeIcon
+            size={22}
+            variant="gradient"
+            gradient={{ from: 'lime', to: 'cyan' }}
+            radius="xl"
+          >
+            {/* <IconVideo size="0.8rem" /> */}
+          </ThemeIcon>}>
+        <Text c="dimmed" size="sm"><Text variant="link" component="span" inherit>Robert Gluesticker</Text> left a code review on your pull request</Text>
+        {/* <Text size="xs" mt={4}>12 minutes ago</Text> */}
+      </Timeline.Item>
+    </Timeline>
+
+
+
+      <div className="w-[500px] h-[100px] bg-white"
+              style={{ height: '55px', position: 'fixed', bottom: '10px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}
+            >
+              <SwipeableButton
+                onSuccess={onSuccess} //callback function
+                text="Swipe me!" //string 
+                text_unlocked="yeee" //string
+                color="#16362d" //css hex color
+              />
+            </div>

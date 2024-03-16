@@ -1,0 +1,36 @@
+.swipe-button {
+  position: relative;
+  width: 250px;
+  height: 50px;
+  background-color: #2196f3;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  overflow: hidden;
+}
+
+.ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #f44336;
+  border-radius: 25px;
+  transform: translateX(0);
+  transition: transform 0.1s, background-color 0.3s;
+}
+
+.swipe-button.swiped .ball {
+  background-color: #4caf50;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
