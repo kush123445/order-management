@@ -11,9 +11,16 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete ,MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea,Accordion } from '@mantine/core';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea,Accordion,ThemeIcon } from '@mantine/core';
 import { Transition } from '@mantine/core';
 import emptyCartSvg from './catering-icon.png';
+import { Timeline } from '@mantine/core';
+// import  IconMessageDots  from '@tabler/icons-react';
+// import  IconGitBranch from '@tabler/icons-react';
+
+import { IconArrowLeft } from '@tabler/icons-react';
+
+
 
 //Modal.setAppElement('#root');
 
@@ -256,7 +263,7 @@ const Cart = ({ cart, setCart }) => {
                     {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
                   </div>
                   <div className="quantity-actions">
-                    <div className='counterbox'>
+                    <div className='counterbox' style={{maxWidth :"150px"}}>
                       <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
                         <FaMinus />
                       </button>
@@ -266,7 +273,7 @@ const Cart = ({ cart, setCart }) => {
                       </button>
                     </div>
 
-                    <button className="delete-btn " style={{ background: 'white', border: 'none', color: "#F72B2B ", fontSize: "30px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+                    <button className="delete-btn " style={{ background: 'white', border: 'none', color: "#a6a6a6", fontSize: "20px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
                       <MdDelete />
                     </button>
                   </div>
@@ -274,8 +281,8 @@ const Cart = ({ cart, setCart }) => {
               ))}
 
               {/* <div className='d-flex     flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
-              <div class="containerk">
-  <div class="itemk">
+              <div className="containerk">
+  <div className="itemk">
     <button className="customise-instructions" onClick={open}>
       <FontAwesomeIcon icon={faPlus} /> Add Instructions
     </button>
@@ -289,7 +296,7 @@ const Cart = ({ cart, setCart }) => {
      </Accordion>
     )}
   </div>
-  <div class="itemkp">Total: ₹ {totalPrice}</div>
+  <div className="itemkp">Total: ₹ {totalPrice}</div>
 </div>
             </ul>) : (
 
@@ -357,6 +364,7 @@ const Cart = ({ cart, setCart }) => {
             </Button>
           </div>
         )}
+        
         {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
         {orderPlaced && timelineOpen && (
           <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
@@ -378,6 +386,7 @@ const Cart = ({ cart, setCart }) => {
               icon={<div className="circle-icon">2</div>}
             />
           </VerticalTimeline>
+          
         )}
       </div>
       {/* <Modal
