@@ -57,7 +57,7 @@ const Cart = ({ cart, setCart }) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
 
-  const [orderAccepted, setOrderAccepted] = useState(false);
+  // const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState(true); // State for accordion open/close
   const [showCancelButton, setShowCancelButton] = useState(false);
@@ -181,6 +181,11 @@ const Cart = ({ cart, setCart }) => {
       setRemovedItems([...removedItems, itemId]);
     }
   };
+ const ConfirmOrder=()=>{
+  setOrderPlaced(true);
+    setShowCancelButton(false);
+    setCancelTimer(10);
+ }
 
   // Function to cancel the order
   const cancelOrder = () => {
@@ -234,7 +239,7 @@ const Cart = ({ cart, setCart }) => {
   }, [showCancelButton]);
 
   const renderDescription = (description) => {
-    const maxLength = 50; // Maximum length of truncated description
+    const maxLength = 30; // Maximum length of truncated description
     const shouldTruncate = description.length > maxLength;
 
 
@@ -257,6 +262,27 @@ const Cart = ({ cart, setCart }) => {
       </div>
     );
   };
+
+  const [orderAccepted, setOrderAccepted] = useState(false);
+
+// Use useEffect to set a timeout after the component mounts
+// useEffect(() => {
+//   const timer = setTimeout(() => {
+//     // After 10 seconds, update the state to indicate that the order is accepted
+//     setOrderAccepted(true);
+//   }, 10000);
+
+//   // Clear the timer on component unmount to prevent memory leaks
+//   return () => clearTimeout(timer);
+// }, []);
+const orderAcceptedfn=()=>{
+  // setAccordionOpen(false) // Clear the interval
+  const timer = setTimeout(() => {
+    setOrderAccepted(true);
+  }, 10000);
+  return () => clearTimeout(timer);
+}
+
   useEffect(() => {
     if (orderPlaced && !showCancelButton) {
       setTimelineOpen(true);
@@ -375,13 +401,18 @@ const Cart = ({ cart, setCart }) => {
                     </li>
                   ))}
 
-                  {/* <div className='d-flex     flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
-                  <div className="containerk">
-                    <div className="itemk">
+                  {/* <div className='d-flex  
+                     flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
+                  {/* <div className="itemkp">Total : ₹ {totalPrice}</div>
+                   */}
+                 <div className="itemkp">Total : <span style={{color:'darkslategrey'}}>₹{totalPrice.toFixed(2)}</span> </div>
+                  <div className="containerc">
+
+                    {/* <div className="itemk">
                       <button className="customise-instructions" onClick={open}>
                         <FontAwesomeIcon icon={faPlus} /> Add Instructions
                       </button>
-                      {/* {!isDialogOpeninstruction && (
+                      {!isDialogOpeninstruction && (
                         <Accordion variant="separated" defaultValue="Apples">
                           <Accordion.Item key={'Apples'} value={'Apples'}>
                             <Accordion.Control icon={'🍊'}>{'Apples'}</Accordion.Control>
@@ -389,9 +420,19 @@ const Cart = ({ cart, setCart }) => {
                           </Accordion.Item>
 
                         </Accordion>
-                      )} */}
-                    </div>
-                    <div className="itemkp">Total: ₹ {totalPrice}</div>
+                      )}
+                    </div> */}
+                    <div className="itemk">
+  <button className="customise-instructions" onClick={open}>
+    <FontAwesomeIcon icon={faPlus} /> {customize==""? "Add Instructions" :"Edit Instructions"}
+  </button>
+  {!isDialogOpeninstruction && (
+    <div>
+      <div>{renderDescription(customize)}</div>
+    </div>
+  )}
+</div>
+
                   </div>
                 </ul>) : (
 
@@ -476,7 +517,13 @@ const Cart = ({ cart, setCart }) => {
                   </CountdownCircleTimer>
                 </div>
                 <div>
+                <Button variant="outline" className="" onClick={ConfirmOrder} style={{
+                    height: '45px', left: '50%', marginLeft: '5px',
+                    marginRight: '5px',  marginBottom:'10px',  transform: 'translateX(-50%)', zIndex: '999', border: '1px solid green', color: 'green'
+                  }} fullWidth >
 
+                    Confirm Order
+                  </Button>
                   <Button variant="outline" className="" onClick={cancelOrder} style={{
                     height: '45px', left: '50%', marginLeft: '5px',
                     marginRight: '5px',  marginBottom:'10px',  transform: 'translateX(-50%)', zIndex: '999', border: '1px solid red', color: 'red'
@@ -510,8 +557,11 @@ const Cart = ({ cart, setCart }) => {
             )}
 
             {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
+    
             {orderPlaced && timelineOpen && (
+            
               <>
+              {orderAcceptedfn()}
                 <Confetti
                   width={width}
                   height={height}
@@ -530,14 +580,24 @@ const Cart = ({ cart, setCart }) => {
                     icon={<div className="circle-icon">1</div>}
                     lineColor={'black'}
                   />
-                  <VerticalTimelineElement
+                  {/* <VerticalTimelineElement
                     className=""
                     contentStyle={{ background: '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
                     contentArrowStyle={{ borderRight: '7px solid #4CAF50' }}
                     date="Order Accepted"
                     iconStyle={{ background: '#4CAF50', color: '#fff' }}
                     icon={<div className="circle-icon">2</div>}
-                  />
+                  /> */}
+                  
+
+<VerticalTimelineElement
+  className=""
+  contentStyle={{ background: orderAccepted ? '#D0FFBC' : '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+  contentArrowStyle={{ borderRight: orderAccepted ? '7px solid #4CAF50' : '7px solid transparent' }}
+  date="Order Accepted"
+  iconStyle={{ background: '#4CAF50', color: '#fff' }}
+  icon={<div className="circle-icon">2</div>}
+/>
                 </VerticalTimeline>
               </>
 

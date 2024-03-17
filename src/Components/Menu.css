@@ -75,7 +75,7 @@ body{
   }
   
   .menu-title {
-    font-family: cursive;
+    font-family: serif;
     font-size: 24px;
     font-weight: bold;
     color: #ffffff !important;
@@ -110,9 +110,17 @@ body{
     margin-bottom: 10px;
    
   }
+  .khXxzt {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    width: 13px;
+    height: 13px;
+}
   
-  .item-name {
-    font-size: 20px;
+  .item-namem {
+    font-size: 16px;
+    font-weight: 600;
   }
   
   .item-pricee {
@@ -405,7 +413,7 @@ body{
 }
 
 .category.closed {
-  border: 1px solid #ccc; /* Add border for closed category */
+  /* border: 1px solid #ccc; Add border for closed category */
   /* background-image: linear-gradient(
   90deg,
   hsl(39deg 100% 63%) 0%,
@@ -422,7 +430,7 @@ body{
   hsl(323deg 19% 95%) 83%,
   hsl(240deg 60% 97%) 100%
 ); */
-background-color: #f9f9f9;
+/* background-color: #f9f9f9; */
 
   /* Add background color for closed category */
   border-radius: 5px; 
