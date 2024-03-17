@@ -78,7 +78,7 @@ body{
     font-family: cursive;
     font-size: 24px;
     font-weight: bold;
-    color: #ffffff;
+    color: #ffffff !important;
     text-transform: uppercase;
    
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);

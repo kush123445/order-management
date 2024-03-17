@@ -13,7 +13,7 @@ import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification } from '@mantine/core';
 import { Transition } from '@mantine/core';
-import emptyCartSvg from './tea.png';
+import emptyCartSvg from './cook.png';
 import { Timeline } from '@mantine/core';
 // import  IconMessageDots  from '@tabler/icons-react';
 // import  IconGitBranch from '@tabler/icons-react';
@@ -315,10 +315,8 @@ const Cart = ({ cart, setCart }) => {
     <div>
       {cart.length === 0 ? (
         <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
-          </svg>
-          <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '300px' }} />
+          
+          <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '400px' }}/>
           <p className="empty-cart-message">Your cart is empty</p>
           <div className="bottom-svg-container" style={{ marginTop: 'auto' }}>
             <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -328,21 +326,21 @@ const Cart = ({ cart, setCart }) => {
         </div>
       ) : (
         <div className="cart-page">
-          <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
+          <div style={{display:'flex',alignItems:'center', width:'100vw', height:'50px' , 
+           backgroundImage: 'linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%)', position:'fixed',top:'0',marginLeft:'-20px',boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.4)'}}>
+          <h2 className="menu-titleC">Your Orders</h2>
+            </div>
+          {/* <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
 
             <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
-          </svg>
-          <h2 className="menu-titleC" style={{ marginTop: '35px', marginLeft: '0px' }}>Your Orders</h2>
+          </svg> */}
+        
           <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
             <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
             <h3 className="category-name">Order List</h3>
 
           </div>
-          {natof && (
-            <Notification color="red" title="Bummer!">
-              Something went wrong
-            </Notification>
-          )}
+       
           {accordionOpen && (
             <>
               {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
@@ -351,8 +349,8 @@ const Cart = ({ cart, setCart }) => {
                   {cart.map((item, index) => (
                     <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
                       <div className="item-details">
-                        <p className="item-name">{item.name}</p>
-                        <p className="item-price"> ₹ {item.price} x {item.quantity}</p>
+                        <p  style={{marginBottom:'0px'}}className="item-name">{item.name}</p>
+                        <p className="item-price"> ₹ {item.price}</p>
                         {/* <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(item)}>
                       <FontAwesomeIcon icon={faPlus} />
                       Add Instructions
@@ -360,7 +358,7 @@ const Cart = ({ cart, setCart }) => {
                         {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
                       </div>
                       <div className="quantity-actions">
-                        <div className='counterbox' style={{ maxWidth: "150px" }}>
+                        <div className='counterbox' >
                           <button className="quantity-btn" onClick={() => decreaseQuantity(index)}>
                             <FaMinus />
                           </button>
@@ -438,7 +436,7 @@ const Cart = ({ cart, setCart }) => {
               >
                 <SwipeableButton
                   onSuccess={placeOrder} //callback function
-                  text="Order me me!" //string 
+                  text= {'Slide to order | ₹ '+ `${totalPrice}`}//string 
                   text_unlocked="yeee" //string
                   color="#03C03C" //css hex color
                 />
