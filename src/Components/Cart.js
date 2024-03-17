@@ -13,7 +13,7 @@ import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification } from '@mantine/core';
 import { Transition } from '@mantine/core';
-import emptyCartSvg from './catering-icon.png';
+import emptyCartSvg from './tea.png';
 import { Timeline } from '@mantine/core';
 // import  IconMessageDots  from '@tabler/icons-react';
 // import  IconGitBranch from '@tabler/icons-react';
@@ -22,7 +22,8 @@ import { SwipeableButton } from "react-swipeable-button";
 import boopSfx from './transition.mp3';
 import useSound from 'use-sound';
 //import SlideUpModal from './SlideUpModal.js';
-
+import { Chip, rem } from '@mantine/core';
+import { IconX } from '@tabler/icons-react'
 import Drawerr from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 
@@ -103,7 +104,10 @@ const Cart = ({ cart, setCart }) => {
   };
 
   const placeOrder = () => {
-
+    if ("vibrate" in navigator) {
+      // Vibrate the phone for 1000 milliseconds (1 second)
+      navigator.vibrate(400);
+    } 
 
     setOrderPlaced(true);
     setShowCancelButton(true);
@@ -314,7 +318,7 @@ const Cart = ({ cart, setCart }) => {
           <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
           </svg>
-          <img src={emptyCartSvg} alt="Empty Cart" width="150" height="150" />
+          <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '300px' }} />
           <p className="empty-cart-message">Your cart is empty</p>
           <div className="bottom-svg-container" style={{ marginTop: 'auto' }}>
             <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -584,6 +588,8 @@ const Cart = ({ cart, setCart }) => {
               <Button onClick={() => { setCustomize("") }} variant="outline">
                 Clear
               </Button>
+
+              
               {/* <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button> */}
               <Button type="submit" variant="gradient" onClick={saving}>
                 Save
