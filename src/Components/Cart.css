@@ -8,11 +8,13 @@ body{
 
 .ReactSwipeButton {
   float: left;
-  width: 100%;
+  width: 95% !important;
   height: 50px;
   position: fixed !important;
   bottom: 0 !important;
-  left:0px
+  left:8px;
+  bottom: 5px !important;
+
 }
 
 .cart-page {

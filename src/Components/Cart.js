@@ -11,7 +11,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon } from '@mantine/core';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification } from '@mantine/core';
 import { Transition } from '@mantine/core';
 import emptyCartSvg from './catering-icon.png';
 import { Timeline } from '@mantine/core';
@@ -19,14 +19,43 @@ import { Timeline } from '@mantine/core';
 // import  IconGitBranch from '@tabler/icons-react';
 import { SwipeableButton } from "react-swipeable-button";
 // import { IconArrowLeft } from '@tabler/icons-react';
+import boopSfx from './transition.mp3';
+import useSound from 'use-sound';
+//import SlideUpModal from './SlideUpModal.js';
 
+import Drawerr from 'react-modern-drawer'
+import 'react-modern-drawer/dist/index.css'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+//import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+
+import {
+  useWindowSize,
+  useWindowWidth,
+  useWindowHeight,
+} from '@react-hook/window-size'
 
 
 //Modal.setAppElement('#root');
 
 const Cart = ({ cart, setCart }) => {
+  const [play] = useSound(boopSfx);
   const [opened, { open, close }] = useDisclosure(false);
+  //const { width, height } = useWindowSize()
+  const [openedc, { openc, closec }] = useDisclosure(false);
+
+  const [width, height] = useWindowSize()
+  const onlyWidth = useWindowWidth()
+  const onlyHeight = useWindowHeight()
+
+
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false)
+
+
   const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState(true); // State for accordion open/close
@@ -39,11 +68,19 @@ const Cart = ({ cart, setCart }) => {
   const [removedItems, setRemovedItems] = useState([]);
   const [expanded, setExpanded] = React.useState(false);
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
+  const [natof, setNatof] = useState(false); // Initialize natof state variable to false
+
+
+
 
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   // Function to handle increasing item quantity
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState)
+  }
+
   const increaseQuantity = (index) => {
     const newCart = [...cart];
     // newCart[index].quantity++;
@@ -66,8 +103,11 @@ const Cart = ({ cart, setCart }) => {
   };
 
   const placeOrder = () => {
+
+
     setOrderPlaced(true);
     setShowCancelButton(true);
+
   };
 
   // Function to handle accepting order
@@ -140,6 +180,17 @@ const Cart = ({ cart, setCart }) => {
 
   // Function to cancel the order
   const cancelOrder = () => {
+    toast('😒 Order Canceled!', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+
+    });
     setOrderPlaced(false);
     setShowCancelButton(false);
     setCancelTimer(10);
@@ -205,6 +256,42 @@ const Cart = ({ cart, setCart }) => {
   useEffect(() => {
     if (orderPlaced && !showCancelButton) {
       setTimelineOpen(true);
+      play()
+      var count = 200;
+      var defaults = {
+        origin: { y: 0.7 }
+      };
+
+      // function fire(particleRatio, opts) {
+      //   confetti({
+      //     ...defaults,
+      //     ...opts,
+      //     particleCount: Math.floor(count * particleRatio)
+      //   });
+      // }
+
+      // fire(0.25, {
+      //   spread: 26,
+      //   startVelocity: 55,
+      // });
+      // fire(0.2, {
+      //   spread: 60,
+      // });
+      // fire(0.35, {
+      //   spread: 100,
+      //   decay: 0.91,
+      //   scalar: 0.8
+      // });
+      // fire(0.1, {
+      //   spread: 120,
+      //   startVelocity: 25,
+      //   decay: 0.92,
+      //   scalar: 1.2
+      // });
+      // fire(0.1, {
+      //   spread: 120,
+      //   startVelocity: 45,
+      // });
     }
   }, [orderPlaced, showCancelButton]);
 
@@ -245,7 +332,13 @@ const Cart = ({ cart, setCart }) => {
           <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
             <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
             <h3 className="category-name">Order List</h3>
+
           </div>
+          {natof && (
+            <Notification color="red" title="Bummer!">
+              Something went wrong
+            </Notification>
+          )}
           {accordionOpen && (
             <>
               {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
@@ -286,7 +379,7 @@ const Cart = ({ cart, setCart }) => {
                       <button className="customise-instructions" onClick={open}>
                         <FontAwesomeIcon icon={faPlus} /> Add Instructions
                       </button>
-                      {!isDialogOpeninstruction && (
+                      {/* {!isDialogOpeninstruction && (
                         <Accordion variant="separated" defaultValue="Apples">
                           <Accordion.Item key={'Apples'} value={'Apples'}>
                             <Accordion.Control icon={'🍊'}>{'Apples'}</Accordion.Control>
@@ -294,7 +387,7 @@ const Cart = ({ cart, setCart }) => {
                           </Accordion.Item>
 
                         </Accordion>
-                      )}
+                      )} */}
                     </div>
                     <div className="itemkp">Total: ₹ {totalPrice}</div>
                   </div>
@@ -343,7 +436,7 @@ const Cart = ({ cart, setCart }) => {
                   onSuccess={placeOrder} //callback function
                   text="Order me me!" //string 
                   text_unlocked="yeee" //string
-                  color="#16362d" //css hex color
+                  color="#03C03C" //css hex color
                 />
               </div>
               //  <Button 
@@ -355,12 +448,19 @@ const Cart = ({ cart, setCart }) => {
 
 
             {showCancelButton && (
-              <div className="" >
 
-                <Button variant="light" className="" onClick={cancelOrder} style={{
-                  height: '55px', position: 'fixed', bottom: '00px', left: '50%', marginLeft: '5px',
-                  marginRight: '5px', transform: 'translateX(-50%)', zIndex: '999'
-                }} fullWidth >
+
+              <Drawerr
+                open={showCancelButton}
+                onClose={toggleDrawer}
+                direction='bottom'
+                className='bla bla bla'
+                overlayOpacity='0.5'
+                
+                style={{ display: 'flex',flexDirection:'column', justifyContent: 'center', alignItems: 'center',boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)' ,maxWidth:'100vw'}}
+              >
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <div>
                   <CountdownCircleTimer
                     isPlaying
                     duration={10}
@@ -372,32 +472,72 @@ const Cart = ({ cart, setCart }) => {
                   >
                     {({ remainingTime }) => remainingTime}
                   </CountdownCircleTimer>
-                  Cancel Order
-                </Button>
-              </div>
+                </div>
+                <div>
+
+                  <Button variant="outline" className="" onClick={cancelOrder} style={{
+                    height: '45px', left: '50%', marginLeft: '5px',
+                    marginRight: '5px',  marginBottom:'10px',  transform: 'translateX(-50%)', zIndex: '999', border: '1px solid red', color: 'red'
+                  }} fullWidth >
+
+                    Cancel Order
+                  </Button>
+
+
+                </div>
+                </div>
+                <div>
+                <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
+                </div>
+              </Drawerr>
+
+
+              // <Drawer opened={openedc} onClose={closec} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>
+
+              //   <Divider my="md" /> {/* Add a divider to separate input from buttons */}
+              //   <Group position="right">
+
+
+
+
+              //   </Group>
+              // </Drawer>
+
+
+
             )}
 
             {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
             {orderPlaced && timelineOpen && (
-              <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
-                <VerticalTimelineElement
-                  className=""
-                  contentStyle={{ background: '#D0FFBC', color: '#333', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
-                  contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                  date="Order Placed"
-                  iconStyle={{ background: '#333', color: '#fff' }}
-                  icon={<div className="circle-icon">1</div>}
-                  lineColor={'black'}
+              <>
+                <Confetti
+                  width={width}
+                  height={height}
+                  recycle={false}
+                  numberOfPieces={600}
+                  tweenDuration={8000}
+
                 />
-                <VerticalTimelineElement
-                  className=""
-                  contentStyle={{ background: '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
-                  contentArrowStyle={{ borderRight: '7px solid #4CAF50' }}
-                  date="Order Accepted"
-                  iconStyle={{ background: '#4CAF50', color: '#fff' }}
-                  icon={<div className="circle-icon">2</div>}
-                />
-              </VerticalTimeline>
+                <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
+                  <VerticalTimelineElement
+                    className=""
+                    contentStyle={{ background: '#D0FFBC', color: '#333', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                    contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                    date="Order Placed"
+                    iconStyle={{ background: '#333', color: '#fff' }}
+                    icon={<div className="circle-icon">1</div>}
+                    lineColor={'black'}
+                  />
+                  <VerticalTimelineElement
+                    className=""
+                    contentStyle={{ background: '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                    contentArrowStyle={{ borderRight: '7px solid #4CAF50' }}
+                    date="Order Accepted"
+                    iconStyle={{ background: '#4CAF50', color: '#fff' }}
+                    icon={<div className="circle-icon">2</div>}
+                  />
+                </VerticalTimeline>
+              </>
 
             )}
           </div>
@@ -512,6 +652,7 @@ const Cart = ({ cart, setCart }) => {
       </Modal> */}
         </div>
       )}
+      <ToastContainer />
     </div>
 
   );
