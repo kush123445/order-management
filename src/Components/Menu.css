@@ -47,7 +47,8 @@ body{
 
          
 .btn-gradc {
-  background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
+  /* background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%); */
+  background-color: #f98820;
   /* margin: 10px; */
   padding: 10px 20px;
   text-align: center;
@@ -318,7 +319,15 @@ body{
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
-  
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Adjust height to match carousel height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1; /* Ensure it's above the carousel */
+  }
   .bottom-link a:hover {
     background-color: #45a049;
   }  

@@ -18,28 +18,26 @@ const MyCarousel = ({ height }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-    
-    
-      <div
-        onScroll={handleScroll}
-        style={{ overflowY: 'scroll'}} // Adjust height accordingly
-      >
-        <div > {/* Make the carousel sticky */}
-          <Carousel animation="slide" duration="800" interval="5000" height={height ? "60px" : "240px"}>
-            <div>
-              <img src={food} alt="Tea" style={{ width: '100%' }} />
-            </div>
-            <div>
-              <img src={pizza} alt="Tea" style={{ width: '100%' }} />
-            </div>
-            <div>
-              <img src={bir} alt="Tea" style={{ width: '100%' }} />
-            </div>
-          </Carousel>
-        </div>
-      </div>
+    <div
+      onScroll={handleScroll}
+      style={{ overflowY: 'scroll', position: 'relative' }}
+    >
      
+      <div> {/* Make the carousel sticky */}
+        <Carousel animation="slide" duration="800" interval="5000" height={height ? "60px" : "240px"}>
+          <div>
+            <img src={food} alt="Tea" style={{ width: '100%' }} />
+          </div>
+          <div>
+            <img src={pizza} alt="Tea" style={{ width: '100%' }} />
+          </div>
+          <div>
+            <img src={bir} alt="Tea" style={{ width: '100%' }} />
+          </div>
+        </Carousel>
+      </div>
     </div>
+  </div>
   );
 };
 

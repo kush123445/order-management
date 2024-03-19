@@ -23,6 +23,42 @@ body{
   color: white;
   display: none !important;
 }
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sticky-navbar {
+  width: 100%;
+  height: 0;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 2s ease forwards; /* Increase animation duration */
+}
+
+.flatlist {
+  /* Add your styles for flatlist */
+}
+
+/* Additional styles for the flatlist content */
+.flatlist > div {
+  padding-bottom: 20px;
+  margin: 0px 5px;
+}
+
+.flatlist .chip {
+  /* Add your styles for chip */
+}
 .flatlist {
   overflow-x: scroll;
   display: flex;

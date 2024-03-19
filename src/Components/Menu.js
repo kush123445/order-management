@@ -170,20 +170,10 @@ const Menu = ({ cart, setCart }) => {
     <>
 <MyCarousel />
 <Flat />
-    {/* <nav class="navbar  navbark bg-primary"  style={{  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.4)' ,position:'sticky' , top:'0'}}>
-    <div class="container-fluid">
-      <a class="navbar-brand"><div className="menu-title" style={{ marginTop: '0px', marginLeft: '0px' ,paddingBottom:'5px'}}>Food Catalog</div></a>
-     
-    </div>
-  </nav> */}
+  
     <div className="menu-container">
     
-      {/* <svg className="menu-svg" width="100vw" height="100" xmlns="http://www.w3.org/2000/svg">
-        <g transform="rotate(180, 500, 50)">
-          <path d="M0 50 C50 0, 150 100, 200 50 C250 0, 350 100, 400 50 C450 0, 550 100, 600 50 C650 0, 750 100, 800 50 C850 0, 950 100, 1000 50 L1000 100 L0 100 Z" fill="#54B4D3" />
-        </g>
-      </svg> */}
-      {/* <h2 className="menu-title" style={{ marginTop: '20px', marginLeft: '0px' }}>Food Catalog</h2> */}
+ 
       <div className="dropdown-containerk">
         <button className="browse-menu-btn" onClick={toggleDropdown}>
           <div className="icon-container">

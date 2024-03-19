@@ -410,11 +410,12 @@ const Cart = ({ cart, setCart }) => {
                     </li>
                   ))}
 
-                  <li className="add-items-button" style={{ display: 'flex', justifyContent: 'space-between', marginRight: '20px' ,marginBottom:'12px'}}>
-                  <div className="itemkp">Total : <span style={{ color: 'darkslategrey' }}>₹{totalPrice.toFixed(2)}</span> </div>
+                  <li className="add-items-button" style={{ display: 'flex', justifyContent: 'space-between', marginRight: '10px' ,marginBottom:'12px'}}>
+                  
                     <Chip color="green" variant="light" defaultChecked checked={true} icon={<FaPlus />} fx={'md'}    onClick={handleChipClick}>
                       Add More
                     </Chip>
+                    <div className="itemkp">Total : <span style={{ color: 'darkslategrey',marginRight:'0px' }}>₹{totalPrice.toFixed(2)}</span> </div>
                   </li>
 
 
@@ -518,9 +519,9 @@ const Cart = ({ cart, setCart }) => {
                 className='bla bla bla'
                 overlayOpacity='0.5'
 
-                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
+                style={{ display: 'flex', widh:'100vw',flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
               >
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                
                   <div>
                     <CountdownCircleTimer
                       isPlaying
@@ -534,25 +535,32 @@ const Cart = ({ cart, setCart }) => {
                       {({ remainingTime }) => remainingTime}
                     </CountdownCircleTimer>
                   </div>
-                  <div>
-                    <Button variant="outline" className="" onClick={ConfirmOrder} style={{
-                      height: '45px', left: '50%', marginLeft: '5px',
-                      marginRight: '5px', marginBottom: '10px', transform: 'translateX(-50%)', zIndex: '999', border: '1px solid green', color: 'green'
+                  <div style={{display:'flex',justifyContent:'space-around' ,width:'80%', marginTop:'15px',marginBottom:'15px'}}>
+                    {/* <Button variant="outline" className="" onClick={ConfirmOrder} style={{
+                      height: '45px',
+                      marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'green'
                     }} fullWidth >
 
                       Confirm Order
-                    </Button>
-                    <Button variant="outline" className="" onClick={cancelOrder} style={{
-                      height: '45px', left: '50%', marginLeft: '5px',
-                      marginRight: '5px', marginBottom: '10px', transform: 'translateX(-50%)', zIndex: '999', border: '1px solid red', color: 'red'
+                    </Button> */}
+
+<Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
+                    Cancel Order
+                        </Chip>
+
+
+                    <Chip variant='' defaultChecked color="green" onClick={ConfirmOrder}>
+                  Confirm Order
+                        </Chip>
+                    {/* <Button variant="outline" className="" onClick={cancelOrder} style={{
+                      height: '45px',marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'red'
                     }} fullWidth >
 
                       Cancel Order
-                    </Button>
-
-
+                    </Button> */}
+                   
                   </div>
-                </div>
+               
                 <div>
                   <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
                 </div>
@@ -586,6 +594,7 @@ const Cart = ({ cart, setCart }) => {
                   recycle={false}
                   numberOfPieces={600}
                   tweenDuration={8000}
+                  
 
                 />
                 <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
