@@ -7,10 +7,23 @@ import { FaAngleDown, FaAngleUp,FaPlus,FaMinus } from 'react-icons/fa';
 import { MdOutlineCancel  } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Divider } from '@mantine/core';
+import emptyCartSvg from './cook.png';
+import tea from './tea.png';
+// import Carousel from 'react-bootstrap/Carousel';
+import ExampleCarouselImage from './cook.png';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// import { Carousel } from 'react-responsive-carousel';
+import Carousel from 'react-material-ui-carousel';
+import MyCarousel  from './Caro.js'
+import Flat from './Flat.js';
 
 const Menu = ({ cart, setCart }) => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  
+
+
 
   // Function to handle clicking on a category item
   const handleClick = (category) => {
@@ -155,10 +168,8 @@ const Menu = ({ cart, setCart }) => {
   },[cart])
   return (
     <>
-    <div className='btn-gradk'>
-    <div className="menu-title" style={{ marginTop: '0px', marginLeft: '0px' ,paddingBottom:'5px'}}>Food Catalog</div>
-    </div>
-
+<MyCarousel />
+<Flat />
     {/* <nav class="navbar  navbark bg-primary"  style={{  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.4)' ,position:'sticky' , top:'0'}}>
     <div class="container-fluid">
       <a class="navbar-brand"><div className="menu-title" style={{ marginTop: '0px', marginLeft: '0px' ,paddingBottom:'5px'}}>Food Catalog</div></a>
