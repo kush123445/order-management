@@ -18,10 +18,66 @@ body{
 }
 .css-1m9128y {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 0px !important;
   text-align: center;
   color: white;
   display: none !important;
+}
+.flatlist {
+  overflow-x: scroll;
+  display: flex;
+  /* Adjusted marginTop to stick below the red box */
+   /* Initial marginTop */
+  position: sticky;
+  top: 10;
+  margin-top: 5px;
+  margin-bottom: 15px;
+
+  background-color: white;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+
+  /* WebKit browsers (Chrome, Safari) */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  z-index: 999;
+
+}
+/* Navbar.css */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Navbar background color */
+  padding: 10px 20px; /* Adjust padding as needed */
+}
+
+.navbar-heading {
+  font-size: 24px; /* Adjust font size */
+  color: black; /* Text color */
+  font-weight: bold; /* Font weight */
+  text-transform: uppercase; /* Uppercase text */
+  cursor: pointer; /* Show pointer cursor on hover */
+  animation: pulse 2s infinite; /* Animation */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.navbar-heading:hover {
+  color: #ff9800; /* Change text color on hover */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1); /* Initial scale */
+  }
+  50% {
+    transform: scale(1.2); /* Scale up */
+  }
+  100% {
+    transform: scale(1); /* Back to initial scale */
+  }
 }
 
 .cart-page {
