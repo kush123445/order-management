@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -70,6 +71,12 @@ const Cart = ({ cart, setCart }) => {
   const [expanded, setExpanded] = React.useState(false);
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
+  const navigate = useNavigate();
+
+  const handleChipClick = () => {
+    navigate("/");
+  };
+
 
 
 
@@ -107,7 +114,7 @@ const Cart = ({ cart, setCart }) => {
     if ("vibrate" in navigator) {
       // Vibrate the phone for 1000 milliseconds (1 second)
       navigator.vibrate(400);
-    } 
+    }
 
     setOrderPlaced(true);
     setShowCancelButton(true);
@@ -181,11 +188,11 @@ const Cart = ({ cart, setCart }) => {
       setRemovedItems([...removedItems, itemId]);
     }
   };
- const ConfirmOrder=()=>{
-  setOrderPlaced(true);
+  const ConfirmOrder = () => {
+    setOrderPlaced(true);
     setShowCancelButton(false);
     setCancelTimer(10);
- }
+  }
 
   // Function to cancel the order
   const cancelOrder = () => {
@@ -265,23 +272,23 @@ const Cart = ({ cart, setCart }) => {
 
   const [orderAccepted, setOrderAccepted] = useState(false);
 
-// Use useEffect to set a timeout after the component mounts
-// useEffect(() => {
-//   const timer = setTimeout(() => {
-//     // After 10 seconds, update the state to indicate that the order is accepted
-//     setOrderAccepted(true);
-//   }, 10000);
+  // Use useEffect to set a timeout after the component mounts
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     // After 10 seconds, update the state to indicate that the order is accepted
+  //     setOrderAccepted(true);
+  //   }, 10000);
 
-//   // Clear the timer on component unmount to prevent memory leaks
-//   return () => clearTimeout(timer);
-// }, []);
-const orderAcceptedfn=()=>{
-  // setAccordionOpen(false) // Clear the interval
-  const timer = setTimeout(() => {
-    setOrderAccepted(true);
-  }, 10000);
-  return () => clearTimeout(timer);
-}
+  //   // Clear the timer on component unmount to prevent memory leaks
+  //   return () => clearTimeout(timer);
+  // }, []);
+  const orderAcceptedfn = () => {
+    // setAccordionOpen(false) // Clear the interval
+    const timer = setTimeout(() => {
+      setOrderAccepted(true);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }
 
   useEffect(() => {
     if (orderPlaced && !showCancelButton) {
@@ -341,8 +348,8 @@ const orderAcceptedfn=()=>{
     <div>
       {cart.length === 0 ? (
         <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          
-          <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '400px' }}/>
+
+          <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '400px' }} />
           <p className="empty-cart-message">Your cart is empty</p>
           <div className="bottom-svg-container" style={{ marginTop: 'auto' }}>
             <svg className="moving-svg" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
@@ -352,21 +359,23 @@ const orderAcceptedfn=()=>{
         </div>
       ) : (
         <div className="cart-page">
-          <div style={{display:'flex',alignItems:'center', width:'100vw', height:'50px' , 
-           backgroundImage: 'linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%)', position:'fixed',top:'0',marginLeft:'-20px',boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.4)'}}>
-          <h2 className="menu-titleC">Your Orders</h2>
-            </div>
+          <div style={{
+            display: 'flex', alignItems: 'center', width: '100vw', height: '50px',
+            backgroundImage: 'linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%)', position: 'fixed', top: '0', marginLeft: '-20px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.4)'
+          }}>
+            <h2 className="menu-titleC">Your Orders</h2>
+          </div>
           {/* <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
 
             <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
           </svg> */}
-        
+
           <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
             <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
             <h3 className="category-name">Order List</h3>
 
           </div>
-       
+
           {accordionOpen && (
             <>
               {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
@@ -375,7 +384,7 @@ const orderAcceptedfn=()=>{
                   {cart.map((item, index) => (
                     <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
                       <div className="item-details">
-                        <p  style={{marginBottom:'0px'}}className="item-name">{item.name}</p>
+                        <p style={{ marginBottom: '0px' }} className="item-name">{item.name}</p>
                         <p className="item-price"> ₹ {item.price}</p>
                         {/* <button className="cooking-instructions-btn" onClick={() => addCookingInstructions(item)}>
                       <FontAwesomeIcon icon={faPlus} />
@@ -401,11 +410,20 @@ const orderAcceptedfn=()=>{
                     </li>
                   ))}
 
+                  <li className="add-items-button" style={{ display: 'flex', justifyContent: 'space-between', marginRight: '20px' ,marginBottom:'12px'}}>
+                  <div className="itemkp">Total : <span style={{ color: 'darkslategrey' }}>₹{totalPrice.toFixed(2)}</span> </div>
+                    <Chip color="green" variant="light" defaultChecked checked={true} icon={<FaPlus />} fx={'md'}    onClick={handleChipClick}>
+                      Add More
+                    </Chip>
+                  </li>
+
+
                   {/* <div className='d-flex  
                      flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
                   {/* <div className="itemkp">Total : ₹ {totalPrice}</div>
                    */}
-                 <div className="itemkp">Total : <span style={{color:'darkslategrey'}}>₹{totalPrice.toFixed(2)}</span> </div>
+                   
+                 
                   <div className="containerc">
 
                     {/* <div className="itemk">
@@ -423,15 +441,15 @@ const orderAcceptedfn=()=>{
                       )}
                     </div> */}
                     <div className="itemk">
-  <button className="customise-instructions" onClick={open}>
-    <FontAwesomeIcon icon={faPlus} /> {customize==""? "Add Instructions" :"Edit Instructions"}
-  </button>
-  {!isDialogOpeninstruction && (
-    <div>
-      <div>{renderDescription(customize)}</div>
-    </div>
-  )}
-</div>
+                      <button className="customise-instructions" onClick={open}>
+                        <FontAwesomeIcon icon={faPlus} /> {customize == "" ? "Add Instructions" : "Edit Instructions"}
+                      </button>
+                      {!isDialogOpeninstruction && (
+                        <div>
+                          <div>{renderDescription(customize)}</div>
+                        </div>
+                      )}
+                    </div>
 
                   </div>
                 </ul>) : (
@@ -477,7 +495,7 @@ const orderAcceptedfn=()=>{
               >
                 <SwipeableButton
                   onSuccess={placeOrder} //callback function
-                  text= {'Slide to order | ₹ '+ `${totalPrice}`}//string 
+                  text={'Slide to order | ₹ ' + `${totalPrice}`}//string 
                   text_unlocked="yeee" //string
                   color="#03C03C" //css hex color
                 />
@@ -499,44 +517,44 @@ const orderAcceptedfn=()=>{
                 direction='bottom'
                 className='bla bla bla'
                 overlayOpacity='0.5'
-                
-                style={{ display: 'flex',flexDirection:'column', justifyContent: 'center', alignItems: 'center',boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)' ,maxWidth:'100vw'}}
+
+                style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
               >
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <div>
-                  <CountdownCircleTimer
-                    isPlaying
-                    duration={10}
-                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                    colorsTime={[7, 5, 2, 0]}
-                    size={45} // Adjust the size as needed
-                    strokeWidth={5} // Adjust the stroke width as needed
-                    style={{ marginRight: '10px' }}
-                  >
-                    {({ remainingTime }) => remainingTime}
-                  </CountdownCircleTimer>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <div>
+                    <CountdownCircleTimer
+                      isPlaying
+                      duration={10}
+                      colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                      colorsTime={[7, 5, 2, 0]}
+                      size={45} // Adjust the size as needed
+                      strokeWidth={5} // Adjust the stroke width as needed
+                      style={{ marginRight: '10px' }}
+                    >
+                      {({ remainingTime }) => remainingTime}
+                    </CountdownCircleTimer>
+                  </div>
+                  <div>
+                    <Button variant="outline" className="" onClick={ConfirmOrder} style={{
+                      height: '45px', left: '50%', marginLeft: '5px',
+                      marginRight: '5px', marginBottom: '10px', transform: 'translateX(-50%)', zIndex: '999', border: '1px solid green', color: 'green'
+                    }} fullWidth >
+
+                      Confirm Order
+                    </Button>
+                    <Button variant="outline" className="" onClick={cancelOrder} style={{
+                      height: '45px', left: '50%', marginLeft: '5px',
+                      marginRight: '5px', marginBottom: '10px', transform: 'translateX(-50%)', zIndex: '999', border: '1px solid red', color: 'red'
+                    }} fullWidth >
+
+                      Cancel Order
+                    </Button>
+
+
+                  </div>
                 </div>
                 <div>
-                <Button variant="outline" className="" onClick={ConfirmOrder} style={{
-                    height: '45px', left: '50%', marginLeft: '5px',
-                    marginRight: '5px',  marginBottom:'10px',  transform: 'translateX(-50%)', zIndex: '999', border: '1px solid green', color: 'green'
-                  }} fullWidth >
-
-                    Confirm Order
-                  </Button>
-                  <Button variant="outline" className="" onClick={cancelOrder} style={{
-                    height: '45px', left: '50%', marginLeft: '5px',
-                    marginRight: '5px',  marginBottom:'10px',  transform: 'translateX(-50%)', zIndex: '999', border: '1px solid red', color: 'red'
-                  }} fullWidth >
-
-                    Cancel Order
-                  </Button>
-
-
-                </div>
-                </div>
-                <div>
-                <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
+                  <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
                 </div>
               </Drawerr>
 
@@ -557,11 +575,11 @@ const orderAcceptedfn=()=>{
             )}
 
             {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
-    
+
             {orderPlaced && timelineOpen && (
-            
+
               <>
-              {orderAcceptedfn()}
+                {orderAcceptedfn()}
                 <Confetti
                   width={width}
                   height={height}
@@ -588,16 +606,16 @@ const orderAcceptedfn=()=>{
                     iconStyle={{ background: '#4CAF50', color: '#fff' }}
                     icon={<div className="circle-icon">2</div>}
                   /> */}
-                  
 
-<VerticalTimelineElement
-  className=""
-  contentStyle={{ background: orderAccepted ? '#D0FFBC' : '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
-  contentArrowStyle={{ borderRight: orderAccepted ? '7px solid #4CAF50' : '7px solid transparent' }}
-  date="Order Accepted"
-  iconStyle={{ background: '#4CAF50', color: '#fff' }}
-  icon={<div className="circle-icon">2</div>}
-/>
+
+                  <VerticalTimelineElement
+                    className=""
+                    contentStyle={{ background: orderAccepted ? '#D0FFBC' : '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+                    contentArrowStyle={{ borderRight: orderAccepted ? '7px solid #4CAF50' : '7px solid transparent' }}
+                    date="Order Accepted"
+                    iconStyle={{ background: '#4CAF50', color: '#fff' }}
+                    icon={<div className="circle-icon">2</div>}
+                  />
                 </VerticalTimeline>
               </>
 
@@ -647,7 +665,7 @@ const orderAcceptedfn=()=>{
                 Clear
               </Button>
 
-              
+
               {/* <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button> */}
               <Button type="submit" variant="gradient" onClick={saving}>
                 Save
