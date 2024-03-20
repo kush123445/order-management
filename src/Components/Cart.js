@@ -12,7 +12,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification } from '@mantine/core';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification,Badge } from '@mantine/core';
 import { Transition } from '@mantine/core';
 import emptyCartSvg from './cook.png';
 import { Timeline } from '@mantine/core';
@@ -483,6 +483,21 @@ const Cart = ({ cart, setCart }) => {
                   </li>
                 </ul>
               )}
+
+<Card shadow="sm" padding="lg" radius="md" withBorder mt={5}>
+      
+
+      <Group justify="space-between" mt="md" mb="xs">
+        
+        <Badge color="#f98820">Cancellation Policy </Badge>
+      </Group>
+
+      <Text size="sm" c="dimmed">
+        With Fjord Tours you can explore more of the magical fjord landscapes with tours and
+        activities on and around the fjords of Norway
+      </Text>
+
+    </Card>
             </>
           )}
           <div className="cart-total">
@@ -491,16 +506,36 @@ const Cart = ({ cart, setCart }) => {
           <button className="customise-instructions" onClick={open} >Customise</button>
         )} */}
             {!orderPlaced && !opened && !showCancelButton && cart.length != 0 && (
+              
 
-              <div className="w-[500px] h-[100px] bg-white"
+           
+              <div style={{position:'fixed', bottom:'0px',left:'0px', borderRadius:'35px',width:'100vw'}}>
+
+<Card shadow="sm" padding="lg" radius="md" withBorder mt={5} style={{
+  borderRadius: '25px 25px 0px 0px',
+  margin: '5px 0px',
+  marginBottom: '0px'
+}}>
+      
+
+<Group justify="space-between" mt="md" mb="xs">
+  
+  <Badge color="#f98820">Cancellation Policy </Badge>
+  <div className="w-[500px] h-[100px] bg-white"
               >
                 <SwipeableButton
                   onSuccess={placeOrder} //callback function
                   text={'Slide to order | ₹ ' + `${totalPrice}`}//string 
                   text_unlocked="yeee" //string
-                  color="#03C03C" //css hex color
+                  color="#f98820" //css hex color
                 />
               </div>
+</Group>
+
+
+
+</Card>
+</div>
               //  <Button 
               //  variant="gradient"
               //  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
