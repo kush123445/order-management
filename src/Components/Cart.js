@@ -383,7 +383,7 @@ const Cart = ({ cart, setCart }) => {
           </div>
         </div>
       ) : (
-        <div className="cart-page">
+        <div className="cart-page" style={{paddingBottom:'100px'}}>
     <div style={{ marginBottom: '20px', overflow: 'hidden',height:'50px',justifyContent:'center', alignItems:'center' }} ref={buttonRef}>
       <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block'}}>
         <Button variant='light' color="yellow" fullWidth style={{height:'49px' }}>
@@ -485,7 +485,7 @@ const Cart = ({ cart, setCart }) => {
                       </button>
                       {!isDialogOpeninstruction && (
                         <div>
-                          <div>{renderDescription(customize)}</div>
+                          <div style={{fontSize:'12px'}}>{renderDescription(customize)}</div>
                         </div>
                       )}
                     </div>
@@ -522,7 +522,7 @@ const Cart = ({ cart, setCart }) => {
                 </ul>
               )}
                 <div style={{marginBottom:'25px',marginTop:'-12px',marginLeft:'7px'}}>
-                <Text size="sm" c="dimmed" >
+                <Text style={{fontSize:'12px'}} c="dimmed" >
                 <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
                 Please note: The final bill includes additional charges such as taxes and GST.
 </Text>

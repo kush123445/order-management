@@ -171,7 +171,7 @@ const Menu = ({ cart, setCart }) => {
 <MyCarousel />
 <Flat />
   
-    <div className="menu-container">
+    <div className="menu-container" style={{paddingBottom:'80px'}}>
     
  
       <div className="dropdown-containerk">
