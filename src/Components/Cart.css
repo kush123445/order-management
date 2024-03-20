@@ -147,6 +147,14 @@ html, body {
    
     box-sizing: border-box; /* Include padding in width calculation */
   }
+  @keyframes slideLeft {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
   /* .itemk {
     max-width: calc(80% - 20px); 
     width:60%

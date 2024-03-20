@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -12,10 +13,11 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification,Badge } from '@mantine/core';
+import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification, Badge } from '@mantine/core';
 import { Transition } from '@mantine/core';
 import emptyCartSvg from './cook.png';
 import { Timeline } from '@mantine/core';
+import { FaGift } from 'react-icons/fa'; 
 // import  IconMessageDots  from '@tabler/icons-react';
 // import  IconGitBranch from '@tabler/icons-react';
 import { SwipeableButton } from "react-swipeable-button";
@@ -30,7 +32,7 @@ import 'react-modern-drawer/dist/index.css'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'intersection-observer';
 //import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 
@@ -343,6 +345,29 @@ const Cart = ({ cart, setCart }) => {
     close();
     setisDialogOpeninstruction(false);
   }
+
+  const [isVisible, setIsVisible] = useState(false);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.5 } // Trigger animation when 50% of the element is visible
+    );
+
+    if (buttonRef.current) {
+      observer.observe(buttonRef.current);
+    }
+
+    return () => {
+      if (buttonRef.current) {
+        observer.unobserve(buttonRef.current);
+      }
+    };
+  }, []);
+
   return (
 
     <div>
@@ -359,9 +384,22 @@ const Cart = ({ cart, setCart }) => {
         </div>
       ) : (
         <div className="cart-page">
+    <div style={{ marginBottom: '20px', overflow: 'hidden',height:'50px',justifyContent:'center', alignItems:'center' }} ref={buttonRef}>
+      <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block'}}>
+        <Button variant='light' color="yellow" fullWidth style={{height:'49px' }}>
+          <span style={{ display: 'flex', alignItems: 'center', fontSize: 'small', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>
+            <FaGift style={{ marginRight: '5px', fontSize: '1.6em', color: 'orange' }} />
+            <span style={{ fontSize: '1.1em', textTransform: 'uppercase', letterSpacing: '1px', color: 'black' }}>
+              (Offer: 10% discount for you)
+            </span>
+          </span>
+        </Button>
+      </div>
+    </div>
           <div style={{
-            display: 'flex', alignItems: 'center', width: '100vw', height: '50px',
-            backgroundImage: 'linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%)', position: 'fixed', top: '0', marginLeft: '-20px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.4)'
+            display: 'flex', alignItems: 'center', width: '100%', height: '50px',
+            backgroundImage: 'linear-gradient(to right, #f46b45 0%, #eea849  51%)',
+         position: 'fixed', top: '0', marginLeft: '-20px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)',borderRadius:'0px 0px 10px 10px'
           }}>
             <h2 className="menu-titleC">Your Orders</h2>
           </div>
@@ -410,12 +448,12 @@ const Cart = ({ cart, setCart }) => {
                     </li>
                   ))}
 
-                  <li className="add-items-button" style={{ display: 'flex', justifyContent: 'space-between', marginRight: '10px' ,marginBottom:'12px'}}>
-                  
-                    <Chip color="green" variant="light" defaultChecked checked={true} icon={<FaPlus />} fx={'md'}    onClick={handleChipClick}>
+                  <li className="add-items-button" style={{ display: 'flex', justifyContent: 'space-between', marginRight: '10px', marginBottom: '12px' }}>
+
+                    <Chip color="green" variant="light" defaultChecked checked={true} icon={<FaPlus />} fx={'md'} onClick={handleChipClick}>
                       Add More
                     </Chip>
-                    <div className="itemkp">Total : <span style={{ color: 'darkslategrey',marginRight:'0px' }}>₹{totalPrice.toFixed(2)}</span> </div>
+                    <div className="itemkp">Total : <span style={{ color: 'darkslategrey', marginRight: '0px' }}>₹{totalPrice.toFixed(2)}</span> </div>
                   </li>
 
 
@@ -423,8 +461,8 @@ const Cart = ({ cart, setCart }) => {
                      flex-row'><div style={{width:'50%'}}></div><div>Total Price: ₹ {totalPrice}</div></div> */}
                   {/* <div className="itemkp">Total : ₹ {totalPrice}</div>
                    */}
-                   
-                 
+
+
                   <div className="containerc">
 
                     {/* <div className="itemk">
@@ -483,21 +521,26 @@ const Cart = ({ cart, setCart }) => {
                   </li>
                 </ul>
               )}
+                <div style={{marginBottom:'25px',marginTop:'-12px',marginLeft:'7px'}}>
+                <Text size="sm" c="dimmed" >
+                <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
+                Please note: The final bill includes additional charges such as taxes and GST.
+</Text>
+</div>
+              <Card shadow="sm" padding="lg" radius="md" withBorder mt={5}>
 
-<Card shadow="sm" padding="lg" radius="md" withBorder mt={5}>
-      
 
-      <Group justify="space-between" mt="md" mb="xs">
-        
-        <Badge color="#f98820">Cancellation Policy </Badge>
-      </Group>
+                <Group justify="space-between" mt="md" mb="xs">
 
-      <Text size="sm" c="dimmed">
-        With Fjord Tours you can explore more of the magical fjord landscapes with tours and
-        activities on and around the fjords of Norway
-      </Text>
+                  <Badge color="#f98820">Cancel & Modify Policy </Badge>
+                </Group>
 
-    </Card>
+                <Text size="sm" c="dimmed">
+                <em style={{color:'red'}}>Note : </em>Upon placing your order, you will have a 60-second window to confirm it. After the order is confirmed, you will have the option to submit a  request. If the admin approves your request, it will be processed accordingly. 
+                Please note that no refunds will be issued for cancellations made after 60 seconds of order confirmation.
+                </Text>
+
+              </Card>
             </>
           )}
           <div className="cart-total">
@@ -506,36 +549,36 @@ const Cart = ({ cart, setCart }) => {
           <button className="customise-instructions" onClick={open} >Customise</button>
         )} */}
             {!orderPlaced && !opened && !showCancelButton && cart.length != 0 && (
-              
 
-           
-              <div style={{position:'fixed', bottom:'0px',left:'0px', borderRadius:'35px',width:'100vw'}}>
 
-<Card shadow="sm" padding="lg" radius="md" withBorder mt={5} style={{
-  borderRadius: '25px 25px 0px 0px',
-  margin: '5px 0px',
-  marginBottom: '0px'
-}}>
-      
 
-<Group justify="space-between" mt="md" mb="xs">
-  
-  <Badge color="#f98820">Cancellation Policy </Badge>
-  <div className="w-[500px] h-[100px] bg-white"
-              >
-                <SwipeableButton
-                  onSuccess={placeOrder} //callback function
-                  text={'Slide to order | ₹ ' + `${totalPrice}`}//string 
-                  text_unlocked="yeee" //string
-                  color="#f98820" //css hex color
-                />
+              <div style={{ position: 'fixed', bottom: '0px', left: '0px', borderRadius: '35px', width: '100vw' }}>
+
+                <Card shadow="sm" padding="lg" radius="md" withBorder mt={5} style={{
+                  borderRadius: '25px 25px 0px 0px',
+                  margin: '5px 0px',
+                  marginBottom: '0px'
+                }}>
+
+
+                  <Group justify="space-between" mt="md" mb="xs">
+
+                    <Badge color="#f98820">Cancellation Policy </Badge>
+                    <div className="w-[500px] h-[100px] bg-white"
+                    >
+                      <SwipeableButton
+                        onSuccess={placeOrder} //callback function
+                        text={'Slide to order | ₹ ' + `${totalPrice}`}//string 
+                        text_unlocked="yeee" //string
+                        color="#f98820" //css hex color
+                      />
+                    </div>
+                  </Group>
+
+
+
+                </Card>
               </div>
-</Group>
-
-
-
-</Card>
-</div>
               //  <Button 
               //  variant="gradient"
               //  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
@@ -554,24 +597,24 @@ const Cart = ({ cart, setCart }) => {
                 className='bla bla bla'
                 overlayOpacity='0.5'
 
-                style={{ display: 'flex', widh:'100vw',flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
+                style={{ display: 'flex', widh: '100vw', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
               >
-                
-                  <div>
-                    <CountdownCircleTimer
-                      isPlaying
-                      duration={10}
-                      colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                      colorsTime={[7, 5, 2, 0]}
-                      size={45} // Adjust the size as needed
-                      strokeWidth={5} // Adjust the stroke width as needed
-                      style={{ marginRight: '10px' }}
-                    >
-                      {({ remainingTime }) => remainingTime}
-                    </CountdownCircleTimer>
-                  </div>
-                  <div style={{display:'flex',justifyContent:'space-around' ,width:'80%', marginTop:'15px',marginBottom:'15px'}}>
-                    {/* <Button variant="outline" className="" onClick={ConfirmOrder} style={{
+
+                <div>
+                  <CountdownCircleTimer
+                    isPlaying
+                    duration={10}
+                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                    colorsTime={[7, 5, 2, 0]}
+                    size={45} // Adjust the size as needed
+                    strokeWidth={5} // Adjust the stroke width as needed
+                    style={{ marginRight: '10px' }}
+                  >
+                    {({ remainingTime }) => remainingTime}
+                  </CountdownCircleTimer>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '15px', marginBottom: '15px' }}>
+                  {/* <Button variant="outline" className="" onClick={ConfirmOrder} style={{
                       height: '45px',
                       marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'green'
                     }} fullWidth >
@@ -579,23 +622,23 @@ const Cart = ({ cart, setCart }) => {
                       Confirm Order
                     </Button> */}
 
-<Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
+                  <Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
                     Cancel Order
-                        </Chip>
+                  </Chip>
 
 
-                    <Chip variant='' defaultChecked color="green" onClick={ConfirmOrder}>
-                  Confirm Order
-                        </Chip>
-                    {/* <Button variant="outline" className="" onClick={cancelOrder} style={{
+                  <Chip variant='' defaultChecked color="green" onClick={ConfirmOrder}>
+                    Confirm Order
+                  </Chip>
+                  {/* <Button variant="outline" className="" onClick={cancelOrder} style={{
                       height: '45px',marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'red'
                     }} fullWidth >
 
                       Cancel Order
                     </Button> */}
-                   
-                  </div>
-               
+
+                </div>
+
                 <div>
                   <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
                 </div>
@@ -629,7 +672,7 @@ const Cart = ({ cart, setCart }) => {
                   recycle={false}
                   numberOfPieces={600}
                   tweenDuration={8000}
-                  
+
 
                 />
                 <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
