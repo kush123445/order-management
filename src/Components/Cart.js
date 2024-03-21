@@ -1,6 +1,7 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { css } from '@emotion/react';
+import { HashLoader } from 'react-spinners';
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -62,6 +63,7 @@ const Cart = ({ cart, setCart }) => {
 
   // const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState(true); // State for accordion open/close
   const [showCancelButton, setShowCancelButton] = useState(false);
   const [cancelTimer, setCancelTimer] = useState(10);
@@ -76,7 +78,7 @@ const Cart = ({ cart, setCart }) => {
   const navigate = useNavigate();
 
   const handleChipClick = () => {
-    navigate("/");
+    navigate("/home");
   };
 
 
@@ -190,14 +192,28 @@ const Cart = ({ cart, setCart }) => {
       setRemovedItems([...removedItems, itemId]);
     }
   };
-  const ConfirmOrder = () => {
-    setOrderPlaced(true);
-    setShowCancelButton(false);
-    setCancelTimer(10);
+  const ConfirmOrder = async() => {
+    setLoading(true);
+
+    // Simulate a 2-second delay before setting orderPlaced to true
+   await setTimeout(() => {
+      setOrderPlaced(true);
+      setShowCancelButton(false);
+      setCancelTimer(10);
+
+      // Hide loader after 2 seconds
+      setLoading(false);
+    }, 2000);
   }
 
   // Function to cancel the order
   const cancelOrder = () => {
+
+    if ("vibrate" in navigator) {
+      // Vibrate the phone for 1000 milliseconds (1 second)
+      navigator.vibrate(100);
+    }
+
     toast('😒 Order Canceled!', {
       position: "bottom-right",
       autoClose: 5000,
@@ -371,6 +387,18 @@ const Cart = ({ cart, setCart }) => {
   return (
 
     <div>
+
+   {loading == true ?(
+
+<div className="loader-container" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+  <HashLoader color={'#F98820'} loading={loading} css={override} size={70} />
+</div>
+   ):(
+
+<div>
+  
+  
+
       {cart.length === 0 ? (
         <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
@@ -821,10 +849,22 @@ const Cart = ({ cart, setCart }) => {
       </Modal> */}
         </div>
       )}
+
+
+
+      </div>
+   )}
+
+
+
       <ToastContainer />
     </div>
 
   );
 }
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 export default Cart;
