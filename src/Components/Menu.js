@@ -20,6 +20,7 @@ import Carousel from 'react-material-ui-carousel';
 import MyCarousel  from './Caro.js'
 import Flat from './Flat.js';
 
+
 const Menu = ({ cart, setCart }) => {
   const navigate = useNavigate();
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
@@ -29,7 +30,10 @@ const Menu = ({ cart, setCart }) => {
 
   const handleOrderClick = async() => {
 
-
+    if ("vibrate" in navigator) {
+      // Vibrate the phone for 1000 milliseconds (1 second)
+      navigator.vibrate(100);
+    }
     setLoading(true);
 
     // Simulate a 2-second delay before setting orderPlaced to true
@@ -317,7 +321,7 @@ const Menu = ({ cart, setCart }) => {
   )}
 </div>
 
-      <div className="browse-menu-btnn">
+      <div className={`browse-menu-btnn ${cart.length>0 ? 'cart-open' : 'cart-close'}`}>
       <div className='btn-gradc' style={{ textDecoration: 'none', color: 'white', cursor: 'pointer' }} onClick={handleOrderClick}>
       <FaShoppingCart style={{ marginRight: '10px', fontSize: '16px' }} /> {/* Font Awesome cart icon */}
       Order

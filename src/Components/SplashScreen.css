@@ -14,7 +14,7 @@
     position: relative;
     width: 300px; /* Adjust the width and height for the size of the circle */
     height: 300px;
-    background-color: white; /* Set the background color to white */
+    background-color: #f8f9fa; /* Set the background color to white */
     border-radius: 50%; /* Create a circular shape */
     box-shadow: 0 0 10px 5px rgba(255, 136, 0, 0.5); 
     animation: bounce 0.8s infinite alternate;

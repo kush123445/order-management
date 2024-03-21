@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Chip } from '@mantine/core';
 import MyCarousel from './Caro';
+import { TbMoodKidFilled } from "react-icons/tb";
+import { MdLocalDining, MdRestaurant, MdChildFriendly } from 'react-icons/md'; 
+import { BiFoodTag } from "react-icons/bi";
+import { IoFastFoodOutline } from "react-icons/io5";
 
 const Flat = () => {
+  const [checkedItems, setCheckedItems] = useState({});
     const data = [
         { id: '1', title: '  Veg  ' },
         { id: '2', title: ' Non Veg ' },
@@ -11,10 +16,30 @@ const Flat = () => {
         { id: '5', title: ' Super snacks ' },
         // More items...
     ];
+    const iconMap = {
+      'Veg': <BiFoodTag />,
+      'Non Veg': <MdLocalDining />,
+      "Chef's Special": <MdRestaurant />,
+      'Kids Choice': <TbMoodKidFilled />,
+      'Super snacks': <IoFastFoodOutline />, // Adjust as needed
+    };
+    const iconMap1 = {
+      'Veg': { icon: <BiFoodTag />, color: 'green' },
+      'Non Veg': { icon: <MdLocalDining />, color: 'red' },
+      "Chef's Special": { icon: <MdRestaurant />, color: 'orange' },
+      'Kids Choice': { icon: <TbMoodKidFilled />, color: 'blue' },
+      'Super snacks': { icon: <IoFastFoodOutline />, color: 'purple' }, // Adjust as needed
+    };
     const [isSticky, setIsSticky] = useState(false);
     const lastItemRef = useRef(null);
     const flatListRef = useRef(null);
-
+    const handleToggle = (id) => {
+      // Toggle the checked state for the clicked chip
+      setCheckedItems((prevItems) => ({
+        ...prevItems,
+        [id]: !prevItems[id] || false,
+      }));
+    };
     useEffect(() => {
         const handleScroll = () => {
             const lastItemPosition = lastItemRef.current.getBoundingClientRect().bottom;
@@ -35,7 +60,7 @@ const Flat = () => {
     return (
         <div>
             {isSticky && (
-              <div style={{ width: '100%', height: '100px', backgroundColor: 'white', position: 'fixed', top: 0, zIndex: 1000 }}>
+              <div style={{ width: '100%', height: '120px', backgroundColor: 'white', position: 'fixed', top: 0, zIndex: 1000 }}>
               <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* Overlay */}
                 <div style={{
@@ -43,7 +68,7 @@ const Flat = () => {
                   top: 0,
                   left: 0,
                   width: '100%',
-                  height: '55%',
+                  height: '53%',
                   backgroundColor: 'rgba(0, 0, 0, 0.3)', // Semi-transparent black
                   zIndex: 2 // Ensure it's above other content
                 }}></div>
@@ -78,9 +103,10 @@ const Flat = () => {
                 {/* Flatlist */}
                 <div className='flatlist'>
                   {data.map((item, index) => (
-                    <div key={item.id} style={{ paddingBottom: '20px', margin: '0px 5px' }} >
-                      <Chip variant='light' default={true} color='#f98820'>
-                        {item.title}
+                    <div key={item.id} style={{ paddingBottom: '20px', margin: '0px 5px',color:'black',paddingTop:'3px' }} >
+                      <Chip variant='light'  color={iconMap1[item.title.trim()].color} checked={checkedItems[item.id] || false} 
+            onChange={() => handleToggle(item.id)} >
+                        {iconMap1[item.title.trim()].icon} {item.title}
                       </Chip>
                     </div>
                   ))}
@@ -105,8 +131,13 @@ const Flat = () => {
             >
                 {data.map((item, index) => (
                     <div key={item.id} style={{ margin: '10px 20px' }} ref={index === data.length - 1 ? lastItemRef : null}>
-                        <Chip variant='' defaultChecked color="#f98820">
-                            {item.title}
+                        <Chip variant='' color="#f98820"  defaultChecked icon={""}>
+                        {false ? item.title : (
+              <>
+                {iconMap1[item.title.trim()].icon} {item.title}
+              </>
+            )}
+                     
                         </Chip>
                     </div>
                 ))}

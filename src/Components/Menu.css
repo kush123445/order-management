@@ -45,7 +45,22 @@ body{
   text-decoration: none;
 }
 
-         
+.cart-close {
+  display: none;
+}
+.cart-open {
+  animation: jump 0.5s ease-in-out forwards ;
+ 
+}
+
+@keyframes jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-40px); /* Peak height */
+  }
+}       
 .btn-gradc {
   /* background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%); */
   background-color: #f98820;
@@ -179,8 +194,8 @@ body{
 
 .browse-menu-btn {
     position: fixed;
-    bottom: 20px;
-    right: 8px;
+    bottom:16px;
+    right: 10px;
     background-color: black;
     color: white;
     border: none;
@@ -233,8 +248,8 @@ body{
   
   .browse-menu-btn {
     position: fixed;
-    bottom: 25px;
-    right: 4px;
+    bottom: 19px;
+    right: 6px;
     background-color: #000000;
     color: white;
     border: none;
