@@ -1,0 +1,59 @@
+.request-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set height to full viewport height */
+  }
+  /* .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 24px;
+  } */
+  
+  .close-button:hover {
+    color: #ff0000; /* Change color on hover if needed */
+  }
+  
+  .request-form {
+    width: 359px;
+    padding: 11px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add box shadow */
+  }
+  .background-container {
+    width: 100%;
+    height: 100vh; /* Set height to full viewport height */
+    background-image: url('./pattern.jpg'); /* Replace 'path/to/your/image.jpg' with the path to your image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center contents horizontally */
+    align-items: center; /* Center contents vertically */
+  }
+  
+  
+  .form-title {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 32px; /* Increase font size for the heading */
+    color: #333333;
+  }
+  
+  .form-select {
+    margin-bottom: 20px;
+  }
+  
+  .form-text-input {
+    margin-bottom: 20px;
+  }
+  
+  .form-submit-button {
+    width: 100%;
+  }

@@ -5,7 +5,7 @@ import { HashLoader } from 'react-spinners';
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { FaAngleUp, FaAngleDown } from 'react-icons/fa';
+import { FaAngleUp, FaAngleDown ,FaPen} from 'react-icons/fa';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -23,6 +23,7 @@ import { FaGift } from 'react-icons/fa';
 // import  IconMessageDots  from '@tabler/icons-react';
 // import  IconGitBranch from '@tabler/icons-react';
 import { SwipeableButton } from "react-swipeable-button";
+import RequestForm from './Request';
 // import { IconArrowLeft } from '@tabler/icons-react';
 import boopSfx from './transition.mp3';
 import useSound from 'use-sound';
@@ -30,6 +31,7 @@ import useSound from 'use-sound';
 import { Chip, rem } from '@mantine/core';
 import { IconX } from '@tabler/icons-react'
 import Drawerr from 'react-modern-drawer'
+import DrawerR from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -65,6 +67,7 @@ const Cart = ({ cart, setCart }) => {
   // const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [chat, setchat] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState(true); // State for accordion open/close
   const [showCancelButton, setShowCancelButton] = useState(false);
   const [cancelTimer, setCancelTimer] = useState(10);
@@ -74,6 +77,7 @@ const Cart = ({ cart, setCart }) => {
   const [customize, setCustomize] = useState('');
   const [removedItems, setRemovedItems] = useState([]);
   const [expanded, setExpanded] = React.useState(false);
+  const [isOpenR, setIsOpenR] = React.useState(false)
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
   const navigate = useNavigate();
@@ -82,9 +86,17 @@ const Cart = ({ cart, setCart }) => {
     navigate("/home");
   };
 
+  const handleChipClickR = () => {
+  setIsOpenR(true)
+  console.error("h")
+  setIsOpenR(prev=>prev)
+  };
 
 
-
+  const toggleDrawerR = () => {
+    console.log("kgfjdhsbav")
+    setIsOpenR((prevState) => !prevState)
+}
 
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -201,12 +213,20 @@ const Cart = ({ cart, setCart }) => {
       setOrderPlaced(true);
       setShowCancelButton(false);
       setCancelTimer(10);
-
+      setchat(true)
+      setchat(prev=>prev)
       // Hide loader after 2 seconds
       setLoading(false);
     }, 2000);
+    
+    
   }
+  useEffect(() => {
+    console.log('Chat value changed:', chat);
 
+    if(chat==true){
+    setchat(true)}
+  }, [chat]);
   // Function to cancel the order
   const cancelOrder = () => {
 
@@ -486,6 +506,7 @@ const Cart = ({ cart, setCart }) => {
                         <Chip color="green" variant="light" defaultChecked checked={true} icon={<FaPlus />} fx={'md'} onClick={handleChipClick}>
                           Add More
                         </Chip>
+                        
                         <div className="itemkp">Total : <span style={{ color: 'darkslategrey', marginRight: '0px' }}>₹{totalPrice.toFixed(2)}</span> </div>
                       </li>
 
@@ -537,18 +558,29 @@ const Cart = ({ cart, setCart }) => {
                         <span>₹ {totalPrice}</span>
                       </li>
                       <li className="order-more invoice-total">
-                       
-                      <Chip color="#f98820" variant='light' icon={<FaPlus />} onClick={handleChipClick} >Order More</Chip>
+                      <Chip color="black" variant='filled' defaultChecked checked={true} icon={<FaPen />} onClick={handleChipClickR} >Request Page </Chip>
+                      <Chip color="green" variant='filled' defaultChecked icon={<FaPlus />} onClick={handleChipClick} >Order More</Chip>
+                     
                       </li>
                     </ul>
-
+                    <DrawerR
+                open={isOpenR}
+                onClose={toggleDrawerR}
+                direction='left'
+                className='bla bla bla'
+                size="100vw"
+            >
+                <RequestForm close={toggleDrawerR}/>
+            </DrawerR>
 
   <div style={{ marginBottom: '25px', marginTop: '2px', marginLeft: '7px' }}>
     <Text style={{ fontSize: '12px' }} c="dimmed" >
       <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
       Please note: The final bill includes additional charges such as taxes and GST.
     </Text>
+   
   </div>
+  
   </>
 
                   )}
@@ -585,6 +617,8 @@ const Cart = ({ cart, setCart }) => {
                   }
                 </>
               )}
+
+
               <div className="cart-total">
 
                 {/* {!orderPlaced && !showCancelButton && cart.length != 0 && (
@@ -747,6 +781,8 @@ const Cart = ({ cart, setCart }) => {
                         icon={<div className="circle-icon">2</div>}
                       />
                     </VerticalTimeline>
+                    
+
                   </>
 
                 )}
@@ -862,7 +898,10 @@ const Cart = ({ cart, setCart }) => {
         
       
       </Modal> */}
+     
+
             </div>
+            
           )}
 
 

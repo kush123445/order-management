@@ -1,0 +1,71 @@
+import React, { useState } from 'react';
+import { Container, Select, TextInput, Textarea,Button } from '@mantine/core';
+import './RequestForm.css'; // Import custom CSS file
+import { FaTimes } from 'react-icons/fa';
+
+const RequestForm = ({close}) => {
+  const [name, setName] = useState('');
+  const [queryType, setQueryType] = useState('');
+  const [queryDescription, setQueryDescription] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here, for example, send data to server
+    console.log('Form submitted with:', { name, queryType, queryDescription });
+  };
+
+  return (
+    <div className="background-container">
+    <div className="request-form-container"> {/* Add class for container */}
+    
+      <Container size="sm">
+    
+
+        <form onSubmit={handleSubmit} className="request-form">
+          <h2 className="form-title">Request Form</h2>
+          <TextInput
+            className="form-text-input"
+            label="Your Name"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+          />
+          <Select
+            className="form-select"
+            label="Type of Query"
+            placeholder="Select type"
+            data={[
+              { value: 'general', label: 'General Inquiry' },
+              { value: 'technical', label: 'Technical Support' },
+              { value: 'feedback', label: 'Feedback' },
+              { value: 'other', label: 'Other' },
+            ]}
+            value={queryType}
+            onChange={(value) => setQueryType(value)}
+            required
+          />
+          <Textarea
+            className="form-text-input"
+            label="Query Description"
+            placeholder="Enter your query here"
+            value={queryDescription}
+            onChange={(event) => setQueryDescription(event.target.value)}
+            required
+            multiline
+            rows={5} // Set number of rows to 5
+          />
+          <Button type="submit" className="form-submit-button">
+            Submit
+          </Button>
+          <Button style={{marginRight:'20px'}} onClick={close} className="form-submit-button">
+            Cancel
+          </Button>
+        </form>
+      </Container>
+    </div>
+    </div>
+  );
+};
+
+export default RequestForm;

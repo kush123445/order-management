@@ -536,7 +536,7 @@ html, body {
 
   .order-more {
     display: flex;
-    justify-content: end !important;
+    justify-content: space-between !important;
     padding: 10px;
     font-weight: bold;
   }
@@ -680,8 +680,35 @@ html, body {
     margin-left: 10px;
   }
   
+  @keyframes slideInFromBottom {
+    from {
+      top: 100%; /* Move the icon outside of the viewport */
+    }
+    to {
+      top: 20px; /* Move the icon to the desired position */
+    }
+  }
   
+  .chat-icon {
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    width: 50px; /* Adjust width and height as needed */
+    height: 50px;
+    background-color: #1f2021; /* Change the background color to your preferred color */
+    border-radius: 50%; /* Make it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Add cursor pointer to indicate interactivity */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    z-index: 99999; /* Set a high z-index to ensure visibility */
+    animation: slideInFromBottom  0.5s ease forwards; /* Apply slide-up animation */
+  }
   
+  .chat-icon i {
+    color: #ffffff; /* Change the icon color to white */
+  }
   
   
   .cooking-instructions {
