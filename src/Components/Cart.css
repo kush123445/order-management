@@ -47,9 +47,6 @@ html, body {
   animation: slideDown 2s ease forwards; /* Increase animation duration */
 }
 
-.flatlist {
-  /* Add your styles for flatlist */
-}
 
 /* Additional styles for the flatlist content */
 .flatlist > div {
@@ -57,9 +54,7 @@ html, body {
   margin: 0px 5px;
 }
 
-.flatlist .chip {
-  /* Add your styles for chip */
-}
+
 .flatlist {
   overflow-x: scroll;
   display: flex;
