@@ -173,6 +173,8 @@ const Menu = ({ cart, setCart }) => {
     localStorage.setItem('orderPlaced',JSON.stringify( cart));
   }
   },[cart])
+
+  // main return 
   return (
     <>
    {loading == true ?(
@@ -321,7 +323,9 @@ const Menu = ({ cart, setCart }) => {
   )}
 </div>
 
-      <div className={`browse-menu-btnn ${cart.length>0 ? 'cart-open' : 'cart-close'}`}>
+      {/* <div className={`browse-menu-btnn ${cart.length>0 ? 'cart-open' : 'cart-close'}`}> */}
+      <div className={`browse-menu-btnn cart-open`}>
+
       <div className='btn-gradc' style={{ textDecoration: 'none', color: 'white', cursor: 'pointer' }} onClick={handleOrderClick}>
       <FaShoppingCart style={{ marginRight: '10px', fontSize: '16px' }} /> {/* Font Awesome cart icon */}
       Order

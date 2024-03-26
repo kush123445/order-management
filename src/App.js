@@ -16,6 +16,8 @@ function App() {
   // }
 
   const [cart, setCart] = useState([]);
+  const [newCart, setNewCart] = useState([]);
+
 
   useEffect(()=>{
     if(localStorage.getItem('orderPlaced')){
@@ -29,7 +31,7 @@ function App() {
       <Routes>
       <Route path="/" element={<SplashScreen />} />
         <Route path="/home" element={<Menu cart={cart} setCart={setCart} />} />
-        <Route path="/cart" element={<Cart cart={cart}  setCart={setCart} />} />
+        <Route path="/cart" element={<Cart cart={cart}  setCart={setCart} newCart={newCart} setNewCart={setNewCart} />} />
       </Routes>
     </div>
   </Router>

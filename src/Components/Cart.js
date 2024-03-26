@@ -49,7 +49,7 @@ import { Watermark } from '@hirohe/react-watermark';
 
 //Modal.setAppElement('#root');
 
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [play] = useSound(boopSfx);
   const [opened, { open, close }] = useDisclosure(false);
   //const { width, height } = useWindowSize()
@@ -61,6 +61,8 @@ const Cart = ({ cart, setCart }) => {
 
 
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+
   const [isOpen, setIsOpen] = React.useState(false)
 
 
@@ -99,7 +101,7 @@ const Cart = ({ cart, setCart }) => {
 }
 
   // Calculate total price
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  // const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   // Function to handle increasing item quantity
   const toggleDrawer = () => {
@@ -207,6 +209,7 @@ const Cart = ({ cart, setCart }) => {
   };
   const ConfirmOrder = async () => {
     setLoading(true);
+    setOrderConfirmed(true);
 
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
@@ -252,6 +255,22 @@ const Cart = ({ cart, setCart }) => {
 
     // You might also want to clear the cart or take other actions related to canceling the order
   };
+  useEffect(()=>{
+    if(orderConfirmed==true){
+      if(cart!=""){
+    setNewCart((prev)=>[...prev,...cart]);
+      }
+    // setCart("");
+    }
+  },[orderConfirmed,, cart])
+  useEffect(()=>{
+    if(orderConfirmed==true){
+      // if(newCart!="" && cart!=""){
+    // setNewCart(cart);
+    setCart([]);
+      // }
+    }
+  },[orderConfirmed,, cart])
 
   const slideUpTransition = {
     in: { transform: 'translateY(0)' },
@@ -269,6 +288,7 @@ const Cart = ({ cart, setCart }) => {
           if (secondsElapsed === 10) {
             clearInterval(timerInterval);
             setShowCancelButton(false);
+      setOrderConfirmed(true);
             setAccordionOpen(!accordionOpen) // Clear the interval
             return prevTime;
           } else {
@@ -376,7 +396,13 @@ const Cart = ({ cart, setCart }) => {
     if (cart.length > 0) {
       localStorage.setItem('orderPlaced', JSON.stringify(cart));
     }
-  }, [cart])
+  }, [orderConfirmed,cart])
+  useEffect(() => {
+    // console.log("kushal", cart)
+    if (newCart.length > 0) {
+      localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
+    }
+  }, [orderConfirmed,cart])
 
   const saving = () => {
     close();
@@ -420,7 +446,7 @@ const Cart = ({ cart, setCart }) => {
 
 
 
-          {cart.length === 0 ? (
+          {(cart.length === 0  && newCart.length === 0) ? (
             <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
               <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '400px' }} />
@@ -435,7 +461,7 @@ const Cart = ({ cart, setCart }) => {
             <div className="cart-page" style={{ paddingBottom: '100px' }}>
 
 
-              {(!orderPlaced && !showCancelButton) && (
+              {(cart.length !== 0 && !orderPlaced && !showCancelButton) && (
 
 
 
@@ -472,16 +498,40 @@ const Cart = ({ cart, setCart }) => {
 
               {accordionOpen && (
                 <>
-                  {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
+                  {(cart.length!="" && !orderPlaced && !showCancelButton) || (cart.length!="" && orderPlaced && showCancelButton) ? (
                     <ul className="cart-items">
+                    {newCart.length!="" && newCart.map((item, index) => (
+                        <li key={index} style={{backgroundColor:"#f1f3f5", borderRadius:"5px",paddingLeft:"5px"}} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
+                          <div className="item-details">
+                            <p style={{ marginBottom: '0px' }} className="item-name">{item.name}</p>
+                            <p className="item-price"> ₹ {item.price}</p>
 
+                            {/* {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>} */}
+                          </div>
+                          <div className="quantity-actions">
+                            <div className='counterbox' style={{backgroundColor:"#f1f3f5"}} >
+                              <button className="quantity-btn" style={{color:"#ADB5BD"}} disabled onClick={() => decreaseQuantity(index)}>
+                                <FaMinus />
+                              </button>
+                              <span className="quantity" style={{color:"#ADB5BD"}}>{Math.max(item.quantity, 0)}</span>
+                              <button className="quantity-btn" style={{color:"#ADB5BD"}} disabled onClick={() => increaseQuantity(index)}>
+                                <FaPlus />
+                              </button>
+                            </div>
+
+                            <button className="delete-btn " disabled style={{ background: '#f1f3f5', border: 'none', color: "#ADB5BD", fontSize: "23px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+                              <MdDelete />
+                            </button>
+                          </div>
+                        </li>
+                      ))}
                       {cart.map((item, index) => (
                         <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
                           <div className="item-details">
                             <p style={{ marginBottom: '0px' }} className="item-name">{item.name}</p>
                             <p className="item-price"> ₹ {item.price}</p>
 
-                            {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
+                            {/* {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>} */}
                           </div>
                           <div className="quantity-actions">
                             <div className='counterbox' >
@@ -507,7 +557,7 @@ const Cart = ({ cart, setCart }) => {
                           Add More
                         </Chip>
                         
-                        <div className="itemkp">Total : <span style={{ color: 'darkslategrey', marginRight: '0px' }}>₹{totalPrice.toFixed(2)}</span> </div>
+                        <div className="itemkp">Total : <span style={{ color: 'darkslategrey', marginRight: '0px' }}>₹{cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span> </div>
                       </li>
 
 
@@ -534,7 +584,6 @@ const Cart = ({ cart, setCart }) => {
 <>
 
 
-
                     <ul className="invoice-list">
                       {
                         timelineOpen && (<p className="order-id">
@@ -546,7 +595,7 @@ const Cart = ({ cart, setCart }) => {
                         <span className="header-item">Quantity</span>
                         <span className="header-item">Price</span>
                       </li>
-                      {cart.map((item, index) => (
+                      {newCart.map((item, index) => (
                         <li key={index} className="invoice-item">
                           <span className="item-name">{item.name}</span>
                           <span className="item-quantity">{item.quantity}</span>
@@ -555,7 +604,7 @@ const Cart = ({ cart, setCart }) => {
                       ))}
                       <li className="invoice-total">
                         <span>Total:</span>
-                        <span>₹ {totalPrice}</span>
+                        <span>₹ {newCart.reduce((total, item) => total + item.price * item.quantity, 0)}</span>
                       </li>
                       <li className="order-more invoice-total">
                       <Chip color="black" variant='filled' defaultChecked checked={true} icon={<FaPen />} onClick={handleChipClickR} >Request Page </Chip>
@@ -644,7 +693,7 @@ const Cart = ({ cart, setCart }) => {
                         >
                           <SwipeableButton
                             onSuccess={placeOrder} //callback function
-                            text={'Slide to order | ₹ ' + `${totalPrice}`}//string 
+                            text={'Slide to order | ₹ ' + `${cart.reduce((total, item) => total + item.price * item.quantity, 0)}`}//string 
                             text_unlocked="yeee" //string
                             color="#f98820" //css hex color
                           />
