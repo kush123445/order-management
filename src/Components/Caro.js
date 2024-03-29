@@ -3,6 +3,7 @@ import Carousel from 'react-material-ui-carousel';
 import food from './food.jpg'; // Assuming this is the path to your image
 import pizza from './pizza.jpg';
 import bir from './bir.jpg';
+import pasta from './pasta.jpg';
 
 const MyCarousel = ({ height }) => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -33,6 +34,9 @@ const MyCarousel = ({ height }) => {
           </div>
           <div>
             <img src={bir} alt="Tea" style={{ width: '100%' }} />
+          </div>
+          <div>
+            <img src={pasta} alt="Tea" style={{ width: '100%' }} />
           </div>
         </Carousel>
       </div>
