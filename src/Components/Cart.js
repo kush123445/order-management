@@ -84,6 +84,16 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [isOpenR, setIsOpenR] = React.useState(false)
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
+  const [timelineData, setTimelineData] = useState([
+    {
+      date: "Order Placed",
+      orderAccepted: false
+    },
+    {
+      date: "Order Accepted",
+      orderAccepted: true
+    }
+  ]);
   const navigate = useNavigate();
 
 
@@ -99,7 +109,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   console.error("h")
   setIsOpenR(prev=>prev)
   };
-
+ 
 
   const toggleDrawerR = () => {
     console.log("kgfjdhsbav")
@@ -213,10 +223,18 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
       setRemovedItems([...removedItems, itemId]);
     }
   };
+
   const ConfirmOrder = async () => {
     setLoading(true);
     setOrderConfirmed(true);
+  
+if(timelineData.length!=0){
 
+  setTimelineData([...timelineData, {
+    date: "Add On",
+    orderAccepted: false
+  }]);
+}
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
       // lottieRef.goToAndPlay(2, false)
@@ -287,6 +305,10 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
           // Check if the elapsed time is 10 seconds
           if (secondsElapsed === 10) {
             clearInterval(timerInterval);
+            setTimelineData([...timelineData, {
+              date: "Add on 2",
+              orderAccepted: false
+            }]);
             setShowCancelButton(false);
       setOrderConfirmed(true);
             setAccordionOpen(!accordionOpen) // Clear the interval
@@ -335,6 +357,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     // setAccordionOpen(false) // Clear the interval
     const timer = setTimeout(() => {
       setOrderAccepted(true);
+      console.log("kushal khandelwal")
     }, 10000);
     return () => clearTimeout(timer);
   }
@@ -627,7 +650,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                 className='bla bla bla'
                 size="100vw"
             >
-                <RequestForm close={toggleDrawerR}/>
+                <RequestForm close={toggleDrawerR} setTimelineData={setTimelineData} timelineData={timelineData}/>
             </DrawerR>
 
   <div style={{ marginBottom: '25px', marginTop: '2px', marginLeft: '7px' }}>
@@ -777,8 +800,9 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
 
                     />
-                    <VerticalTimeline className="custom-timeline" lineColor={'lightgray'} >
-                      <VerticalTimelineElement
+                    <div className="vertical-timeline-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    <VerticalTimeline className="custom-timeline">
+                      {/* <VerticalTimelineElement
                         className=""
                         contentStyle={{ background: '#D0FFBC', color: '#333', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
                         contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
@@ -796,8 +820,20 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                         date="Order Accepted"
                         iconStyle={{ background: '#4CAF50', color: '#fff' }}
                         icon={<div className="circle-icon">2</div>}
-                      />
+                      /> */}
+  {timelineData.map((item, index) => (
+    <VerticalTimelineElement
+      key={index}
+      className=""
+      contentStyle={{ background: item.orderAccepted ? '#D0FFBC' : '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
+      contentArrowStyle={{ borderRight: item.orderAccepted ? '7px solid #4CAF50' : '7px solid transparent' }}
+      date={item.date}
+      iconStyle={{ background: '#4CAF50', color: '#fff' }}
+      icon={<div className="circle-icon">{index + 1}</div>}
+    />
+  ))}
                     </VerticalTimeline>
+                    </div>
                     
 
                   </>

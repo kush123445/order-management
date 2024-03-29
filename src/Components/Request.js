@@ -3,7 +3,7 @@ import { Container, Select, TextInput, Textarea,Button } from '@mantine/core';
 import './RequestForm.css'; // Import custom CSS file
 import { FaTimes } from 'react-icons/fa';
 
-const RequestForm = ({close}) => {
+const RequestForm = ({close,setTimelineData,timelineData}) => {
   const [name, setName] = useState('');
   const [queryType, setQueryType] = useState('');
   const [queryDescription, setQueryDescription] = useState('');
@@ -12,6 +12,10 @@ const RequestForm = ({close}) => {
     e.preventDefault();
     // Handle form submission here, for example, send data to server
     console.log('Form submitted with:', { name, queryType, queryDescription });
+    setTimelineData([...timelineData, {
+      date: "request Generated",
+      orderAccepted: false
+    }]);
   };
 
   return (
@@ -55,10 +59,10 @@ const RequestForm = ({close}) => {
             multiline
             rows={5} // Set number of rows to 5
           />
-          <Button type="submit" className="form-submit-button">
+          <Button  variant ='filled' type="submit" className="form-submit-button" style={{marginRight:'25px'}}>
             Submit
           </Button>
-          <Button style={{marginRight:'20px'}} onClick={close} className="form-submit-button">
+          <Button variant='light' style={{marginRight:'20px'}} onClick={close} className="form-submit-button">
             Cancel
           </Button>
         </form>
