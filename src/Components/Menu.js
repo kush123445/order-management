@@ -19,6 +19,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import Carousel from 'react-material-ui-carousel';
 import MyCarousel  from './Caro.js'
 import Flat from './Flat.js';
+import Lottie from "lottie-react";
+import jj from "./jj.json";
 
 
 const Menu = ({ cart, setCart }) => {
@@ -40,7 +42,7 @@ const Menu = ({ cart, setCart }) => {
    await setTimeout(() => {
     navigate('/cart');
     setLoading(false)
-    }, 2000);
+    }, 3000);
    
   };
 
@@ -173,20 +175,23 @@ const Menu = ({ cart, setCart }) => {
     localStorage.setItem('orderPlaced',JSON.stringify( cart));
   }
   },[cart])
+
+  // main return 
   return (
     <>
    {loading == true ?(
 
 <div className="loader-container" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-  <HashLoader
- color={'#F98820'} loading={loading} css={override} size={70} />
+  {/* <HashLoader
+ color={'#F98820'} loading={loading} css={override} size={70} /> */}
+ <Lottie animationData={jj} loop={true}  style={{ height: "400px" , width:"400px"}}/>
 </div>
    ):(
 
 <div>
 
 
-<MyCarousel />
+<MyCarousel  />
 <Flat />
   
     <div className="menu-container" style={{paddingBottom:'80px'}}>
@@ -321,7 +326,9 @@ const Menu = ({ cart, setCart }) => {
   )}
 </div>
 
-      <div className={`browse-menu-btnn ${cart.length>0 ? 'cart-open' : 'cart-close'}`}>
+      {/* <div className={`browse-menu-btnn ${cart.length>0 ? 'cart-open' : 'cart-close'}`}> */}
+      <div className={`browse-menu-btnn cart-open`}>
+
       <div className='btn-gradc' style={{ textDecoration: 'none', color: 'white', cursor: 'pointer' }} onClick={handleOrderClick}>
       <FaShoppingCart style={{ marginRight: '10px', fontSize: '16px' }} /> {/* Font Awesome cart icon */}
       Order

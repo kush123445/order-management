@@ -1,11 +1,12 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './SplashScreen.css'; // Import CSS file for styling
-import burger from './burger.png'
+import ui from './ui.png'
 import { PropagateLoader
 } from 'react-spinners';
 import { css } from '@emotion/react';
 import { TypeAnimation } from 'react-type-animation';
+import burger from "./burger.png"
 
 const SplashScreen = () => {
   const navigate = useNavigate(); // Use useNavigate for navigation
@@ -19,12 +20,12 @@ const SplashScreen = () => {
 
     return () => clearTimeout(timeout); // Cleanup the timeout to prevent memory leaks
   }, [navigate]);
-{/* <img src={burger} alt="Logo" className="logo" />
+// { <img src={burger} alt="Logo" className="logo" />
 
 
-<div className="loader-container" style={{paddingLeft:'10px'}}>
-  <PropagateLoader color={'#F98820'} loading={loading} size={30} />
-</div> */}
+// <div className="loader-container" style={{paddingLeft:'10px'}}>
+//   <PropagateLoader color={'#F98820'} loading={loading} size={30} />
+// </div> }
 
   return (
     <div className="splash-screen">
@@ -49,6 +50,11 @@ const SplashScreen = () => {
     </div>
     
   </div>
+  // <div style={{ backgroundColor: 'orange', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  //   <div style={{ fontSize: '0.2rem' }}><img  src={ui} alt="Logo"  /></div>
+  //   <div> <h1 style={{ color: 'white', fontSize: '3rem' }}>Order karo</h1></div>
+      
+    // </div>
   );
 };
 

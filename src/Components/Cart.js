@@ -39,6 +39,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'intersection-observer';
 //import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
+import Lottie from "lottie-react";
+import ff from "./ff.json";
 
 import {
   useWindowSize,
@@ -49,7 +51,7 @@ import { Watermark } from '@hirohe/react-watermark';
 
 //Modal.setAppElement('#root');
 
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [play] = useSound(boopSfx);
   const [opened, { open, close }] = useDisclosure(false);
   //const { width, height } = useWindowSize()
@@ -61,6 +63,8 @@ const Cart = ({ cart, setCart }) => {
 
 
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+
   const [isOpen, setIsOpen] = React.useState(false)
 
 
@@ -82,6 +86,10 @@ const Cart = ({ cart, setCart }) => {
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
   const navigate = useNavigate();
 
+
+  const lottieRef = useRef();
+
+
   const handleChipClick = () => {
     navigate("/home");
   };
@@ -99,7 +107,7 @@ const Cart = ({ cart, setCart }) => {
 }
 
   // Calculate total price
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  // const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   // Function to handle increasing item quantity
   const toggleDrawer = () => {
@@ -207,9 +215,11 @@ const Cart = ({ cart, setCart }) => {
   };
   const ConfirmOrder = async () => {
     setLoading(true);
+    setOrderConfirmed(true);
 
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
+      // lottieRef.goToAndPlay(2, false)
       setOrderPlaced(true);
       setShowCancelButton(false);
       setCancelTimer(10);
@@ -221,6 +231,16 @@ const Cart = ({ cart, setCart }) => {
     
     
   }
+
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+
+    // animationData: animationData,
+    // rendererSettings: {
+    //   preserveAspectRatio: "xMidYMid slice"
+    // }
+  // };
   useEffect(() => {
     console.log('Chat value changed:', chat);
 
@@ -252,7 +272,6 @@ const Cart = ({ cart, setCart }) => {
 
     // You might also want to clear the cart or take other actions related to canceling the order
   };
-
   const slideUpTransition = {
     in: { transform: 'translateY(0)' },
     out: { transform: 'translateY(100%)' },
@@ -269,6 +288,7 @@ const Cart = ({ cart, setCart }) => {
           if (secondsElapsed === 10) {
             clearInterval(timerInterval);
             setShowCancelButton(false);
+      setOrderConfirmed(true);
             setAccordionOpen(!accordionOpen) // Clear the interval
             return prevTime;
           } else {
@@ -311,16 +331,6 @@ const Cart = ({ cart, setCart }) => {
 
   const [orderAccepted, setOrderAccepted] = useState(false);
 
-  // Use useEffect to set a timeout after the component mounts
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     // After 10 seconds, update the state to indicate that the order is accepted
-  //     setOrderAccepted(true);
-  //   }, 10000);
-
-  //   // Clear the timer on component unmount to prevent memory leaks
-  //   return () => clearTimeout(timer);
-  // }, []);
   const orderAcceptedfn = () => {
     // setAccordionOpen(false) // Clear the interval
     const timer = setTimeout(() => {
@@ -371,12 +381,35 @@ const Cart = ({ cart, setCart }) => {
     }
   }, [orderPlaced, showCancelButton]);
 
-  useEffect(() => {
-    // console.log("kushal", cart)
-    if (cart.length > 0) {
-      localStorage.setItem('orderPlaced', JSON.stringify(cart));
+  useEffect(()=>{
+    if(orderConfirmed==true){
+      if(cart!=""){
+    setNewCart((prev)=>[...prev,...cart]);
+      }
+    // setCart("");
     }
-  }, [cart])
+  },[orderConfirmed,cart])
+  useEffect(()=>{
+    if(orderConfirmed==true){
+      // if(newCart!="" && cart!=""){
+    // setNewCart(cart);
+    setCart([]);
+      // }
+    }
+  },[orderConfirmed,cart])
+  useEffect(() => {
+    if (cart.length > 0 && orderConfirmed!=true) {
+      localStorage.setItem('orderPlaced', JSON.stringify(cart));
+    }else if (cart.length !=0 && orderConfirmed==true){
+      localStorage.setItem('orderPlaced', JSON.stringify([]));
+        
+    }
+  }, [orderConfirmed,cart])
+  useEffect(() => {
+    if (newCart.length > 0) {
+      localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
+    }
+  }, [orderConfirmed,cart])
 
   const saving = () => {
     close();
@@ -412,7 +445,8 @@ const Cart = ({ cart, setCart }) => {
       {loading == true ? (
 
         <div className="loader-container" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <HashLoader color={'#F98820'} loading={loading} css={override} size={70} />
+          {/* <HashLoader color={'#F98820'} loading={loading} css={override} size={70} /> */}
+          <Lottie animationData={ff} loop={true} style={{height:"900px",width:"900px"}}  goTOAndPlay/>
         </div>
       ) : (
 
@@ -420,7 +454,7 @@ const Cart = ({ cart, setCart }) => {
 
 
 
-          {cart.length === 0 ? (
+          {(cart.length === 0  && newCart.length === 0) ? (
             <div className="center-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 
               <img src={emptyCartSvg} alt="Empty Cart" style={{ width: '400px', height: '400px' }} />
@@ -435,7 +469,7 @@ const Cart = ({ cart, setCart }) => {
             <div className="cart-page" style={{ paddingBottom: '100px' }}>
 
 
-              {(!orderPlaced && !showCancelButton) && (
+              {(cart.length !== 0 && !orderPlaced && !showCancelButton) && (
 
 
 
@@ -472,16 +506,40 @@ const Cart = ({ cart, setCart }) => {
 
               {accordionOpen && (
                 <>
-                  {(!orderPlaced && !showCancelButton) || (orderPlaced && showCancelButton) ? (
+                  {(cart.length!="" && !orderPlaced && !showCancelButton) || (cart.length!="" && orderPlaced && showCancelButton) ? (
                     <ul className="cart-items">
+                    {newCart.length!="" && newCart.map((item, index) => (
+                        <li key={index} style={{backgroundColor:"#f1f3f5", borderRadius:"5px",paddingLeft:"5px"}} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
+                          <div className="item-details">
+                            <p style={{ marginBottom: '0px' }} className="item-name">{item.name}</p>
+                            <p className="item-price"> ₹ {item.price}</p>
 
+                            {/* {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>} */}
+                          </div>
+                          <div className="quantity-actions">
+                            <div className='counterbox' style={{backgroundColor:"#f1f3f5"}} >
+                              <button className="quantity-btn" style={{color:"#ADB5BD"}} disabled onClick={() => decreaseQuantity(index)}>
+                                <FaMinus />
+                              </button>
+                              <span className="quantity" style={{color:"#ADB5BD"}}>{Math.max(item.quantity, 0)}</span>
+                              <button className="quantity-btn" style={{color:"#ADB5BD"}} disabled onClick={() => increaseQuantity(index)}>
+                                <FaPlus />
+                              </button>
+                            </div>
+
+                            <button className="delete-btn " disabled style={{ background: '#f1f3f5', border: 'none', color: "#ADB5BD", fontSize: "23px" }} onClick={() => { toggleStrikeThrough(item.id); setTimeout(() => deleteItem(index), 500); }}>
+                              <MdDelete />
+                            </button>
+                          </div>
+                        </li>
+                      ))}
                       {cart.map((item, index) => (
                         <li key={index} className={`cart-item ${removedItems.includes(item.id) ? 'removed' : ''}`}>
                           <div className="item-details">
                             <p style={{ marginBottom: '0px' }} className="item-name">{item.name}</p>
                             <p className="item-price"> ₹ {item.price}</p>
 
-                            {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>}
+                            {/* {!isDialogOpen && item.instruction && <div className='cooking-instructions'>{item.instruction}</div>} */}
                           </div>
                           <div className="quantity-actions">
                             <div className='counterbox' >
@@ -507,7 +565,7 @@ const Cart = ({ cart, setCart }) => {
                           Add More
                         </Chip>
                         
-                        <div className="itemkp">Total : <span style={{ color: 'darkslategrey', marginRight: '0px' }}>₹{totalPrice.toFixed(2)}</span> </div>
+                        <div className="itemkp">Total : <span style={{ color: 'darkslategrey', marginRight: '0px' }}>₹{cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</span> </div>
                       </li>
 
 
@@ -534,7 +592,6 @@ const Cart = ({ cart, setCart }) => {
 <>
 
 
-
                     <ul className="invoice-list">
                       {
                         timelineOpen && (<p className="order-id">
@@ -546,7 +603,7 @@ const Cart = ({ cart, setCart }) => {
                         <span className="header-item">Quantity</span>
                         <span className="header-item">Price</span>
                       </li>
-                      {cart.map((item, index) => (
+                      {newCart.map((item, index) => (
                         <li key={index} className="invoice-item">
                           <span className="item-name">{item.name}</span>
                           <span className="item-quantity">{item.quantity}</span>
@@ -555,7 +612,7 @@ const Cart = ({ cart, setCart }) => {
                       ))}
                       <li className="invoice-total">
                         <span>Total:</span>
-                        <span>₹ {totalPrice}</span>
+                        <span>₹ {newCart.reduce((total, item) => total + item.price * item.quantity, 0)}</span>
                       </li>
                       <li className="order-more invoice-total">
                       <Chip color="black" variant='filled' defaultChecked checked={true} icon={<FaPen />} onClick={handleChipClickR} >Request Page </Chip>
@@ -644,7 +701,7 @@ const Cart = ({ cart, setCart }) => {
                         >
                           <SwipeableButton
                             onSuccess={placeOrder} //callback function
-                            text={'Slide to order | ₹ ' + `${totalPrice}`}//string 
+                            text={'Slide to order | ₹ ' + `${cart.reduce((total, item) => total + item.price * item.quantity, 0)}`}//string 
                             text_unlocked="yeee" //string
                             color="#f98820" //css hex color
                           />
@@ -656,11 +713,6 @@ const Cart = ({ cart, setCart }) => {
                     </Card>
                  
                   </div>
-                  //  <Button 
-                  //  variant="gradient"
-                  //  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-                  //  fullWidth onClick={placeOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
-
                 )}
 
 
@@ -683,21 +735,14 @@ const Cart = ({ cart, setCart }) => {
                         duration={10}
                         colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                         colorsTime={[7, 5, 2, 0]}
-                        size={45} // Adjust the size as needed
-                        strokeWidth={5} // Adjust the stroke width as needed
+                        size={45}
+                        strokeWidth={5} 
                         style={{ marginRight: '10px' }}
                       >
                         {({ remainingTime }) => remainingTime}
                       </CountdownCircleTimer>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '15px', marginBottom: '15px' }}>
-                      {/* <Button variant="outline" className="" onClick={ConfirmOrder} style={{
-                      height: '45px',
-                      marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'green'
-                    }} fullWidth >
-
-                      Confirm Order
-                    </Button> */}
 
                       <Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
                         Cancel Order
@@ -707,12 +752,6 @@ const Cart = ({ cart, setCart }) => {
                       <Chip variant='' defaultChecked color="green" onClick={ConfirmOrder}>
                         Confirm Order
                       </Chip>
-                      {/* <Button variant="outline" className="" onClick={cancelOrder} style={{
-                      height: '45px',marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'red'
-                    }} fullWidth >
-
-                      Cancel Order
-                    </Button> */}
 
                     </div>
 
@@ -722,22 +761,8 @@ const Cart = ({ cart, setCart }) => {
                   </Drawerr>
 
 
-                  // <Drawer opened={openedc} onClose={closec} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>
-
-                  //   <Divider my="md" /> {/* Add a divider to separate input from buttons */}
-                  //   <Group position="right">
-
-
-
-
-                  //   </Group>
-                  // </Drawer>
-
-
 
                 )}
-
-                {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
 
                 {orderPlaced && timelineOpen && (
 
@@ -762,14 +787,6 @@ const Cart = ({ cart, setCart }) => {
                         icon={<div className="circle-icon">1</div>}
                         lineColor={'black'}
                       />
-                      {/* <VerticalTimelineElement
-                    className=""
-                    contentStyle={{ background: '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
-                    contentArrowStyle={{ borderRight: '7px solid #4CAF50' }}
-                    date="Order Accepted"
-                    iconStyle={{ background: '#4CAF50', color: '#fff' }}
-                    icon={<div className="circle-icon">2</div>}
-                  /> */}
 
 
                       <VerticalTimelineElement
@@ -787,24 +804,6 @@ const Cart = ({ cart, setCart }) => {
 
                 )}
               </div>
-              {/* <Modal
-        isOpen={isDialogOpen}
-        onRequestClose={() => setIsDialogOpen(false)}
-        contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
-        className="modal" 
-      >
-        <h3>{`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}</h3>
-        <input
-          type="text"
-          value={dialogInput}
-          onChange={(e) => setDialogInput(e.target.value)}
-          placeholder="Enter cooking instructions..."
-        />
-        <button onClick={saveCookingInstructions} disabled={!dialogInput || !dialogInput.trim()}>Save</button>
-        <button onClick={clearCookingInstructions}>Clear</button>
-        <button onClick={()=>setIsDialogOpen(false)}>Close</button>
-      
-      </Modal> */}
 
               <Drawer opened={opened} onClose={close} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>
                 <Textarea
@@ -838,69 +837,7 @@ const Cart = ({ cart, setCart }) => {
                   </Button>
                 </Group>
               </Drawer>
-
-
-              {/*<Modal
-      opened={opened}
-      onClose={close}
-      title="Focus demo"
-      transition={slideUpTransition}
-      // Additional styling for a more polished look
-      overlayColor="rgba(0, 0, 0, 0.5)" // Semi-transparent overlay
-      padding="md" // Add moderate padding
-      radius="md" // Rounded corners
-      style={{  position: 'absolute', bottom: 0, left: 0, right: 0 ,backgroundColor:"red"} }
-      transitionProps={{ transition: 'slide-up' }}
-    
-    >
-      <TextInput
-        data-autofocus
-        label="Input with initial focus"
-        placeholder="Enter cooking instructions..."
-        value={customize}
-        onChange={(e) => setCustomize(e.target.value)}
-        multiline // Allow multiple lines of text
-        minHeight={150} // Set a minimum height for better visibility
-        variant="filled" // Use the filled variant for a cleaner look
-      />
-      <Divider my="md" /> /* Add a divider to separate input from buttons 
-      <Group position="right">
-        <Button onClick={clearInstructions} variant="outline">
-          Clear
-        </Button>
-        <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button>
-        <Button type="submit" variant="gradient">
-          Save
-        </Button>
-      </Group>
-    </Modal>*/}
-              {/* <Modal
-        isOpen={isDialogOpeninstruction}
-        onRequestClose={() => setisDialogOpeninstruction(false)}
-        // contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
-        className="modal" 
-      >
-        <h3>{`Add Customise Instructions `}</h3>
-        <div>
-        <textarea
-          length="5"
-          type="text"
-          value={customize}
-          onChange={(e) => setCustomize(e.target.value)}
-          placeholder="Enter cooking instructions..."
-        />
-        </div>
-        <div>
-        <button onClick={()=>setisDialogOpeninstruction(false)}>Save</button>
-        <button onClick={clearInstructions}>Clear</button>
-        <button onClick={()=>setisDialogOpeninstruction(false)}>Close</button>
-        </div>
-        
-      
-      </Modal> */}
-     
-
-            </div>
+</div>
             
           )}
 
