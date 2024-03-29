@@ -39,6 +39,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'intersection-observer';
 //import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
+import Lottie from "lottie-react";
+import ff from "./ff.json";
 
 import {
   useWindowSize,
@@ -83,6 +85,10 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
   const navigate = useNavigate();
+
+
+  const lottieRef = useRef();
+
 
   const handleChipClick = () => {
     navigate("/home");
@@ -213,6 +219,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
+      // lottieRef.goToAndPlay(2, false)
       setOrderPlaced(true);
       setShowCancelButton(false);
       setCancelTimer(10);
@@ -224,6 +231,16 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     
     
   }
+
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+
+    // animationData: animationData,
+    // rendererSettings: {
+    //   preserveAspectRatio: "xMidYMid slice"
+    // }
+  // };
   useEffect(() => {
     console.log('Chat value changed:', chat);
 
@@ -255,23 +272,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
     // You might also want to clear the cart or take other actions related to canceling the order
   };
-  useEffect(()=>{
-    if(orderConfirmed==true){
-      if(cart!=""){
-    setNewCart((prev)=>[...prev,...cart]);
-      }
-    // setCart("");
-    }
-  },[orderConfirmed,, cart])
-  useEffect(()=>{
-    if(orderConfirmed==true){
-      // if(newCart!="" && cart!=""){
-    // setNewCart(cart);
-    setCart([]);
-      // }
-    }
-  },[orderConfirmed,, cart])
-
   const slideUpTransition = {
     in: { transform: 'translateY(0)' },
     out: { transform: 'translateY(100%)' },
@@ -331,16 +331,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
   const [orderAccepted, setOrderAccepted] = useState(false);
 
-  // Use useEffect to set a timeout after the component mounts
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     // After 10 seconds, update the state to indicate that the order is accepted
-  //     setOrderAccepted(true);
-  //   }, 10000);
-
-  //   // Clear the timer on component unmount to prevent memory leaks
-  //   return () => clearTimeout(timer);
-  // }, []);
   const orderAcceptedfn = () => {
     // setAccordionOpen(false) // Clear the interval
     const timer = setTimeout(() => {
@@ -391,14 +381,31 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     }
   }, [orderPlaced, showCancelButton]);
 
+  useEffect(()=>{
+    if(orderConfirmed==true){
+      if(cart!=""){
+    setNewCart((prev)=>[...prev,...cart]);
+      }
+    // setCart("");
+    }
+  },[orderConfirmed,cart])
+  useEffect(()=>{
+    if(orderConfirmed==true){
+      // if(newCart!="" && cart!=""){
+    // setNewCart(cart);
+    setCart([]);
+      // }
+    }
+  },[orderConfirmed,cart])
   useEffect(() => {
-    // console.log("kushal", cart)
-    if (cart.length > 0) {
+    if (cart.length > 0 && orderConfirmed!=true) {
       localStorage.setItem('orderPlaced', JSON.stringify(cart));
+    }else if (cart.length !=0 && orderConfirmed==true){
+      localStorage.setItem('orderPlaced', JSON.stringify([]));
+        
     }
   }, [orderConfirmed,cart])
   useEffect(() => {
-    // console.log("kushal", cart)
     if (newCart.length > 0) {
       localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
     }
@@ -438,7 +445,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
       {loading == true ? (
 
         <div className="loader-container" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <HashLoader color={'#F98820'} loading={loading} css={override} size={70} />
+          {/* <HashLoader color={'#F98820'} loading={loading} css={override} size={70} /> */}
+          <Lottie animationData={ff} loop={true} style={{height:"900px",width:"900px"}}  goTOAndPlay/>
         </div>
       ) : (
 
@@ -705,11 +713,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     </Card>
                  
                   </div>
-                  //  <Button 
-                  //  variant="gradient"
-                  //  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-                  //  fullWidth onClick={placeOrder} style={{ height:'55px',position: 'fixed', bottom: '00px', left: '50%', transform: 'translateX(-50%)', zIndex: '999' }}>Place Order</Button>
-
                 )}
 
 
@@ -732,21 +735,14 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                         duration={10}
                         colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                         colorsTime={[7, 5, 2, 0]}
-                        size={45} // Adjust the size as needed
-                        strokeWidth={5} // Adjust the stroke width as needed
+                        size={45}
+                        strokeWidth={5} 
                         style={{ marginRight: '10px' }}
                       >
                         {({ remainingTime }) => remainingTime}
                       </CountdownCircleTimer>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '15px', marginBottom: '15px' }}>
-                      {/* <Button variant="outline" className="" onClick={ConfirmOrder} style={{
-                      height: '45px',
-                      marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'green'
-                    }} fullWidth >
-
-                      Confirm Order
-                    </Button> */}
 
                       <Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
                         Cancel Order
@@ -756,12 +752,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                       <Chip variant='' defaultChecked color="green" onClick={ConfirmOrder}>
                         Confirm Order
                       </Chip>
-                      {/* <Button variant="outline" className="" onClick={cancelOrder} style={{
-                      height: '45px',marginBottom: '10px', zIndex: '999', border: '1px solid green', color: 'red'
-                    }} fullWidth >
-
-                      Cancel Order
-                    </Button> */}
 
                     </div>
 
@@ -771,22 +761,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                   </Drawerr>
 
 
-                  // <Drawer opened={openedc} onClose={closec} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>
-
-                  //   <Divider my="md" /> {/* Add a divider to separate input from buttons */}
-                  //   <Group position="right">
-
-
-
-
-                  //   </Group>
-                  // </Drawer>
-
-
 
                 )}
-
-                {/* {!isDialogOpeninstruction && <div className='cooking-instructions'>{customize}</div>} */}
 
                 {orderPlaced && timelineOpen && (
 
@@ -811,14 +787,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                         icon={<div className="circle-icon">1</div>}
                         lineColor={'black'}
                       />
-                      {/* <VerticalTimelineElement
-                    className=""
-                    contentStyle={{ background: '#f0f0f0', color: 'black', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}
-                    contentArrowStyle={{ borderRight: '7px solid #4CAF50' }}
-                    date="Order Accepted"
-                    iconStyle={{ background: '#4CAF50', color: '#fff' }}
-                    icon={<div className="circle-icon">2</div>}
-                  /> */}
 
 
                       <VerticalTimelineElement
@@ -836,24 +804,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
                 )}
               </div>
-              {/* <Modal
-        isOpen={isDialogOpen}
-        onRequestClose={() => setIsDialogOpen(false)}
-        contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
-        className="modal" 
-      >
-        <h3>{`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}</h3>
-        <input
-          type="text"
-          value={dialogInput}
-          onChange={(e) => setDialogInput(e.target.value)}
-          placeholder="Enter cooking instructions..."
-        />
-        <button onClick={saveCookingInstructions} disabled={!dialogInput || !dialogInput.trim()}>Save</button>
-        <button onClick={clearCookingInstructions}>Clear</button>
-        <button onClick={()=>setIsDialogOpen(false)}>Close</button>
-      
-      </Modal> */}
 
               <Drawer opened={opened} onClose={close} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>
                 <Textarea
@@ -887,69 +837,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                   </Button>
                 </Group>
               </Drawer>
-
-
-              {/*<Modal
-      opened={opened}
-      onClose={close}
-      title="Focus demo"
-      transition={slideUpTransition}
-      // Additional styling for a more polished look
-      overlayColor="rgba(0, 0, 0, 0.5)" // Semi-transparent overlay
-      padding="md" // Add moderate padding
-      radius="md" // Rounded corners
-      style={{  position: 'absolute', bottom: 0, left: 0, right: 0 ,backgroundColor:"red"} }
-      transitionProps={{ transition: 'slide-up' }}
-    
-    >
-      <TextInput
-        data-autofocus
-        label="Input with initial focus"
-        placeholder="Enter cooking instructions..."
-        value={customize}
-        onChange={(e) => setCustomize(e.target.value)}
-        multiline // Allow multiple lines of text
-        minHeight={150} // Set a minimum height for better visibility
-        variant="filled" // Use the filled variant for a cleaner look
-      />
-      <Divider my="md" /> /* Add a divider to separate input from buttons 
-      <Group position="right">
-        <Button onClick={clearInstructions} variant="outline">
-          Clear
-        </Button>
-        <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button>
-        <Button type="submit" variant="gradient">
-          Save
-        </Button>
-      </Group>
-    </Modal>*/}
-              {/* <Modal
-        isOpen={isDialogOpeninstruction}
-        onRequestClose={() => setisDialogOpeninstruction(false)}
-        // contentLabel={`Add Cooking Instructions for ${currentItem ? currentItem.name : ''} `}
-        className="modal" 
-      >
-        <h3>{`Add Customise Instructions `}</h3>
-        <div>
-        <textarea
-          length="5"
-          type="text"
-          value={customize}
-          onChange={(e) => setCustomize(e.target.value)}
-          placeholder="Enter cooking instructions..."
-        />
-        </div>
-        <div>
-        <button onClick={()=>setisDialogOpeninstruction(false)}>Save</button>
-        <button onClick={clearInstructions}>Clear</button>
-        <button onClick={()=>setisDialogOpeninstruction(false)}>Close</button>
-        </div>
-        
-      
-      </Modal> */}
-     
-
-            </div>
+</div>
             
           )}
 

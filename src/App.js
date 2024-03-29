@@ -25,6 +25,12 @@ function App() {
         }
     
   },[])
+  useEffect(()=>{
+    if(localStorage.getItem('orderConfirmed')){
+      setNewCart(JSON.parse(localStorage.getItem('orderConfirmed')));
+        }
+    
+  },[])
   return (
     <Router>
     <div>

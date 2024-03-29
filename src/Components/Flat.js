@@ -10,26 +10,13 @@ const Flat = () => {
   const [checkedItems, setCheckedItems] = useState({});
     const data = [
         { id: '1', title: '  Veg  ' },
-        { id: '2', title: ' Non Veg ' },
-        { id: '3', title: " Chef's Special " },
-        { id: '4', title: ' Kids Choice ' },
-        { id: '5', title: ' Super snacks ' },
-        // More items...
+        { id: '2', title: ' Non Veg ' }
     ];
-    const iconMap = {
-      'Veg': <BiFoodTag />,
-      'Non Veg': <MdLocalDining />,
-      "Chef's Special": <MdRestaurant />,
-      'Kids Choice': <TbMoodKidFilled />,
-      'Super snacks': <IoFastFoodOutline />, // Adjust as needed
-    };
     const iconMap1 = {
       'Veg': { icon: <BiFoodTag />, color: 'green' },
       'Non Veg': { icon: <MdLocalDining />, color: 'red' },
-      "Chef's Special": { icon: <MdRestaurant />, color: 'orange' },
-      'Kids Choice': { icon: <TbMoodKidFilled />, color: 'blue' },
-      'Super snacks': { icon: <IoFastFoodOutline />, color: 'purple' }, // Adjust as needed
     };
+    
     const [isSticky, setIsSticky] = useState(false);
     const lastItemRef = useRef(null);
     const flatListRef = useRef(null);
@@ -130,17 +117,13 @@ const Flat = () => {
                 }}
             >
                 {data.map((item, index) => (
-                    <div key={item.id} style={{ margin: '10px 20px' }} ref={index === data.length - 1 ? lastItemRef : null}>
-                        <Chip variant='' color="#f98820"  defaultChecked icon={""}>
-                        {false ? item.title : (
-              <>
-                {iconMap1[item.title.trim()].icon} {item.title}
-              </>
-            )}
-                     
-                        </Chip>
+                    <div key={item.id} style={{ paddingBottom: '20px', margin: '0px 5px',color:'black',paddingTop:'3px' }} ref={index === data.length - 1 ? lastItemRef : null}>
+                      <Chip variant='light'  color={iconMap1[item.title.trim()].color} checked={checkedItems[item.id] || false} 
+            onChange={() => handleToggle(item.id)} >
+                        {iconMap1[item.title.trim()].icon} {item.title}
+                      </Chip>
                     </div>
-                ))}
+                  ))}
             </div>
         </div>
     );
