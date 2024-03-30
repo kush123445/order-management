@@ -393,7 +393,7 @@ body{
     /* vmvvm  */
     overflow-y: auto;
     z-index: 1;
-    background-image: linear-gradient(to right, #fd746c 0%, #ff9068  61%);
+    background-image: linear-gradient(to right, #ffffff, #ffffcc);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     display: none;
@@ -420,7 +420,7 @@ body{
   .dropdown-list li {
     padding: 15px;
     cursor: pointer;
-    color: white; /* White text color */
+    color: rgb(0, 0, 0); /* White text color */
     font-size: 18px; /* Increased font size */
     transition: background-color 0.3s ease;
   }

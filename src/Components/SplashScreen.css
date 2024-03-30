@@ -4,9 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('./dinner.png'); /* Replace './dinner.png' with the path to your background image */
-    background-size: cover;
-    background-position: center;
+  
     /* Adjust the opacity of the background */
     background-color: rgba(255, 255, 255, 0.2); /* Change the last value (0.5) to adjust opacity (range: 0 to 1) */
   }

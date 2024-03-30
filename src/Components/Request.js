@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Select, TextInput, Textarea,Button } from '@mantine/core';
 import './RequestForm.css'; // Import custom CSS file
 import { FaTimes } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RequestForm = ({close,setTimelineData,timelineData}) => {
   const [name, setName] = useState('');
@@ -16,6 +18,17 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
       date: "request Generated",
       orderAccepted: false
     }]);
+    toast('🔔 Request Generated !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+
+    });
   };
 
   return (
@@ -68,6 +81,7 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
         </form>
       </Container>
     </div>
+    <ToastContainer />
     </div>
   );
 };

@@ -7,7 +7,8 @@ import { BiFoodTag } from "react-icons/bi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import Lottie from "lottie-react";
 import n from "./n.json";
-import gra from './gra.png';
+import aib from './paneer.png';
+import { Card, Image,Divider, Text, Badge, Button, Group } from '@mantine/core';
 
 
 const Flat = () => {
@@ -51,8 +52,42 @@ const Flat = () => {
     return (
         <div>
             {isSticky && (
-              <div  style={{ width: '100%', height: '140px',  position: 'fixed', top: 0, zIndex: 1000 ,backgroundColor:'white'}}>
-              <div  style={{ width: '100%', height: '100%', position: 'relative', backgroundImage: `url(${gra})`, backgroundSize: 'cover' }} >
+              <div  style={{ width: '100%', height: '240px',  position: 'fixed', top: 0, zIndex: 1000 ,backgroundColor:'white'}}>
+
+<Card shadow="sm" padding="lg" radius="md" withBorder style={{
+
+backgroundImage: 'linear-gradient(to right, #ffffff, #ffffcc)',
+display:'flex',
+flexDirection:'row',
+alignItems:'flex-start',
+borderRadius: '0px 0px 25px 25px',
+marginBottom:'0px'
+
+
+}}>
+      
+
+      <Group justify="space-between" mt="md" mb="xs" style={{width:'60%'}} >
+        <Text style={{ fontWeight: 'bold', fontSize: '20px' }}>
+  Paneer crafted from royal recipes!
+</Text>
+<Text size="sm" c="dimmed">
+  Discover the Delights of Paneer: <span style={{ fontWeight: 'bold',color:'black'}}>Simple</span>, <span style={{ fontWeight: 'bold',color:'black' }}>Savory</span>, and <span style={{ fontWeight: 'bold' ,color:'black'}}>Simply Irresistible!</span>
+</Text>
+      </Group>
+
+
+      <Group justify="space-between" mt="md" mb="xs" style={{width:'40%',marginBottom:'5px'}}>
+        <div style={{width:'100%', height:'10px'}}></div>
+      <img src={aib} style={{ width: '120px', height: '120px',marginBottom:'0px',marginLeft:'20px' }} />
+      </Group>
+
+
+     
+
+      
+    </Card>
+              {/* <div  style={{ width: '100%', height: '100%', position: 'relative', backgroundImage: `url(${gra})`, backgroundSize: 'cover' }} > */}
           
                 {/* Overlay */}
                 {/* <div style={{
@@ -103,10 +138,15 @@ const Flat = () => {
                     </div>
                   ))}
                 </div> */}
-                 <Lottie animationData={n} loop={true}  style={{ position: 'absolute', top: 0, left: -80, width: '100%', height: '100%', zIndex: 3 }}  />
+                 {/* <Lottie animationData={n} loop={true}  style={{ position: 'absolute', top: 0, left: -80, width: '100%', height: '100%', zIndex: 3 }}  /> */}
            
+            {/* </div> */}
+            <div style={{ height: '30px', backgroundColor: 'white', zIndex: '1' ,marginTop:'0px'}}> 
+            
+            <Divider my="xs" label="Taste your choice" labelPosition="center" style={{marginTop:'0px important!'}} /></div>
+
             </div>
-            </div>
+           
             )}         <div
                 ref={flatListRef}
                 style={{

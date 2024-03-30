@@ -7,6 +7,8 @@ import { PropagateLoader
 import { css } from '@emotion/react';
 import { TypeAnimation } from 'react-type-animation';
 import burger from "./burger.png"
+import Lottie from "lottie-react";
+import foodi from './foodi.json'
 
 const SplashScreen = () => {
   const navigate = useNavigate(); // Use useNavigate for navigation
@@ -30,7 +32,7 @@ const SplashScreen = () => {
   return (
     <div className="splash-screen">
     {/* White circle */}
-    <div className="white-circle" style={{display:'flex', flexDirection:'column'}}>
+    {/* <div className="white-circle" style={{display:'flex', flexDirection:'column'}}>
     <img src={burger} alt="Logo" className="logo" />
     <div className="type-animation">
         <TypeAnimation
@@ -47,7 +49,8 @@ const SplashScreen = () => {
         />
       </div>
  
-    </div>
+    </div> */}
+     <Lottie animationData={foodi} loop={false} style={{height:"400px",width:"400px"}}  />
     
   </div>
   // <div style={{ backgroundColor: 'orange', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
