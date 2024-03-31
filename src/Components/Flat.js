@@ -162,7 +162,7 @@ height:'100px'
                     position: 'sticky',
                     top: 0,
                     backgroundColor: 'white',
-                    marginBottom: '10px',
+                    marginBottom: '0px',
                     zIndex: 999,
                     scrollbarWidth: 'none', // For Firefox
                     msOverflowStyle: 'none', // For IE and Edge
