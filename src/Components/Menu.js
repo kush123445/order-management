@@ -189,10 +189,10 @@ const Menu = ({ cart, setCart }) => {
    ):(
 
 <div>
-
+<Flat />
 
 <MyCarousel  />
-<Flat />
+
   
     <div className="menu-container" style={{paddingBottom:'80px'}}>
     
@@ -317,7 +317,7 @@ const Menu = ({ cart, setCart }) => {
         </div>
       )}
       {/* Render divider only if it's not the last category */}
-      {index !== uniqueCategories.length - 1 && <Divider size="xl" ml={-20} mr={-20} mt={20}/>}
+      {index !== uniqueCategories.length - 1 && <Divider size={2} ml={-20} mr={-20} mt={20}/>}
     </div>
   ))}
   {/* Order line */}

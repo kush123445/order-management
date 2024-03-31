@@ -7,8 +7,8 @@ import { BiFoodTag } from "react-icons/bi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import Lottie from "lottie-react";
 import n from "./n.json";
-import aib from './paneer.png';
-import { Card, Image,Divider, Text, Badge, Button, Group } from '@mantine/core';
+import aib from './paneer-min.png';
+import { Card,Paper , Image,Divider, Text, Badge, Button, Group } from '@mantine/core';
 
 
 const Flat = () => {
@@ -52,41 +52,47 @@ const Flat = () => {
     return (
         <div>
             {isSticky && (
-              <div  style={{ width: '100%', height: '240px',  position: 'fixed', top: 0, zIndex: 1000 ,backgroundColor:'white'}}>
-
-<Card shadow="sm" padding="lg" radius="md" withBorder style={{
+              <div  style={{ width: '100%', height: '140px',  position: 'fixed', top: 0, zIndex: 1000 ,backgroundColor:'white'}}>
+<div style={{  backgroundImage: 'linear-gradient(to right, #ffcc99, #ffcc99)',
+display:'flex',
+flexDirection:'row',
+alignItems:'flex-start',
+borderRadius: '0px 0px 40% 40%'}}>
+  
+      <Text style={{ fontWeight: 'bold', fontSize: '16px',paddingLeft:'40px' , paddingTop:'9px'}}> Paneer crafted from royal recipes!</Text>
+      <img src={aib} style={{ width: '120px', height: '80px', marginLeft: '-10px' }} />
+    </div>
+    
+{/* <Card shadow="sm" padding="lg" radius="md" withBorder style={{
 
 backgroundImage: 'linear-gradient(to right, #ffffff, #ffffcc)',
 display:'flex',
 flexDirection:'row',
 alignItems:'flex-start',
 borderRadius: '0px 0px 25px 25px',
-marginBottom:'0px'
+marginBottom:'0px',
+height:'100px'
 
 
 }}>
       
 
-      <Group justify="space-between" mt="md" mb="xs" style={{width:'60%'}} >
-        <Text style={{ fontWeight: 'bold', fontSize: '20px' }}>
+      <Group justify="space-between" mt="md" mb="xs" style={{width:'60%',marginTop:'3px'}} >
+        <p style={{ fontWeight: 'bold', fontSize: '20px',marginTop:'2px' }}>
   Paneer crafted from royal recipes!
-</Text>
-<Text size="sm" c="dimmed">
-  Discover the Delights of Paneer: <span style={{ fontWeight: 'bold',color:'black'}}>Simple</span>, <span style={{ fontWeight: 'bold',color:'black' }}>Savory</span>, and <span style={{ fontWeight: 'bold' ,color:'black'}}>Simply Irresistible!</span>
-</Text>
+</p>
+
       </Group>
 
 
-      <Group justify="space-between" mt="md" mb="xs" style={{width:'40%',marginBottom:'5px'}}>
-        <div style={{width:'100%', height:'10px'}}></div>
-      <img src={aib} style={{ width: '120px', height: '120px',marginBottom:'0px',marginLeft:'20px' }} />
-      </Group>
-
+      <Group justify="space-between" mt="md" mb="xs" style={{ width: '40%' }}>
+  <img src={aib} style={{ width: 'auto', height: '100%', marginLeft: '20px' }} />
+</Group>
 
      
 
       
-    </Card>
+    </Card> */}
               {/* <div  style={{ width: '100%', height: '100%', position: 'relative', backgroundImage: `url(${gra})`, backgroundSize: 'cover' }} > */}
           
                 {/* Overlay */}
@@ -143,7 +149,7 @@ marginBottom:'0px'
             {/* </div> */}
             <div style={{ height: '30px', backgroundColor: 'white', zIndex: '1' ,marginTop:'0px'}}> 
             
-            <Divider my="xs" label="Taste your choice" labelPosition="center" style={{marginTop:'0px important!'}} /></div>
+            <Divider my="xs" label="Taste your choice" labelPosition="center" style={{marginTop:'0px important!',color:'black'}} /></div>
 
             </div>
            
