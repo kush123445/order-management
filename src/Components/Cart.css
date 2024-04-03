@@ -116,7 +116,9 @@ html, body {
   margin: 0 auto;
   padding: 20px;
   margin-top: 50px;
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7;
+   */
+   background-color: rgb(255, 192, 203, 0.1);
   min-height: 100vh; /* Set minimum height to 100% of viewport height */
 }
   .itemkp {

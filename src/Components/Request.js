@@ -18,7 +18,7 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
       date: "request Generated",
       orderAccepted: false
     }]);
-    toast('🔔 Request Generated !', {
+    const toastId = toast('🔔 Request Generated !', {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -27,8 +27,12 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
       draggable: true,
       progress: undefined,
       theme: "light",
-
     });
+
+    // Remove the toast notification after 5 seconds
+    setTimeout(() => {
+      toast.dismiss(toastId);
+    }, 5000);
   };
 
   return (
@@ -72,7 +76,7 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
             multiline
             rows={5} // Set number of rows to 5
           />
-          <Button  variant ='filled' type="submit" className="form-submit-button" style={{marginRight:'25px'}}>
+          <Button  variant ='filled' type="submit" className="form-submit-button" style={{marginRight:'25px'}} >
             Submit
           </Button>
           <Button variant='light' style={{marginRight:'20px'}} onClick={close} className="form-submit-button">

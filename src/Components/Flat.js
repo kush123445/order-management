@@ -11,8 +11,10 @@ import aib from './paneer-min.png';
 import { Card,Paper , Image,Divider, Text, Badge, Button, Group } from '@mantine/core';
 
 
-const Flat = () => {
+const Flat = ({ isVeg, isNonveg, setIsVeg, setIsNonveg }) => {
   const [checkedItems, setCheckedItems] = useState({});
+  // const [isVeg,setIsVeg]=useState(false);
+  // const [isNonveg,setIsNonveg]=useState(false);
     const data = [
         { id: '1', title: '  Veg  ' },
         { id: '2', title: ' Non Veg ' }
@@ -25,12 +27,19 @@ const Flat = () => {
     const [isSticky, setIsSticky] = useState(false);
     const lastItemRef = useRef(null);
     const flatListRef = useRef(null);
-    const handleToggle = (id) => {
+    const handleToggle = (item) => {
       // Toggle the checked state for the clicked chip
       setCheckedItems((prevItems) => ({
         ...prevItems,
-        [id]: !prevItems[id] || false,
+        [item.id]: !prevItems[item.id] || false,
       }));
+
+      if(item.title==='  Veg  '){
+        setIsVeg(!isVeg);
+      }else if(item.title===' Non Veg '){
+        setIsNonveg(!isNonveg);
+
+      }
     };
     useEffect(() => {
         const handleScroll = () => {
@@ -172,7 +181,7 @@ height:'100px'
                 {data.map((item, index) => (
                     <div key={item.id} style={{ paddingBottom: '20px', margin: '0px 5px',color:'black',paddingTop:'3px' }} ref={index === data.length - 1 ? lastItemRef : null}>
                       <Chip variant='light'  color={iconMap1[item.title.trim()].color} checked={checkedItems[item.id] || false} 
-            onChange={() => handleToggle(item.id)} >
+            onChange={() => handleToggle(item)} >
                         {iconMap1[item.title.trim()].icon} {item.title}
                       </Chip>
                     </div>

@@ -13,7 +13,6 @@ import { FaMinus, FaPlus } from 'react-icons/fa';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
-
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification, Badge } from '@mantine/core';
 import { Transition } from '@mantine/core';
@@ -84,16 +83,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [isOpenR, setIsOpenR] = React.useState(false)
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
-  const [timelineData, setTimelineData] = useState([
-    {
-      date: "Order Placed",
-      orderAccepted: false
-    },
-    {
-      date: "Order Accepted",
-      orderAccepted: true
-    }
-  ]);
+  const [timelineData, setTimelineData] = useState([]);
   const navigate = useNavigate();
 
 
@@ -227,14 +217,34 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const ConfirmOrder = async () => {
     setLoading(true);
     setOrderConfirmed(true);
-  
-if(timelineData.length!=0){
+// if(timelineData.length!=0){
 
-  setTimelineData([...timelineData, {
-    date: "Add On",
-    orderAccepted: false
-  }]);
-}
+//   setTimelineData([...timelineData, {
+//     date: "Add On",
+//     orderAccepted: false
+//   }]);
+// }
+//   useEffect(()=>{
+//     if(orderConfirmed==true){
+//       if(!timelineData.length){
+
+//   setTimelineData([{
+//     date: "Order Placed",
+//     orderAccepted: false
+//   },
+//   {
+//     date: "Order Accepted",
+//     orderAccepted: true
+//   }]);
+// }else{
+//   setTimelineData([...timelineData, {
+//     date: "Add On",
+//     orderAccepted: false
+//   }]);
+// }
+//     }
+//   },[])
+
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
       // lottieRef.goToAndPlay(2, false)
@@ -249,6 +259,7 @@ if(timelineData.length!=0){
     
     
   }
+
 
   // const defaultOptions = {
   //   loop: true,
@@ -305,10 +316,10 @@ if(timelineData.length!=0){
           // Check if the elapsed time is 10 seconds
           if (secondsElapsed === 10) {
             clearInterval(timerInterval);
-            setTimelineData([...timelineData, {
-              date: "Add on 2",
-              orderAccepted: false
-            }]);
+            // setTimelineData([...timelineData, {
+            //   date: "Add on 2",
+            //   orderAccepted: false
+            // }]);
             setShowCancelButton(false);
       setOrderConfirmed(true);
             setAccordionOpen(!accordionOpen) // Clear the interval
@@ -353,14 +364,14 @@ if(timelineData.length!=0){
 
   const [orderAccepted, setOrderAccepted] = useState(false);
 
-  const orderAcceptedfn = () => {
-    // setAccordionOpen(false) // Clear the interval
-    const timer = setTimeout(() => {
-      setOrderAccepted(true);
-      console.log("kushal khandelwal")
-    }, 10000);
-    return () => clearTimeout(timer);
-  }
+  // const orderAcceptedfn = () => {
+  //   // setAccordionOpen(false) // Clear the interval
+  //   const timer = setTimeout(() => {
+  //     setOrderAccepted(true);
+  //     console.log("kushal khandelwal")
+  //   }, 10000);
+  //   return () => clearTimeout(timer);
+  // }
 
   useEffect(() => {
     if (orderPlaced && !showCancelButton) {
@@ -433,6 +444,36 @@ if(timelineData.length!=0){
       localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
     }
   }, [orderConfirmed,cart])
+  
+  useEffect(()=>{
+    if(timelineData.length > 0){
+       localStorage.setItem('orderTimeline', JSON.stringify(timelineData));
+    }
+  },[timelineData]);
+  useEffect(()=>{
+   if(localStorage.getItem('orderTimeline')){
+    setTimelineData(JSON.parse(localStorage.getItem('orderTimeline')));
+      }
+  },[timelineData]);
+  useEffect(()=>{
+    if(orderConfirmed==true){
+    if(timelineData.length==0){
+      setTimelineData([{
+        date: "Order Placed",
+        orderAccepted: false
+      },
+      {
+        date: "Order Accepted",
+        orderAccepted: true
+      }]);
+    }else if(timelineData.length!=0){
+      setTimelineData([...timelineData, {
+        date: "Add On",
+        orderAccepted: false
+      }]);
+    }
+    console.log(timelineData);
+  }} ,[orderConfirmed])
 
   const saving = () => {
     close();
@@ -487,6 +528,7 @@ if(timelineData.length!=0){
                   <path d="M0 0 H1000 V50 H0 Z" />
                 </svg>
               </div>
+                        <Button variant="filled" color="#11998e" radius="lg" onClick={handleChipClick}>Order Now!</Button>
             </div>
           ) : (
             <div className="cart-page" style={{ paddingBottom: '100px' }}>
@@ -516,11 +558,6 @@ if(timelineData.length!=0){
               }}>
                 <h2 className="menu-titleC">Your Orders</h2>
               </div>
-              {/* <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
-
-            <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
-          </svg> */}
-
               <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
                 <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
                 <h3 className="category-name">Order List</h3>
@@ -653,13 +690,13 @@ if(timelineData.length!=0){
                 <RequestForm close={toggleDrawerR} setTimelineData={setTimelineData} timelineData={timelineData}/>
             </DrawerR>
 
-  <div style={{ marginBottom: '25px', marginTop: '2px', marginLeft: '7px' }}>
+  {/* <div style={{ marginBottom: '25px', marginTop: '2px', marginLeft: '7px' }}>
     <Text style={{ fontSize: '12px' }} c="dimmed" >
       <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
       Please note: The final bill includes additional charges such as taxes and GST.
-    </Text>
+    </Text> */}
    
-  </div>
+  {/* </div> */}
   
   </>
 
@@ -667,7 +704,7 @@ if(timelineData.length!=0){
 
 
 
-{(!orderPlaced && !showCancelButton) && (
+{(!orderPlaced && !showCancelButton && cart.length!=0) && (
                   <div style={{ marginBottom: '25px', marginTop: '-12px', marginLeft: '7px' }}>
                     <Text style={{ fontSize: '12px' }} c="dimmed" >
                       <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
@@ -676,7 +713,7 @@ if(timelineData.length!=0){
                   </div>
 )}
 
-                  {(!orderPlaced && !showCancelButton) && (
+                  {(!orderPlaced && !showCancelButton && cart.length!=0) && (
                     <div>
                       <Card shadow="sm" padding="lg" radius="md" withBorder mt={5}>
 
@@ -790,7 +827,7 @@ if(timelineData.length!=0){
                 {orderPlaced && timelineOpen && (
 
                   <>
-                    {orderAcceptedfn()}
+                    {/* {orderAcceptedfn()} */}
                     <Confetti
                       width={width}
                       height={height}
@@ -799,8 +836,9 @@ if(timelineData.length!=0){
                       tweenDuration={8000}
 
 
-                    />
-                    <div className="vertical-timeline-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    /> 
+                    </>)}
+                { (orderConfirmed || (cart.length==0 && newCart.length>0)) && timelineData.length>0  && (<div className="vertical-timeline-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                     <VerticalTimeline className="custom-timeline">
                       {/* <VerticalTimelineElement
                         className=""
@@ -834,11 +872,12 @@ if(timelineData.length!=0){
   ))}
                     </VerticalTimeline>
                     </div>
+)}
                     
 
-                  </>
+                  {/* </> */}
 
-                )}
+                {/* )} */}
               </div>
 
               <Drawer opened={opened} onClose={close} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>

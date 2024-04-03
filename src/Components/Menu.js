@@ -28,6 +28,17 @@ const Menu = ({ cart, setCart }) => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
+  // const [isVeg,setIsVeg]=useState(false);
+  // const [isNonveg,setIsNonveg]=useState(false);
+  // const[chirag,setChirag]=useState({});
+  // const [filterSetting, setFilterSetting] = useState({
+  //   isVeg: false,
+  //   isNonveg: false
+  // });
+
+  const [isVeg, setIsVeg] = useState(false);
+  const [isNonveg, setIsNonveg] = useState(false);
+
 
 
   const handleOrderClick = async() => {
@@ -176,6 +187,8 @@ const Menu = ({ cart, setCart }) => {
   }
   },[cart])
 
+
+
   // main return 
   return (
     <>
@@ -189,7 +202,7 @@ const Menu = ({ cart, setCart }) => {
    ):(
 
 <div>
-<Flat />
+<Flat isVeg={isVeg} isNonveg={isNonveg} setIsVeg={setIsVeg} setIsNonveg={setIsNonveg} />
 
 <MyCarousel  />
 
@@ -295,7 +308,7 @@ const Menu = ({ cart, setCart }) => {
       {accordionState[category] && (
         <div className="accordion-content">
           {menuItems
-            .filter(item => item.category === category)
+            .filter(item => item.category === category && ((isVeg && isNonveg) || (!isVeg && !isNonveg) || (isVeg && item.veg) || (isNonveg && !item.veg)) )
             .map(menuItem => (
               <div key={menuItem.id} className="menu-item">
                 <div className="item-details">
