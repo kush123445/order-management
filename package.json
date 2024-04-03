@@ -38,6 +38,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "react-search-autocomplete": "^8.5.2",
+    "react-search-box": "^3.0.0",
     "react-spinners": "^0.13.8",
     "react-swipeable-button": "^1.0.9",
     "react-toastify": "^10.0.5",

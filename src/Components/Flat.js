@@ -7,20 +7,32 @@ import { BiFoodTag } from "react-icons/bi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import Lottie from "lottie-react";
 import n from "./n.json";
-import aib from './paneer-min.png';
+import aib from './vada.png';
 import { Card,Paper , Image,Divider, Text, Badge, Button, Group } from '@mantine/core';
 
 
 const Flat = () => {
   const [checkedItems, setCheckedItems] = useState({});
-    const data = [
-        { id: '1', title: '  Veg  ' },
-        { id: '2', title: ' Non Veg ' }
-    ];
-    const iconMap1 = {
-      'Veg': { icon: <BiFoodTag />, color: 'green' },
-      'Non Veg': { icon: <MdLocalDining />, color: 'red' },
-    };
+  const data = [
+    { id: '1', title: 'Veg' },
+    { id: '2', title: 'Non Veg' },
+   
+    { id: '3', title: 'Chef Special' }, // Chef Special category
+    { id: '4', title: 'Kids Choice' }, // Kids Choice category
+    { id: '5', title: 'Combos' } // Combos category
+    // Add more categories as needed
+];
+
+const iconMap1 = {
+  'Veg': { icon: <BiFoodTag />, color: 'rgb(150 217 179) ' },
+  'Non Veg': { icon: <MdLocalDining />, color: 'rgb(234 145 138)' },
+  'Vegan': { icon: <BiFoodTag />, color: 'green' }, // Vegan category icon and color
+  'Gluten-Free': { icon: <BiFoodTag />, color: 'gray' }, // Gluten-Free category icon and color
+  'Chef Special': { icon: <BiFoodTag />, color: '#fdd66f' }, // Chef Special category icon and color
+  'Kids Choice': { icon: <BiFoodTag />, color: '#f5986c' }, // Kids Choice category icon and color
+  'Combos': { icon: <BiFoodTag />, color: 'purple' } // Combos category icon and color
+  // Add more categories as needed
+};
     
     const [isSticky, setIsSticky] = useState(false);
     const lastItemRef = useRef(null);
@@ -169,14 +181,29 @@ height:'100px'
                     WebkitScrollbar: { display: 'none' } // For WebKit browsers
                 }}
             >
-                {data.map((item, index) => (
-                    <div key={item.id} style={{ paddingBottom: '20px', margin: '0px 5px',color:'black',paddingTop:'3px' }} ref={index === data.length - 1 ? lastItemRef : null}>
-                      <Chip variant='light'  color={iconMap1[item.title.trim()].color} checked={checkedItems[item.id] || false} 
-            onChange={() => handleToggle(item.id)} >
-                        {iconMap1[item.title.trim()].icon} {item.title}
-                      </Chip>
-                    </div>
-                  ))}
+           {data.map((item, index) => (
+  <div key={item.id} style={{ paddingBottom: '20px', margin: '0px 5px', color: 'black', paddingTop: '3px' }} ref={index === data.length - 1 ? lastItemRef : null}>
+    <div style={{ 
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+      width: '120px', // Set width
+      height: '100px', // Set smaller height
+      padding: '10px',
+      borderRadius: '8px',
+      backgroundColor: iconMap1[item.title.trim()].color,
+      color: 'white',
+      fontWeight: 'bold',
+      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+      cursor: 'pointer'
+    }}
+    onClick={() => handleToggle(item.id)}>
+      <img src={aib} alt="Food" style={{ width: '60px', height: '60px', marginBottom: '-5px' }} />
+      <span>{item.title}</span>
+    </div>
+  </div>
+))}
             </div>
         </div>
     );
