@@ -37,7 +37,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'intersection-observer';
 //import useWindowSize from 'react-use/lib/useWindowSize'
-import Confetti from 'react-confetti'
+// import Confetti from 'react-confetti'
 import Lottie from "lottie-react";
 import ff from "./ff.json";
 
@@ -65,9 +65,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
 
   const [isOpen, setIsOpen] = React.useState(false)
-
-
-  // const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chat, setchat] = useState(false);
@@ -272,7 +269,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   // };
   useEffect(() => {
     console.log('Chat value changed:', chat);
-
+      
     if(chat==true){
     setchat(true)}
   }, [chat]);
@@ -308,6 +305,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   };
   useEffect(() => {
     let timerInterval;
+    console.log("1");
+
     if (showCancelButton) {
       let secondsElapsed = 0; // Initialize a variable to track elapsed seconds
 
@@ -374,6 +373,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   // }
 
   useEffect(() => {
+    console.log("2");
+
     if (orderPlaced && !showCancelButton) {
       setTimelineOpen(true);
       play()
@@ -416,6 +417,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   }, [orderPlaced, showCancelButton]);
 
   useEffect(()=>{
+    console.log("3");
+
     if(orderConfirmed==true){
       if(cart!=""){
     setNewCart((prev)=>[...prev,...cart]);
@@ -424,6 +427,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     }
   },[orderConfirmed,cart])
   useEffect(()=>{
+    console.log("4");
+
     if(orderConfirmed==true){
       // if(newCart!="" && cart!=""){
     // setNewCart(cart);
@@ -432,6 +437,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     }
   },[orderConfirmed,cart])
   useEffect(() => {
+    console.log("5");
+
     if (cart.length > 0 && orderConfirmed!=true) {
       localStorage.setItem('orderPlaced', JSON.stringify(cart));
     }else if (cart.length !=0 && orderConfirmed==true){
@@ -440,22 +447,30 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     }
   }, [orderConfirmed,cart])
   useEffect(() => {
+    console.log("6");
+
     if (newCart.length > 0) {
       localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
     }
   }, [orderConfirmed,cart])
   
   useEffect(()=>{
+    console.log("7");
+
     if(timelineData.length > 0){
        localStorage.setItem('orderTimeline', JSON.stringify(timelineData));
     }
   },[timelineData]);
   useEffect(()=>{
+    console.log("8");
+
    if(localStorage.getItem('orderTimeline')){
     setTimelineData(JSON.parse(localStorage.getItem('orderTimeline')));
       }
   },[timelineData]);
   useEffect(()=>{
+    console.log("9");
+
     if(orderConfirmed==true){
     if(timelineData.length==0){
       setTimelineData([{
@@ -484,6 +499,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
+    console.log("10");
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -824,10 +841,10 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
                 )}
 
-                {orderPlaced && timelineOpen && (
+                 {/* {orderPlaced && timelineOpen && (
 
                   <>
-                    {/* {orderAcceptedfn()} */}
+                    {/* {orderAcceptedfn()} 
                     <Confetti
                       width={width}
                       height={height}
@@ -837,7 +854,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
 
                     /> 
-                    </>)}
+                    </>)}  */}
                 { (orderConfirmed || (cart.length==0 && newCart.length>0)) && timelineData.length>0  && (<div className="vertical-timeline-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                     <VerticalTimeline className="custom-timeline">
                       {/* <VerticalTimelineElement
