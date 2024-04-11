@@ -252,7 +252,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
       setchat(prev=>prev)
       // Hide loader after 2 seconds
       setLoading(false);
-    }, 2000);
+    }, 1000);
     
     
   }
@@ -425,7 +425,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
       }
     // setCart("");
     }
-  },[orderConfirmed,cart])
+  },[orderConfirmed])
   useEffect(()=>{
     console.log("4");
 
@@ -435,7 +435,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     setCart([]);
       // }
     }
-  },[orderConfirmed,cart])
+  },[orderConfirmed])
   useEffect(() => {
     console.log("5");
 
@@ -452,12 +452,12 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     if (newCart.length > 0) {
       localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
     }
-  }, [orderConfirmed,cart])
+  }, [orderConfirmed])
   
   useEffect(()=>{
     console.log("7");
 
-    if(timelineData.length > 0){
+    if(timelineData.length > 0 ){
        localStorage.setItem('orderTimeline', JSON.stringify(timelineData));
     }
   },[timelineData]);
@@ -467,7 +467,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
    if(localStorage.getItem('orderTimeline')){
     setTimelineData(JSON.parse(localStorage.getItem('orderTimeline')));
       }
-  },[timelineData]);
+  },[]);
   useEffect(()=>{
     console.log("9");
 
@@ -487,6 +487,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
         orderAccepted: false
       }]);
     }
+    // localStorage.setItem('orderTimeline', JSON.stringify(timelineData));
     console.log(timelineData);
   }} ,[orderConfirmed])
 

@@ -16,18 +16,73 @@
 body{
   margin: 0px;
   padding: 0px;
-  background-color: white;
+  background-color: #fdfff5 !important;
 }
-         
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+      
+.jiMOeR .wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 95% !important;
+  border: 1px solid rgb(223, 225, 229);
+  border-radius: 24px;
+  /* background-color: rgb(223, 225, 229); */
+  color: rgb(33, 33, 33);
+  font-size: 16px;
+  font-family: Arial;
+  z-index: 10;
+  margin-left: 6px !important;
+  background-color: #fafafa !important;
+}
+
 .css-1f8sh1y {
   position: relative;
   width: 100%;
   /* height: 100%; */
-  height: 201px !important;
+margin-bottom: -15px !important;
+  height: 180px !important;
 }
 
 
-         
+.outline-btnfilter {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+  background-color: white;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin-right: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.outline-btnfilter:hover {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}       
+.outline-btnfilter::-webkit-scrollbar {
+  display: none;
+}
 .btn-gradk {
   background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
   /* margin: 10px; */
@@ -141,13 +196,14 @@ body{
 }
   
   .item-namem {
+    color: #333333;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 900;
   }
   
   .item-pricee {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 500;
     color: black;
   }
   
@@ -478,7 +534,7 @@ body{
 .category-heading {
   font-size: 22px;
   font-weight: bold;
-  color: #4CAF50;
+  color: #000000;
   padding: 5px 10px;
   background-color: #fff;
   border-radius: 4px;

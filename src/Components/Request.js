@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Select, TextInput, Textarea,Button } from '@mantine/core';
 import './RequestForm.css'; // Import custom CSS file
-import { FaTimes } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -28,11 +27,6 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
       progress: undefined,
       theme: "light",
     });
-
-    // Remove the toast notification after 5 seconds
-    setTimeout(() => {
-      toast.dismiss(toastId);
-    }, 5000);
   };
 
   return (

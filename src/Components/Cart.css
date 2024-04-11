@@ -255,7 +255,6 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: px; /* Adjusted padding */
   }
   
  
@@ -313,7 +312,7 @@ html, body {
     border: none;
     border-radius: 5px;
     width: 30px;
-    height: 30px;
+    height: 35px;
     font-size: 18px;
     cursor: pointer;
     margin: 0 0px;
