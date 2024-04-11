@@ -27,6 +27,7 @@ import Lottie from "lottie-react";
 import jj from "./jj.json";
 import ReactSearchBox from "react-search-box";
 import { FaTimes } from 'react-icons/fa';
+//import { backgroundOrigin } from 'html2canvas/dist/types/css/property-descriptors/background-origin.js';
 
 const Menu = ({ cart, setCart }) => {
   const navigate = useNavigate();
@@ -281,7 +282,7 @@ const Menu = ({ cart, setCart }) => {
         </div>
       ) : (
 
-        <div>
+        <div  >
 
           {/* <div style={{ display: 'flex', alignItems: 'center' }}>
       <input 
@@ -294,10 +295,13 @@ const Menu = ({ cart, setCart }) => {
       <button onClick={handleSearch}>Search</button>
       <FaMicrophone style={{ marginLeft: '10px', cursor: 'pointer' }} onClick={handleVoiceSearch} />
     </div> */}
+    <div className='gradient'>
+      
           <header style={{
-            backgroundColor: '#fff',
+         
             color: '#333',
             padding: '20px 20px 10px 20px',
+      
 
 
           }}>
@@ -435,11 +439,13 @@ const Menu = ({ cart, setCart }) => {
             paddingLeft: '10px',
             paddingBottom: '-254px', // Increased padding for spacing
             // Center align the heading
-            fontFamily: 'Arial, sans-serif' // Specified font family
+            fontFamily: 'Arial, sans-serif', // Specified font family
+     
           }}>
             Features
           </p>
           <MyCarousel />
+          </div>
           <Divider my="xs" label="Taste your choice" labelPosition="left" style={{ marginTop: '-15px !important', color: 'black', paddingLeft: '10px' }} />
           <Flat />
 
@@ -546,8 +552,9 @@ const Menu = ({ cart, setCart }) => {
                       {menuItems
                         .filter(item => item.category === category)
                         .map(menuItem => (
+                          <div>
                           <div key={menuItem.id} className="menu-item">
-                            <div className="item-details">
+                            <div className="item-details" style={{marginLeft:'5px'}}>
                               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="13" height="13" viewBox="0 0 32 32"
                                 style={{ fill: menuItem.veg ? '#40C057' : '#FF5252', marginRight: '5px' }}>
                                 <path d="M 7 3 C 4.8 3 3 4.8 3 7 L 3 25 C 3 27.2 4.8 29 7 29 L 25 29 C 27.2 29 29 27.2 29 25 L 29 7 C 29 4.8 27.2 3 25 3 L 7 3 z M 7 7 L 25 7 L 25 25 L 7 25 L 7 7 z M 12.400391 12 L 12.400391 19.599609 L 20 19.599609 L 20 12 L 12.400391 12 z"></path>
@@ -556,11 +563,13 @@ const Menu = ({ cart, setCart }) => {
                               <p className="item-pricee"> ₹ {menuItem.price}</p>
                               {renderDescription(menuItem.description, menuItem.id)}
                             </div>
-                            <div className="counterbox">
-                              <button className="quantity-btn" onClick={() => removeFromCart(menuItem)}><FaMinus /></button>
-                              <span className="quantity">{Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}</span>
-                              <button className="quantity-btn" onClick={() => addToCart(menuItem)}><FaPlus /></button>
-                            </div>
+                            <div className="counter-box">
+  <button className="counter-btn" onClick={() => removeFromCart(menuItem)}><FaMinus /></button>
+  <span className="counter-value">{Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}</span>
+  <button className="counter-btn" onClick={() => addToCart(menuItem)}><FaPlus /></button>
+</div>
+                          </div>
+                          <div class="dashed-divider"></div>
                           </div>
                         ))}
                     </div>

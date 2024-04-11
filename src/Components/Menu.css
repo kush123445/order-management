@@ -11,7 +11,33 @@
   font-weight: 400;
   font-style: normal;
 }
+.gradient {
+  background: linear-gradient(to bottom, 
+  #ffcf9e,
+  #ffd4a4,
+  #ffd9a9,
+  #ffddb0,
+  #ffe1b5,
+  #ffe5ba,
+  #ffeac0,
+  #ffeed0,
+  #fff2df,
+  #fff6ee,
+  #fffaf8,
+  #ffffff
+);
 
+    width: 100%;
+  width: 100%;
+   /* Adjust height as needed */
+  position: relative;
+}
+
+
+
+.shade{
+  background: 'linear-gradient(#ffffe0 , white)';
+}
 body{
   margin: 0px;
   padding: 0px;
@@ -535,4 +561,46 @@ margin-bottom: -15px !important;
 .dropdown-list li.selected {
   /* background-color: rgb(0, 0, 0); */
   color :black
+}
+
+
+.counter-box {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.counter-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}
+
+.counter-value {
+  margin: 0 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.counter-box {
+  padding: 6px; /* Decrease padding to make the box slightly smaller */
+}
+
+.counter-btn {
+  font-size: 16px; /* Decrease font size of the buttons */
+}
+
+.counter-value {
+  margin: 0 10px; /* Adjust margin around the counter value */
+  font-size: 14px; /* Decrease font size of the counter value */
+}
+
+.dashed-divider {
+  border-top: 1px dashed #ccc; /* Set border top to dashed and color to dimmed */
+  margin: 10px 0; /* Add margin for spacing */
 }

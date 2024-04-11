@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Menu from './Components/Menu.js';
 // import Dashboard from './Dashboard.js'
 import Cart from './Components/Cart.js';
+import Admin from './Components/Admin.js';
 import SplashScreen from './Components/SplashScreen.js';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
     <div>
       <Routes>
       <Route path="/" element={<SplashScreen />} />
+      <Route path="/admin" element={<Admin />} />
         <Route path="/home" element={<Menu cart={cart} setCart={setCart} />} />
         <Route path="/cart" element={<Cart cart={cart}  setCart={setCart} newCart={newCart} setNewCart={setNewCart} />} />
       </Routes>

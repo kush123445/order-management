@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { HashLoader } from 'react-spinners';
+import axios from 'axios'
 import './Cart.css';
+import aib from './burger1.png';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { FaAngleUp, FaAngleDown ,FaPen} from 'react-icons/fa';
@@ -225,16 +227,21 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   };
 
   const ConfirmOrder = async () => {
+
+
+    
+var table=1;
+var tableName="kushal";
+
+    const response = await axios.post('http://localhost:8000/generateOrder', { table: tableName }); // tableName is the variable containing the table name
+    const { orderId } = response.data;
+
+    console.log(orderId)
+
     setLoading(true);
     setOrderConfirmed(true);
   
-if(timelineData.length!=0){
 
-  setTimelineData([...timelineData, {
-    date: "Add On",
-    orderAccepted: false
-  }]);
-}
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
       // lottieRef.goToAndPlay(2, false)
@@ -247,6 +254,13 @@ if(timelineData.length!=0){
       setLoading(false);
     }, 2000);
     
+    if(timelineData.length!=0){
+
+      setTimelineData([...timelineData, {
+        date: "Add On",
+        orderAccepted: false
+      }]);
+    }
     
   }
 
@@ -357,7 +371,7 @@ if(timelineData.length!=0){
     // setAccordionOpen(false) // Clear the interval
     const timer = setTimeout(() => {
       setOrderAccepted(true);
-      console.log("kushal khandelwal")
+      console.log("kushal cff ffff khandelwal")
     }, 10000);
     return () => clearTimeout(timer);
   }
@@ -493,10 +507,11 @@ if(timelineData.length!=0){
 
 
               {(cart.length !== 0 && !orderPlaced && !showCancelButton) && (
+                <div>
 
 
 
-                <div style={{ marginBottom: '20px', overflow: 'hidden', height: '50px', justifyContent: 'center', alignItems: 'center' }} ref={buttonRef}>
+                {/* <div style={{ marginBottom: '20px', overflow: 'hidden', height: '50px', justifyContent: 'center', alignItems: 'center' }} ref={buttonRef}>
                   <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block' }}>
                     <Button variant='light' color="yellow" fullWidth style={{ height: '49px' }}>
                       <span style={{ display: 'flex', alignItems: 'center', fontSize: 'small', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>
@@ -507,15 +522,60 @@ if(timelineData.length!=0){
                       </span>
                     </Button>
                   </div>
+                </div> */}
+{/* 
+<div>
+          
+              <div style={{
+
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'flex-start',
+  borderRadius: '8px 8px 8px 8px',
+ 
+  marginTop:'4px',
+// Added padding for spacing
+ // Added box shadow for depth
+  width:'106%'
+}}>
+  <div style={{ paddingRight: '20px', color: '#fff' }}> 
+  
+    <h2 style={{ fontWeight: 'bold', fontSize: '20px', textShadow: '2px 2px 4px rgba(0,0,0,0.6)' }}>BEST OF FLAVOURS</h2>
+    
+  
+    <Chip
+     
+      color="red"
+      variant="filled"
+      defaultChecked
+    > Order Now !
+    </Chip>
+  </div>
+  <div style={{ width: '130px', height: '60px', overflow: 'visible', position: 'relative', width: '60%' }}>
+    <img src={aib} style={{ width: '82%', height: '96px', borderRadius: '8px', transition: 'transform 0.3s ease-in-out', marginTop:'0px' }} />
+  </div>
+</div>
+</div> */}
+
+<div class="banner">
+    <div class="text">
+        <h2>Delicious Food on Fingertips</h2>
+     
+        <button class="clip-button">Check Menu</button>
+    </div>
+    <div class="image">
+        <img src={aib} alt="Delicious Food" />
+    </div>
+</div>
                 </div>
               )}
-              <div style={{
+              {/* <div style={{
                 display: 'flex', alignItems: 'center', width: '100%', height: '50px',
-                backgroundImage: 'linear-gradient(to right, #f46b45 0%, #eea849  51%)',
+                backgroundImage: 'white',
                 position: 'fixed', top: '0', marginLeft: '-20px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)', borderRadius: '0px 0px 10px 10px'
               }}>
                 <h2 className="menu-titleC">Your Orders</h2>
-              </div>
+              </div> */}
               {/* <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
 
             <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
