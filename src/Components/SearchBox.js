@@ -1,12 +1,19 @@
 import React,{useState,useRef,useEffect} from 'react'
 import { FaMicrophone } from 'react-icons/fa';
-import { FaSearch,FaTimes } from 'react-icons/fa';
+import { FaSearch,FaTimes, FaPlus, FaMinus } from 'react-icons/fa';
+import { Divider } from '@mantine/core';
+import { IoIosArrowBack } from "react-icons/io";
+import { IoChevronBackOutline } from "react-icons/io5";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import './Menu.css'; 
 
-function SearchBox({searchText,setSearchText}) {
+
+function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR }) {
     const [suggestions, setSuggestions] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
     const [isMicActive, setIsMicActive] = useState(false);
     const recognition = useRef(null);
+    const [expandedDescriptions, setExpandedDescriptions] = useState({});
 
 
     const menuItems = [
@@ -26,6 +33,7 @@ function SearchBox({searchText,setSearchText}) {
         { id: 14, category: "Desserts", name: "Rasgulla", description: "Spongy balls made from cottage cheese kneaded into a dough, then cooked in a sugar syrup until soft and spongy. A popular Bengali sweet enjoyed chilled.", price: 3, half: true, veg: true },
         { id: 15, category: "Desserts", name: "Kheer", description: "Creamy Indian rice pudding made with fragrant basmati rice, milk, sugar, and flavored with cardamom, saffron, and nuts. A delightful sweet treat served chilled or warm.", price: 4, half: false, veg: true },
       ];
+      let filteredSuggestions ;
 
     const handleVoiceSearch = () => {
         // Ensure browser support for SpeechRecognition
@@ -42,14 +50,21 @@ function SearchBox({searchText,setSearchText}) {
     
         recognition.current.onresult = (event) => {
           const transcript = event.results[0][0].transcript.trim();
-          setSearchText(transcript);
+          
+            setSearchText(transcript);
+            console.log(isOpenR)
+          setIsOpenR(true);
           recognition.current.stop();
     
           // Filter suggestions based on the voice input
-          const filteredSuggestions = menuItems.filter(item =>
-            item.name.toLowerCase().includes(transcript.toLowerCase())
+           filteredSuggestions = menuItems.filter(item => 
+            item.name.toLowerCase().includes(transcript.toLowerCase()) ||
+            item.description.toLowerCase().includes(transcript.toLowerCase())
           );
+          console.log("ncn",isOpenR,filteredSuggestions)
+          // if(isOpenR){
           setSuggestions(filteredSuggestions);
+          // }
         };
         recognition.current.onend = () => {
           setIsMicActive(false); // Set isMicActive to false when voice recognition ends
@@ -57,16 +72,45 @@ function SearchBox({searchText,setSearchText}) {
       
         recognition.current.start();
       };
-
+      const toggleDescriptionExpansion = (itemId) => {
+        setExpandedDescriptions(prevState => ({
+          ...prevState,
+          [itemId]: !prevState[itemId]
+        }));
+      };
+      const renderDescription = (description, itemId) => {
+        const maxLength = 50; // Maximum length of truncated description
+        const shouldTruncate = description.length > maxLength;
+    
+        return (
+          <div style={{ color: 'gray' }}>
+            {shouldTruncate && !expandedDescriptions[itemId] ? (
+              <>
+                <span >{`${description.substring(0, maxLength)} `}</span>
+                <button className="read-more-button" style={{ background: '#fafafa', border: 'none', color: 'black', padding: '0px' }} onClick={() => toggleDescriptionExpansion(itemId)}>Read more...</button>
+              </>
+            ) : (
+              <>
+                <span>{description}</span>
+                {shouldTruncate && (
+                  <button className="read-more-button" style={{ background: '#fafafa', border: 'none', color: 'black', padding: '0px' }} onClick={() => toggleDescriptionExpansion(itemId)}>Read less</button>
+                )}
+              </>
+            )}
+          </div>
+        );
+      }
       const handleInputChange = (event) => {
         setIsTyping(true);
         const inputText = event.target.value;
         setSearchText(inputText);
     
         // Filter suggestions based on the input text
-        const filteredSuggestions = menuItems.filter(item =>
-          item.name.toLowerCase().includes(inputText.toLowerCase())
+         filteredSuggestions = menuItems.filter(item => 
+          item.name.toLowerCase().includes(inputText.toLowerCase()) ||
+          item.description.toLowerCase().includes(inputText.toLowerCase())
         );
+        
         setSuggestions(filteredSuggestions);
       };
 
@@ -82,65 +126,139 @@ function SearchBox({searchText,setSearchText}) {
         setSearchText(suggestion);
         setSuggestions([]);
       };
-
+      const handleScroll = (event) => {
+        const suggestionsDiv = event.target;
+        const isBottom = suggestionsDiv.scrollHeight - suggestionsDiv.scrollTop === suggestionsDiv.clientHeight;
+      
+        if (isBottom) {
+          event.stopPropagation();
+        }
+      }
+      const addToCart = (item) => {
+        const existingItem = cart.find(cartItem => cartItem.id === item.id);
+        if (existingItem) {
+          setCart(cart.map(cartItem => {
+            if (cartItem.id === item.id) {
+              return { ...cartItem, quantity: cartItem.quantity + (cartItem.half ? 0.5 : 1) };
+            }
+            return cartItem;
+          }));
+        } else {
+          setCart([...cart, { ...item, quantity: (item.half ? 0.5 : 1) }]);
+        }
+      };
+      const removeFromCart = (item) => {
+        const existingItem = cart.find(cartItem => cartItem.id === item.id);
+        if (existingItem) {
+          if (existingItem.quantity === 1) {
+            setCart(cart.filter(cartItem => cartItem.id !== item.id));
+          } else {
+            setCart(cart.map(cartItem => {
+              if (cartItem.id === item.id) {
+                return { ...cartItem, quantity: cartItem.quantity - (cartItem.half ? 0.5 : 1) };
+              }
+              return cartItem;
+            }));
+          }
+        }
+      };
+      const handleChipClickR = () => {
+        setIsOpenR(true);
+        };
+      
   return (
-    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+    <div style={{ position: 'relative', display: 'flex', alignItems: 'center',marginTop:'15px',paddingBottom:'20px',marginBottom:'5px' ,paddingLeft:'5px',paddingRight:'5px'}}>
+            {isOpenR && (<div style={{ width: '40px', fontSize: '30px', fontWeight: 'bold', display:'flex' , alignContent:'center',marginRight:'-12px' }}
+            onClick={()=>{setIsOpenR(!isOpenR)
+            setSearchText('')
+            setSuggestions('')}}>
+      <IoChevronBackOutline />
+    </div>)}
             <div
       style={{
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
         border: '1px solid rgb(223, 225, 229)',
-        borderRadius: '24px',
-        backgroundColor: '#fafafa',
+        borderRadius: '15px',
+        backgroundColor: '#f5f5f5',
         color: 'rgb(33, 33, 33)',
         fontSize: '16px',
         fontFamily: 'Arial',
         zIndex: '10',
         marginLeft: '6px',
-        width: '86%',
-        boxShadow: isTyping ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none', // Apply box shadow when typing
+        marginRight:'8px',
+        width: '100%',
+        boxShadow: isTyping ? '0px 4px 6px rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.2) 0px 2px 4px', // Apply box shadow when typing
         transition: 'box-shadow 0.3s', // Smooth transition for box shadow
         
       }}
     >
       {/* Your input field and other elements */}
+      {/* <div onClick={isOpenR ? () => {} : handleChipClickR}> */}
       <FaSearch style={{ position: 'absolute', left: '10px', color: '#aaa', marginRight: '20px' }} />
       <input
         type="text"
         value={searchText}
         onChange={handleInputChange}
         onBlur={handleBlur}
-        onClick={handleBlur}
+        // onClick={handleBlur}
+        onClick={isOpenR ? () => {} : handleChipClickR}
         placeholder="Search..."
-        style={{ padding: '8px 30px 8px 30px', width: '100%', border: 'none', outline: 'none', borderRadius: '24px', backgroundColor: 'transparent' }}
-      />
+        style={{ padding: '8px 5px 8px 30px', width: '100%', border: 'none', outline: 'none', borderRadius: '24px', backgroundColor: '#f5f5f5' }}
+      /> 
+      {/* </div> */}
       {searchText.length>0 && (
         <FaTimes
-          style={{ position: 'absolute', right: '10px', cursor: 'pointer', color: '#aaa' }}
+          style={{ position: 'absolute', right: '50px', cursor: 'pointer', color: '#aaa' }}
           onClick={handleClearInput}
         />
       )}
-    </div>
-
-
-              {suggestions.length > 0 && (
-                <div style={{ position: 'absolute', top: '48px', left: '10px', width: '94%', backgroundColor: '#fafafa', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', borderRadius: '5px', zIndex: '20' }}>
-                  {suggestions.map(suggestion => (
-                    <div
-                      key={suggestion.id}
-                      style={{ padding: '8px 16px', borderBottom: '1px solid #eee', cursor: 'pointer',color:'#4f4f4f' }}
-                      onClick={() => handleSuggestionClick(suggestion.name)}
-                    >
-                      {suggestion.name}
-                    </div>
-                  ))}
-                </div>
-              )}
-                <div>    <FaMicrophone style={{ marginLeft: '3px', cursor: 'pointer', marginTop: '2px', fontSize: '26px', color: 'grey' 
+      <Divider orientation="vertical" />
+      <div style={{marginRight:'10px'}}>   
+       <FaMicrophone style={{ marginLeft: '3px', cursor: 'pointer', marginTop: '2px', fontSize: '26px', color: 'grey' 
               , color: isMicActive ? 'red' : 'grey', // Change color when active
               animation: isMicActive ? 'pulse 1s infinite' : 'none' // Smooth transition for color change
             }} onClick={handleVoiceSearch} /> </div>
+    </div>
+
+{console.log('nfejjgkjf',isOpenR,suggestions)}
+              {isOpenR && suggestions.length > 0 && (
+                <div style={{ position: 'absolute', top: '48px', width: '100%',height:'85vh', backgroundColor: '#fafafa',  zIndex: '20', overflowY:'scroll',overflowX:'hidden' ,marginRight:'5px'}} onScroll={handleScroll}>
+                  {suggestions
+                  .map((menuItem,index1,array) => (<>
+                    <div key={menuItem.id} className="menu-item" style={{marginLeft:'0px',paddingLeft:'10px'}}> 
+                      <div className="item-details">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="13" height="15" viewBox="0 0 32 32"
+                          style={{ fill: menuItem.veg ? '#40C057' : '#FF5252', marginRight: '4px',fontWeight:'bold',paddingBottom:'2px' }}>
+                          <path d="M 7 3 C 4.8 3 3 4.8 3 7 L 3 25 C 3 27.2 4.8 29 7 29 L 25 29 C 27.2 29 29 27.2 29 25 L 29 7 C 29 4.8 27.2 3 25 3 L 7 3 z M 7 7 L 25 7 L 25 25 L 7 25 L 7 7 z M 12.400391 12 L 12.400391 19.599609 L 20 19.599609 L 20 12 L 12.400391 12 z"></path>
+                        </svg><span style={{fontWeight:'Bold' , marginTop:'-4px' ,color:'goldenrod', fontFamily: 'cursive'}}>Bestseller</span>
+                        <p className="item-namem">{menuItem.name}</p>
+                        <p className="item-pricee"> ₹ {menuItem.price}</p>
+                        {renderDescription(menuItem.description, menuItem.id)}
+
+                      </div>
+                      <div className="counterbox" style={{marginRight:'5px',width:'100px'}}>
+                        <button className="quantity-btn" 
+                        onClick={() => removeFromCart(menuItem)} 
+                        style={{ fontSize: '18px', fontWeight: '200' }}><FaMinus /></button>
+                        <span className="quantity" style={{ fontSize: '18px', fontWeight: '700' }}>
+                          {Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}
+                        </span>
+                        <button className="quantity-btn" 
+                        onClick={() => addToCart(menuItem)} 
+                        style={{ fontSize: '18px', fontWeight: '200' }}><FaPlus /></button>
+                      </div>
+                    </div>
+                    {index1 !== array.length - 1 && <Divider variant="dashed" size={1} />}   
+                      </>
+
+                  )
+                  )
+                  }
+                </div>
+              )}
+                
             </div>
   )
 }

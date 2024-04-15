@@ -13,6 +13,29 @@
   font-style: normal;
 }
 
+.gradient {
+  /* background: linear-gradient(to bottom, 
+  #ffcf9e,
+  #ffd4a4,
+  #ffd9a9,
+  #ffddb0,
+  #ffe1b5,
+  #ffe5ba,
+  #ffeac0,
+  #ffeed0,
+  #fff2df,
+  #fff6ee,
+  #fffaf8,
+  #ffffff
+); */
+/* background: radial-gradient(circle at 5.3% 17.2%, rgb(255, 208, 253) 28%, rgb(255, 237, 216) 0%); */
+background: radial-gradient(circle at 12.3% 17.2%, rgb(255, 210, 253) 28%, rgb(255, 237, 216) 0%);
+    width: 100%;
+  width: 100%;
+   /* Adjust height as needed */
+  position: relative;
+}
+
 body{
   margin: 0px;
   padding: 0px;
@@ -72,7 +95,8 @@ margin-bottom: -15px !important;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   margin-right: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+  max-width: 200px;
 }
 
 .outline-btnfilter:hover {
@@ -171,10 +195,11 @@ margin-bottom: -15px !important;
     color:#fc8019;
   }
   
-  .category-name {
+  .category-namem{
     font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-weight: 500;
+
+    /* margin-bottom: 5px; */
   }
   
   .menu-item {
@@ -184,7 +209,8 @@ margin-bottom: -15px !important;
    
     border-radius: 5px;
     padding: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    margin-top: 10px;
    
   }
   .khXxzt {
@@ -197,8 +223,8 @@ margin-bottom: -15px !important;
   
   .item-namem {
     color: #333333;
-    font-size: 16px;
-    font-weight: 900;
+    font-size: 20px;
+    font-weight: 700;
   }
   
   .item-pricee {
@@ -247,7 +273,7 @@ margin-bottom: -15px !important;
   .quantity {
     font-size: 16px;
     padding: 8px;
-    color: #4CAF50 !important;
+    color: #666;
     /* background-color: #f9f9f9; */
     border-radius: 5px;
   }
@@ -331,20 +357,22 @@ margin-bottom: -15px !important;
     background-color: black; /* Darker shade on hover */
   }
   
-  /* .dropdown-menuk {
-    position: fixed; /* Ensure the menu stays in place even when scrolling *
-    bottom: 30px; /* Adjust the distance from the bottom *
-    right: 30px; /* Adjust the distance from the right *
-    max-height: 200px; /* Set maximum height for scrollability *
-    overflow-y: auto; /* Enable vertical scrolling *
+  .dropdown-menuk {
+    position: fixed;
+    bottom: 20px;
+    right: 8px;
+    max-height: 270px;
+    overflow-y: auto;
     z-index: 1;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-    display: none; /* Initially hide the dropdown 
-  } */
+    /* background-image: linear-gradient(to right, #ffffff, #ffffcc);
+     */
+     background-color: hsl(240, 79%, 98.5%);
+     /* background-color: hsl(153, 77%, 99%); */
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    animation: slideIn 0.5s ease; /* Entrance animation */
+  }
   
   .dropdown-containerk:hover .dropdown-menuk {
     display: block; /* Show the dropdown on hover */
@@ -367,8 +395,8 @@ margin-bottom: -15px !important;
 
 .close-btn {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: -5px;
+    right: 4px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -447,20 +475,7 @@ margin-bottom: -15px !important;
     text-decoration: none;
   }
  
-  .dropdown-menuk {
-    position: fixed;
-    bottom: 20px;
-    right: 5px;
-    max-height: 300px;
-    /* vmvvm  */
-    overflow-y: auto;
-    z-index: 1;
-    background-image: linear-gradient(to right, #ffffff, #ffffcc);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    display: none;
-    animation: slideIn 0.5s ease; /* Entrance animation */
-  }
+  
   
   @keyframes slideIn {
     from {
@@ -533,7 +548,7 @@ margin-bottom: -15px !important;
          
 .category-heading {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 700;
   color: #000000;
   padding: 5px 10px;
   background-color: #fff;
@@ -548,6 +563,7 @@ margin-bottom: -15px !important;
   border-top: none;
 }
 .category-info {
+  margin-bottom: -5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -559,5 +575,6 @@ margin-bottom: -15px !important;
 
 .dropdown-list li.selected {
   /* background-color: rgb(0, 0, 0); */
-  color :black
+  /* color :black; */
+  color:goldenrod;
 }

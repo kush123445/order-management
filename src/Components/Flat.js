@@ -8,13 +8,18 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import Lottie from "lottie-react";
 import n from "./n.json";
 import aib from './vada.png';
+import f2 from './f2.png';
+import f1 from './f1.png';
+import f3 from './f3.png';
+import f4 from './f4.png';
+import f5 from './f5.png';
 import { Card,Paper , Image,Divider, Text, Badge, Button, Group } from '@mantine/core';
 import SearchBox from './SearchBox';
 import vegIcon from './icons8-veg-48.png';
 import { FaSquareCaretUp } from "react-icons/fa6";
 
 
-const Flat = ({ isFilterSetting , setIsFilterSetting,searchText , setSearchText }) => {
+const Flat = ({ isFilterSetting , setIsFilterSetting,searchText , setSearchText, isOpenR , setIsOpenR}) => {
   
   const [checkedItems, setCheckedItems] = useState(null);
   const [clickedButtonIds, setClickedButtonIds] = useState([]);
@@ -24,14 +29,14 @@ const Flat = ({ isFilterSetting , setIsFilterSetting,searchText , setSearchText 
     { id: '1', title: 'Veg',icon: <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="13" height="20" viewBox="0 0 30 30"
     style={{ fill: '#40C057', marginRight: '2px',fontWeight:'bold', paddingBottom:'3px'}}>
     <path d="M 7 3 C 4.8 3 3 4.8 3 7 L 3 25 C 3 27.2 4.8 29 7 29 L 25 29 C 27.2 29 29 27.2 29 25 L 29 7 C 29 4.8 27.2 3 25 3 L 7 3 z M 7 7 L 25 7 L 25 25 L 7 25 L 7 7 z M 12.400391 12 L 12.400391 19.599609 L 20 19.599609 L 20 12 L 12.400391 12 z"></path>
-  </svg>},
+  </svg> ,imgi: f1},
     { id: '2', title: 'Non Veg' ,icon:<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="13" height="15" viewBox="0 0 30 30"
     style={{ fill: '#FF5252', marginRight: '2px',fontWeight:'bold', paddingBottom:'3px' }}>
     <path d="M 7 3 C 4.8 3 3 4.8 3 7 L 3 25 C 3 27.2 4.8 29 7 29 L 25 29 C 27.2 29 29 27.2 29 25 L 29 7 C 29 4.8 27.2 3 25 3 L 7 3 z M 7 7 L 25 7 L 25 25 L 7 25 L 7 7 z M 12.400391 12 L 12.400391 19.599609 L 20 19.599609 L 20 12 L 12.400391 12 z"></path>
-  </svg>},
-    { id: '3', title: 'Chef Special', icon: '👨🏻‍🍳' }, // Chef Special category
-    { id: '4', title: 'Kids Choice',icon: '🧸' }, // Kids Choice category
-    { id: '5', title: 'Combos',icon: '✨' } // Combos category
+  </svg>,imgi: f2},
+    { id: '3', title: 'Chef Special', icon: '👨🏻‍🍳' ,imgi: f3}, // Chef Special category
+    { id: '4', title: 'Kids Choice',icon: '🧸',imgi: f4 }, // Kids Choice category
+    { id: '5', title: 'Combos',icon: '✨',imgi: f5 } // Combos category
     // Add more categories as needed
 ];
 
@@ -40,7 +45,7 @@ const iconMap1 = {
   'Non Veg': { icon: <MdLocalDining />, color: 'rgb(234 145 138)' },
   'Chef Special': { icon: <BiFoodTag />, color: '#fdd66f' }, // Chef Special category icon and color
   'Kids Choice': { icon: <BiFoodTag />, color: '#f5986c' }, // Kids Choice category icon and color
-  'Combos': { icon: <BiFoodTag />, color: 'purple' } // Combos category icon and color
+  'Combos': { icon: <BiFoodTag />, color: '#00b3b3' } // Combos category icon and color
   // Add more categories as needed
 };
     
@@ -89,6 +94,11 @@ const iconMap1 = {
         console.log("clicked nonveg")
       }
     };
+    const handleChipClickR = () => {
+      setIsOpenR(true)
+      setIsOpenR(prev=>prev)
+      // setIsSticky(false);
+      };
     useEffect(() => {
         const handleScroll = () => {
             const lastItemPosition = lastItemRef.current.getBoundingClientRect().bottom;
@@ -98,6 +108,7 @@ const iconMap1 = {
                 setIsSticky(false);
             }
         };
+       
 
         window.addEventListener('scroll', handleScroll);
 
@@ -105,13 +116,18 @@ const iconMap1 = {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+    useEffect(()=>{
+      if(isOpenR){
+      setIsSticky(false);
+      }
+    },[setIsOpenR,handleChipClickR])
 
     return (
         <div>
             {isSticky && (
               <div  style={{ 
                 boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-                width: '100%', height: '120px',  position: 'fixed', top: 0, zIndex: 1000 ,backgroundColor:'white',paddingTop:'15px'}}>
+                width: '100%', height: '130px',  position: 'fixed', top: 0, zIndex: 1000 ,backgroundColor:'white',paddingTop:'5px'}}>
 {/* <div style={{  backgroundImage: 'linear-gradient(to right, #ffcc99, #ffcc99)',
 display:'flex',
 flexDirection:'row',
@@ -210,16 +226,29 @@ height:'100px'
             
             <Divider my="xs" label="Taste your choice" labelPosition="center" style={{marginTop:'0px important!',color:'black'}} />
             </div> */}
-            <SearchBox searchText={searchText} setSearchText={setSearchText}/>
+            {/* <div onClick={handleChipClickR} style={{marginTop:'-5px',marginBottom:'-5px',marginLeft:'7px',marginRight:'7px'}}> */}
+  <SearchBox searchText={searchText} setSearchText={setSearchText} isOpenR={isOpenR} setIsOpenR={setIsOpenR} />
+{/* </div> */}
 
-      <div style={{ overflowX: 'auto', whiteSpace: 'nowrap',paddingLeft:"10px", backgroundColor: 'white', zIndex: '1' ,marginTop:'10px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch'}}>
+      <div style={{ overflowX: 'auto', whiteSpace: 'nowrap',paddingLeft:"10px", backgroundColor: 'white', zIndex: '1' ,marginTop:'-10px',marginBottom:'5px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch'}}>
       {data.map((item, index) => (
     <button key={item.id} className="outline-btnfilter" onClick={() => handleToggle(item)} style={{color:'Black',
-    backgroundColor: clickedButtonIds.includes(item.id) ? 'rgb(255, 192, 203, 0.2)' : 'white',
-    border: clickedButtonIds.includes(item.id) ? '2px solid #ff9999' : '2px solid gray'
+    backgroundColor: clickedButtonIds.includes(item.id) ? 'rgb(255, 192, 203, 0.2)' : '#f2f2f2',
+    border: clickedButtonIds.includes(item.id) ? '2px solid #ff9999' : 'none'
     
   
- }}>{item.icon}{item.title}{<span> {clickedButtonIds.includes(item.id)? <RxCross2 /> : ''}</span>}</button>
+ }}>
+  <div style={{display:'flex' , flexWrap:'wrap'}}>
+  <div style={{ width: '25px', height: '25px', borderRadius: '50%', overflow: 'hidden', backgroundColor:'white',marginRight:'2px'}}>
+  {item.icon}
+</div>
+<div style={{fontWeight:'lighter'}}>{item.title}</div>
+{<span> {clickedButtonIds.includes(item.id)? <RxCross2 /> : ''}</span>}
+  </div>
+  
+ 
+
+ </button>
 ))}
 </div>
             </div>
@@ -266,7 +295,7 @@ height:'100px'
       border: clickedButtonIds.includes(item.id) ? '2px solid #ff9999' : ''
     }}
     onClick={() => handleToggle(item)}>
-      <img src={aib} alt="Food" style={{ width: '60px', height: '60px', marginBottom: '-5px' }}  />
+      <img src={item.imgi} alt="Food" style={{ width: '60px', height: '60px', marginBottom: '0px' }}  />
       <span>{item.title}{<span> {clickedButtonIds.includes(item.id)? <RxCross2 /> : ''}</span>}</span>
     </div>
   </div>

@@ -115,10 +115,11 @@ html, body {
 .cart-page {
   margin: 0 auto;
   padding: 20px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   /* background-color: #f7f7f7;
    */
-   background-color: rgb(255, 192, 203, 0.1);
+   /* background-color: rgb(255, 192, 203, 0.1); */
+   background: linear-gradient(to bottom, #ffffe6 5%, white 30%);
   min-height: 100vh; /* Set minimum height to 100% of viewport height */
 }
   .itemkp {
@@ -128,12 +129,62 @@ html, body {
       padding-right: 20px; 
       font-weight: 700;
   }
+
+
+  .banner {
+    display: flex;
+    
+    border-radius: 5px;
+    overflow: hidden;
+    
+  }
+  
+  .text {
+    flex: 70%;
+    padding: 20px;
+  }
+  
+  .text h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  
+  
+  .image {
+    margin-top: 28px;
+    flex: 30%;
+  }
+  
+  .image img {
+    width: 120%;
+    height: auto;
+    display: block;
+    transform: scaleX(-1);
+    margin-left: -37px;
+  }
+  
+  
+  .clip-button {
+    padding: 6px 16px;
+    background-color: #FFA500;
+    margin-left: -5px;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Adjust border-radius to make it more rounded */
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
   .containerc {
     display: flex;
     flex-direction: row; /* Setting the direction to row */
     justify-content: space-between; /* Aligning items with space between them */
     align-items: center; /* Aligning items vertically */
     width: 100%;
+    border-radius: 25px 25px 0px 0px;
  /* Adjust this as needed */
     margin: 0 auto;
   }
@@ -177,6 +228,16 @@ html, body {
     font-size: 24px;
     margin-bottom: 20px;
   }
+  .m-8fb7ebe7{
+    border: calc(0.0625rem* var(--mantine-scale)) solid #fd9c68 !important;
+  }
+   .m-1b7284a3 {
+    /* box-shadow:  5px 5px 10px #d3d3d3,
+    -5px -5px 10px #ededed !important; */
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px !important;
+
+    border-radius: 25px 25px 0px 0px !important;
+  } 
   
   .cart-items {
     list-style: none;
@@ -184,23 +245,30 @@ html, body {
     background-color: white;
     padding: 15px;
     border-radius: 16px;
-    box-shadow: 0 calc(0.0625rem * 1) calc(0.1875rem * 1) rgba(0, 0, 0, 0.05), 
-            rgba(0, 0, 0, 0.05) 0 calc(0.625rem * 1) calc(0.9375rem * 1) calc(-0.3125rem * 1), 
-            rgba(0, 0, 0, 0.04) 0 calc(0.4375rem * 1) calc(0.4375rem * 1) calc(-0.3125rem * 1);
+    box-shadow:  5px 5px 10px #d3d3d3,
+    -5px -5px 10px #ededed;
 
 }
   
+  /* .cart-item {
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 5px 10px #d3d3d3, -5px -5px 10px #ededed;
+    justify-content: space-between;
+    border-bottom: 1px dashed #ccc;
+  
+  } */
+  .cart-item.removed {
+    text-decoration: line-through;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
   .cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px dashed #ccc;
   
-  }
-  .cart-item.removed {
-    text-decoration: line-through;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
   }
   
   .item-name {
@@ -244,9 +312,12 @@ html, body {
   
     margin-right: 4px;
 }
+/* .m-77c9d27d{
+  background-color: #ef5504;
+} */
   
   .counterbox button {
-    color: orangered;
+    color: #666;
     /* background-color: #45a049; /* Green button color */
     border: none;
     border-radius: 4px;
@@ -307,7 +378,7 @@ html, body {
   
   .quantity-btn {
     /* background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%); */
-    color: white;
+    color: #666;
     background: none;
     border: none;
     border-radius: 5px;
@@ -455,7 +526,8 @@ html, body {
   
   
   .cart-page {
-  position: relative; /* Position relative to contain absolutely positioned SVG */
+  position: relative; 
+  /* Position relative to contain absolutely positioned SVG */
   }
   
   

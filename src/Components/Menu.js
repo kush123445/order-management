@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaAngleDown, FaAngleUp, FaPlus, FaMinus } from 'react-icons/fa';
 import { MdOutlineCancel } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DrawerR from 'react-modern-drawer'
 import {
   HashLoader
 } from 'react-spinners';
@@ -14,6 +15,7 @@ import emptyCartSvg from './cook.png';
 import { FaMicrophone } from 'react-icons/fa';
 import { css } from '@emotion/react';
 import tea from './aib.png';
+import f2 from './f2.png';
 import { FaSearch } from 'react-icons/fa';
 // import Carousel from 'react-bootstrap/Carousel';
 import ExampleCarouselImage from './cook.png';
@@ -34,6 +36,7 @@ const Menu = ({ cart, setCart }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [isOpenR, setIsOpenR] = React.useState(false)
   const [isFilterSetting,setIsFilterSetting] = useState({
     isVeg: false,
     isNonveg: false,
@@ -58,6 +61,13 @@ const Menu = ({ cart, setCart }) => {
     }, 1000);
 
   };
+  const handleChipClickR = () => {
+    setIsOpenR(true)
+    setIsOpenR(prev=>prev)
+    };
+    const toggleDrawerR = () => {
+      setIsOpenR((prevState) => !prevState)
+  }
 
   // Function to handle clicking on a category item
   const handleClick = (category) => {
@@ -196,10 +206,11 @@ const Menu = ({ cart, setCart }) => {
           {/* <Lottie animationData={jj} loop={true} style={{ height: "400px", width: "400px" }} /> */}
         </div>
       ) : (
-
+       
         <div>
+          <div className='gradient'>
           <header style={{
-            backgroundColor: '#fff',
+            // backgroundColor: '#fff',
             color: '#333',
             padding: '20px 20px 10px 20px',
 
@@ -270,8 +281,20 @@ const Menu = ({ cart, setCart }) => {
   <div>
   
   </div>
-</div> */}
-<SearchBox searchText={searchText} setSearchText={setSearchText}/>
+// </div> */}
+{/* <div onClick={handleChipClickR} style={{marginTop:'-15px',marginBottom:'-25px',marginLeft:'7px',marginRight:'7px'}}> */}
+  <SearchBox searchText={searchText} setSearchText={setSearchText} cart={cart} setCart={setCart}  isOpenR={isOpenR} setIsOpenR={setIsOpenR}  />
+{/* </div> */}
+<DrawerR
+                open={isOpenR}
+                onClose={toggleDrawerR}
+                direction='left'
+                size="100vw"
+            ><div>
+                 <SearchBox searchText={searchText} setSearchText={setSearchText} cart={cart} setCart={setCart} isOpenR={isOpenR} setIsOpenR={setIsOpenR}/>
+            </div>
+               
+            </DrawerR>
           <p style={{
             fontSize: '18px', 
             fontWeight: 'bold',
@@ -279,17 +302,21 @@ const Menu = ({ cart, setCart }) => {
             marginTop: '23px',
             textTransform: 'uppercase',
             paddingLeft: '10px',
-            paddingBottom: '-254px', 
-            fontFamily: 'Arial, sans-serif' 
+            paddingBottom: '-254px',
+            marginTop:'-10px', 
+            fontFamily: 'Arial, sans-serif' ,
+            textAlign: 'center'
           }}>
-            Features
+            Deal of the day
           </p>
           <MyCarousel />
+          </div>
           <Divider my="xs" label="Taste your choice" labelPosition="center" style={{ marginTop: '-15px !important', color: 'black', paddingLeft: '10px' }} />
           {/* <Flat />
            */}
 <Flat isFilterSetting={isFilterSetting}  setIsFilterSetting={setIsFilterSetting}
 searchText={searchText} setSearchText={setSearchText}
+isOpenR={isOpenR} setIsOpenR={setIsOpenR}
 />
           <div className="menu-container" style={{ paddingBottom: '80px' }}>
 
@@ -303,13 +330,13 @@ searchText={searchText} setSearchText={setSearchText}
               </button>
 
               {showDropdown && (
-                <div className="dropdown-menuk" style={{ width: "60%" }}>
+                <div className="dropdown-menuk" style={{ width: "55%" }}>
                   <button className="close-btn" onClick={toggleDropdown}><MdOutlineCancel /></button> {/* Cross button */}
                   <ul className="dropdown-list">
                     {uniqueCategories.map((category) => (
                       <li key={category} onClick={() => handleClick(category)} className={selectedCategory === category ? 'selected' : ''}>
                         <div className="category-info">
-                          <span className="category-name">{category}</span>
+                          <span className="category-namem">{category}</span>
                           <span className="category-count">{totalCounts[category]}</span> {/* Total count */}
                         </div>
                       </li>
@@ -375,8 +402,26 @@ searchText={searchText} setSearchText={setSearchText}
       </div> */}
 
             <div className="categories">
-              {uniqueCategories.map((category, index) => (
-                <div key={category} className={`category ${accordionState[category] ? '' : 'closed'}`} id={category}>
+              {uniqueCategories.map((category, index) => 
+              {
+                // Filter items based on category and filter settings
+                const filteredItems = menuItems.filter(item =>
+                  item.category === category &&
+                  ((!isFilterSetting.isVeg && !isFilterSetting.isNonveg && !isFilterSetting.isChefSpecial && !isFilterSetting.isKidsChoice && !isFilterSetting.isCombo) ||
+                    (isFilterSetting.isVeg && item.veg) ||
+                    (isFilterSetting.isNonveg && !item.veg) ||
+                    (isFilterSetting.isChefSpecial && item.chefSpecial) ||
+                    (isFilterSetting.isKidsChoice && item.kidsChoice) ||
+                    (isFilterSetting.isCombo && item.combo)
+                  )
+                );
+            
+                // Check if there are any items in the filtered list
+                const hasItems = filteredItems.length > 0;
+            
+                // Render the category accordion only if there are items
+                return hasItems ?
+              ( <div key={category} className={`category ${accordionState[category] ? '' : 'closed'}`} id={category}>
                   <h3 className="category-name" onClick={() => toggleAccordion(category)}>
                     <span className="category-heading">{category}</span>
                     {/* Accordion icon */}
@@ -405,17 +450,17 @@ searchText={searchText} setSearchText={setSearchText}
                         .map((menuItem,index1,array) => (<>
                           <div key={menuItem.id} className="menu-item" style={{marginLeft:'-7px'}}> 
                             <div className="item-details">
-                              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="13" height="15" viewBox="0 0 32 32"
+                              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 32 32"
                                 style={{ fill: menuItem.veg ? '#40C057' : '#FF5252', marginRight: '4px',fontWeight:'bold',paddingBottom:'2px' }}>
                                 <path d="M 7 3 C 4.8 3 3 4.8 3 7 L 3 25 C 3 27.2 4.8 29 7 29 L 25 29 C 27.2 29 29 27.2 29 25 L 29 7 C 29 4.8 27.2 3 25 3 L 7 3 z M 7 7 L 25 7 L 25 25 L 7 25 L 7 7 z M 12.400391 12 L 12.400391 19.599609 L 20 19.599609 L 20 12 L 12.400391 12 z"></path>
-                              </svg><span style={{fontWeight:'Bold' , marginTop:'-4px' ,color:'goldenrod', fontFamily: 'cursive'}}>Bestseller</span>
+                              </svg><span style={{fontWeight:'Bolder' , marginTop:'-4px' ,color:'goldenrod', fontFamily: 'cursive'}}>Bestseller</span>
                               <p className="item-namem">{menuItem.name}</p>
                               <p className="item-pricee"> ₹ {menuItem.price}</p>
                               {renderDescription(menuItem.description, menuItem.id)}
                             </div>
                             <div className="counterbox" style={{marginRight:'-10px',width:'110px'}}>
-                              <button className="quantity-btn" onClick={() => removeFromCart(menuItem)} style={{ fontSize: '18px', fontWeight: '200' }}><FaMinus /></button>
-                              <span className="quantity" style={{ fontSize: '18px', fontWeight: '700' }}>{Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}</span>
+                              <button className="quantity-btn" onClick={() => removeFromCart(menuItem)} style={{ fontSize: '18px', fontWeight: '200'}}><FaMinus /></button>
+                              <span className="quantity" style={{ fontSize: '18px', fontWeight: '700', color:'#666' }}>{Math.max((cart.find(cartItem => cartItem.id === menuItem.id) || { quantity: 0 }).quantity, 0)}</span>
                               <button className="quantity-btn" onClick={() => addToCart(menuItem)} style={{ fontSize: '18px', fontWeight: '200' }}><FaPlus /></button>
                             </div>
                           </div>
@@ -429,7 +474,8 @@ searchText={searchText} setSearchText={setSearchText}
                   }
                   {index !== uniqueCategories.length - 1 && <Divider  size={2} ml={-20} mr={-20} mt={20} />}
                 </div>
-              ))}
+              ): null;
+            })}
               {!Object.values(accordionState).some(state => state) && (
                 <div className="order-line">Order line content here...</div>
               )}

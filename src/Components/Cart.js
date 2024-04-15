@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
+import aib from './burger1.png';
 import { HashLoader } from 'react-spinners';
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
@@ -93,13 +94,11 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
   const handleChipClickR = () => {
   setIsOpenR(true)
-  console.error("h")
   setIsOpenR(prev=>prev)
   };
  
 
   const toggleDrawerR = () => {
-    console.log("kgfjdhsbav")
     setIsOpenR((prevState) => !prevState)
 }
 
@@ -556,26 +555,39 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
 
 
-                <div style={{ marginBottom: '20px', overflow: 'hidden', height: '50px', justifyContent: 'center', alignItems: 'center' }} ref={buttonRef}>
-                  <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block' }}>
-                    <Button variant='light' color="yellow" fullWidth style={{ height: '49px' }}>
-                      <span style={{ display: 'flex', alignItems: 'center', fontSize: 'small', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>
-                        <FaGift style={{ marginRight: '5px', fontSize: '1.6em', color: 'orange' }} />
-                        <span style={{ fontSize: '1.1em', textTransform: 'uppercase', letterSpacing: '1px', color: 'black' }}>
-                          (Offer: 10% discount for you)
-                        </span>
-                      </span>
-                    </Button>
-                  </div>
+                // <div style={{ marginBottom: '20px', overflow: 'hidden', height: '50px', justifyContent: 'center', alignItems: 'center' }} ref={buttonRef}>
+                //   <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block' }}>
+                //     <Button variant='light' color="yellow" fullWidth style={{ height: '49px' }}>
+                //       <span style={{ display: 'flex', alignItems: 'center', fontSize: 'small', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>
+                //         <FaGift style={{ marginRight: '5px', fontSize: '1.6em', color: 'orange' }} />
+                //         <span style={{ fontSize: '1.1em', textTransform: 'uppercase', letterSpacing: '1px', color: 'black' }}>
+                //           (Offer: 10% discount for you)
+                //         </span>
+                //       </span>
+                //     </Button>
+                //   </div>
+                // </div>
+<div>
+<div class="banner">
+    <div class="text">
+        <h2>Delicious Food on Fingertips</h2>
+     
+        <button class="clip-button">Check Menu</button>
+    </div>
+    <div class="image">
+        <img src={aib} alt="Delicious Food" />
+    </div>
+</div>
                 </div>
+
               )}
-              <div style={{
+              {/* <div style={{
                 display: 'flex', alignItems: 'center', width: '100%', height: '50px',
                 backgroundImage: 'linear-gradient(to right, #f46b45 0%, #eea849  51%)',
                 position: 'fixed', top: '0', marginLeft: '-20px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)', borderRadius: '0px 0px 10px 10px'
               }}>
                 <h2 className="menu-titleC">Your Orders</h2>
-              </div>
+              </div> */}
               <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
                 <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
                 <h3 className="category-name">Order List</h3>
@@ -742,8 +754,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                         </Group>
 
                         <Text size="sm" c="dimmed">
-                          <em style={{ color: 'red' }}>Note : </em>Upon placing your order, you will have a 60-second window to confirm it. After the order is confirmed, you will have the option to submit a  request. If the admin approves your request, it will be processed accordingly.
-                          Please note that no refunds will be issued for cancellations made after 60 seconds of order confirmation.
+                          <em style={{ color: 'red' }}>Note : </em>Upon placing your order, you will have a 10-second window to confirm it. After the order is confirmed, you will have the option to submit a  request. If the admin approves your request, it will be processed accordingly.
+                          Please note that no refunds will be issued for cancellations made after 10 seconds of order confirmation.
                         </Text>
 
                       </Card>
@@ -804,7 +816,12 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     className='bla bla bla'
                     overlayOpacity='0.5'
 
-                    style={{ display: 'flex', widh: '100vw', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
+                    style={{ display: 'flex', widh: '100vw', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', 
+                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 4px' ,
+
+    borderRadius: '25px 25px 0px 0px' ,
+                    
+                    maxWidth: '100vw' }}
                   >
 
                     <div>
@@ -834,7 +851,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     </div>
 
                     <div>
-                      <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
+                      <Text size="xs" mt={5}>  To ensure , please confirm your order within 10 seconds.</Text>
                     </div>
                   </Drawerr>
 
@@ -919,13 +936,16 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                 />
                 <Divider my="md" /> {/* Add a divider to separate input from buttons */}
                 <Group position="right">
-                  <Button onClick={() => { setCustomize("") }} variant="outline">
+                  <Button onClick={() => { setCustomize("") }} variant="outline"
+                  color='#ef5504'>
                     Clear
                   </Button>
 
 
                   {/* <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button> */}
-                  <Button type="submit" variant="gradient" onClick={saving}>
+                  <Button type="submit" variant="filled" 
+                  color='#ef5504'
+                  onClick={saving}>
                     Save
                   </Button>
                 </Group>
