@@ -181,7 +181,7 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
         alignItems: 'center',
         border: '1px solid rgb(223, 225, 229)',
         borderRadius: '15px',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: 'white',
         color: 'rgb(33, 33, 33)',
         fontSize: '16px',
         fontFamily: 'Arial',
@@ -205,7 +205,7 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
         // onClick={handleBlur}
         onClick={isOpenR ? () => {} : handleChipClickR}
         placeholder="Search..."
-        style={{ padding: '8px 5px 8px 30px', width: '100%', border: 'none', outline: 'none', borderRadius: '24px', backgroundColor: '#f5f5f5' }}
+        style={{ padding: '8px 5px 8px 30px', width: '100%', border: 'none', outline: 'none', borderRadius: '20px', backgroundColor: 'white' }}
       /> 
       {/* </div> */}
       {searchText.length>0 && (

@@ -233,8 +233,9 @@ height:'100px'
       <div style={{ overflowX: 'auto', whiteSpace: 'nowrap',paddingLeft:"10px", backgroundColor: 'white', zIndex: '1' ,marginTop:'-10px',marginBottom:'5px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch'}}>
       {data.map((item, index) => (
     <button key={item.id} className="outline-btnfilter" onClick={() => handleToggle(item)} style={{color:'Black',
-    backgroundColor: clickedButtonIds.includes(item.id) ? 'rgb(255, 192, 203, 0.2)' : '#f2f2f2',
-    border: clickedButtonIds.includes(item.id) ? '2px solid #ff9999' : 'none'
+    backgroundColor: clickedButtonIds.includes(item.id) ? 'rgb(255, 192, 203, 0.2)' : 'white',
+    border: clickedButtonIds.includes(item.id) ? '2px solid #ff9999' : '1px solid #ccc',
+    border:'1px olid #ccc'
     
   
  }}>

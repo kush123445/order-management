@@ -331,7 +331,7 @@ isOpenR={isOpenR} setIsOpenR={setIsOpenR}
 
               {showDropdown && (
                 <div className="dropdown-menuk" style={{ width: "55%" }}>
-                  <button className="close-btn" onClick={toggleDropdown}><MdOutlineCancel /></button> {/* Cross button */}
+                  {/* <button className="close-btn" onClick={toggleDropdown}><MdOutlineCancel /></button> Cross button */}
                   <ul className="dropdown-list">
                     {uniqueCategories.map((category) => (
                       <li key={category} onClick={() => handleClick(category)} className={selectedCategory === category ? 'selected' : ''}>
