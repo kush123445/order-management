@@ -19,7 +19,13 @@ import vegIcon from './icons8-veg-48.png';
 import { FaSquareCaretUp } from "react-icons/fa6";
 
 
-const Flat = ({ isFilterSetting , setIsFilterSetting,searchText , setSearchText, isOpenR , setIsOpenR}) => {
+const Flat = ({ isFilterSetting , setIsFilterSetting,
+  searchText , setSearchText, 
+  isOpenR , setIsOpenR ,
+  isMicActive, setIsMicActive,
+  cart, setCart,
+  suggestions, setSuggestions
+}) => {
   
   const [checkedItems, setCheckedItems] = useState(null);
   const [clickedButtonIds, setClickedButtonIds] = useState([]);
@@ -227,7 +233,11 @@ height:'100px'
             <Divider my="xs" label="Taste your choice" labelPosition="center" style={{marginTop:'0px important!',color:'black'}} />
             </div> */}
             {/* <div onClick={handleChipClickR} style={{marginTop:'-5px',marginBottom:'-5px',marginLeft:'7px',marginRight:'7px'}}> */}
-  <SearchBox searchText={searchText} setSearchText={setSearchText} isOpenR={isOpenR} setIsOpenR={setIsOpenR} />
+  <SearchBox searchText={searchText} setSearchText={setSearchText} isOpenR={isOpenR} setIsOpenR={setIsOpenR}
+  isMicActive={isMicActive} setIsMicActive={setIsMicActive}
+  suggestions={suggestions} setSuggestions={setSuggestions} 
+  cart={cart} setCart={setCart}
+  />
 {/* </div> */}
 
       <div style={{ overflowX: 'auto', whiteSpace: 'nowrap',paddingLeft:"10px", backgroundColor: 'white', zIndex: '1' ,marginTop:'-10px',marginBottom:'5px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch'}}>
@@ -239,7 +249,7 @@ height:'100px'
   
  }}>
   <div style={{display:'flex' , flexWrap:'wrap'}}>
-  <div style={{ width: '25px', height: '25px', borderRadius: '50%', overflow: 'hidden', backgroundColor:'white',marginRight:'2px'}}>
+  <div style={{ width: '25px', height: '25px', borderRadius: '50%', overflowX: 'hidden', backgroundColor:'white',marginRight:'2px'}}>
   {item.icon}
 </div>
 <div style={{fontWeight:'lighter'}}>{item.title}</div>

@@ -26,6 +26,7 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
       draggable: true,
       progress: undefined,
       theme: "light",
+      onClose: close 
     });
   };
 
@@ -46,20 +47,19 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
             onChange={(event) => setName(event.target.value)}
             required
           />
-          <Select
-            className="form-select"
-            label="Type of Query"
-            placeholder="Select type"
-            data={[
-              { value: 'general', label: 'General Inquiry' },
-              { value: 'technical', label: 'Technical Support' },
-              { value: 'feedback', label: 'Feedback' },
-              { value: 'other', label: 'Other' },
-            ]}
-            value={queryType}
-            onChange={(value) => setQueryType(value)}
-            required
-          />
+           <Select
+      label="Type of Query"
+      placeholder="Select type"
+      data={[
+        { value: 'general', label: 'General Inquiry' },
+        { value: 'technical', label: 'Technical Support' },
+        { value: 'feedback', label: 'Feedback' },
+        { value: 'other', label: 'Other' },
+      ]}
+      value={queryType}
+      onChange={(value) => setQueryType(value)}
+      required
+    />
           <Textarea
             className="form-text-input"
             label="Query Description"
@@ -70,10 +70,10 @@ const RequestForm = ({close,setTimelineData,timelineData}) => {
             multiline
             rows={5} // Set number of rows to 5
           />
-          <Button  variant ='filled' type="submit" className="form-submit-button" style={{marginRight:'25px'}} >
+          <Button  variant ='filled' color="orange" type="submit" className="form-submit-button" style={{marginRight:'25px'}} >
             Submit
           </Button>
-          <Button variant='light' style={{marginRight:'20px'}} onClick={close} className="form-submit-button">
+          <Button variant='outline' color="orange" style={{marginRight:'20px'}} onClick={close} className="form-submit-button">
             Cancel
           </Button>
         </form>

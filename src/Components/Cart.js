@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IconX } from '@tabler/icons-react';
 import { css } from '@emotion/react';
 import aib from './burger1.png';
 import { HashLoader } from 'react-spinners';
@@ -29,7 +30,6 @@ import boopSfx from './transition.mp3';
 import useSound from 'use-sound';
 //import SlideUpModal from './SlideUpModal.js';
 import { Chip, rem } from '@mantine/core';
-import { IconX } from '@tabler/icons-react'
 import Drawerr from 'react-modern-drawer'
 import DrawerR from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
@@ -572,7 +572,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     <div class="text">
         <h2>Delicious Food on Fingertips</h2>
      
-        <button class="clip-button">Check Menu</button>
+        <button class="clip-button" onClick={handleChipClick}>Check Menu</button>
     </div>
     <div class="image">
         <img src={aib} alt="Delicious Food" />
@@ -839,7 +839,9 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '15px', marginBottom: '15px' }}>
 
-                      <Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
+                      <Chip 
+                      icon={<IconX style={{ width: rem(16), height: rem(16) }} />}
+                      variant='outline' defaultChecked color="red" onClick={cancelOrder}>
                         Cancel Order
                       </Chip>
 

@@ -44,6 +44,7 @@ html, body {
   top: 0;
   z-index: 1000;
   overflow: hidden;
+  overscroll-behavior: contain ;
   animation: slideDown 2s ease forwards; /* Increase animation duration */
 }
 
@@ -222,6 +223,7 @@ html, body {
     max-width: 100vw;
     max-height: 100%;
     overflow-y: auto;
+    overscroll-behavior: contain ;
 }
   
   .page-title {
@@ -230,6 +232,9 @@ html, body {
   }
   .m-8fb7ebe7{
     border: calc(0.0625rem* var(--mantine-scale)) solid #fd9c68 !important;
+  }
+  .m-3904c1af{
+    color: red;
   }
    .m-1b7284a3 {
     /* box-shadow:  5px 5px 10px #d3d3d3,

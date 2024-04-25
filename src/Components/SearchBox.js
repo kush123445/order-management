@@ -1,17 +1,16 @@
 import React,{useState,useRef,useEffect} from 'react'
 import { FaMicrophone } from 'react-icons/fa';
+import { IconX } from '@tabler/icons-react';
 import { FaSearch,FaTimes, FaPlus, FaMinus } from 'react-icons/fa';
-import { Divider } from '@mantine/core';
-import { IoIosArrowBack } from "react-icons/io";
+import { Divider,Text } from '@mantine/core';
+import DrawerL from 'react-modern-drawer';
 import { IoChevronBackOutline } from "react-icons/io5";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import './Menu.css'; 
 
 
-function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR }) {
-    const [suggestions, setSuggestions] = useState([]);
+function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR,suggestions,setSuggestions ,isMicActive, setIsMicActive}) {
     const [isTyping, setIsTyping] = useState(false);
-    const [isMicActive, setIsMicActive] = useState(false);
+    const [isDrawerOpen,setIsDrawerOpen]=useState(false);
     const recognition = useRef(null);
     const [expandedDescriptions, setExpandedDescriptions] = useState({});
 
@@ -34,7 +33,7 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
         { id: 15, category: "Desserts", name: "Kheer", description: "Creamy Indian rice pudding made with fragrant basmati rice, milk, sugar, and flavored with cardamom, saffron, and nuts. A delightful sweet treat served chilled or warm.", price: 4, half: false, veg: true },
       ];
       let filteredSuggestions ;
-
+      let transcript;
     const handleVoiceSearch = () => {
         // Ensure browser support for SpeechRecognition
         if (!('webkitSpeechRecognition' in window)) {
@@ -42,6 +41,8 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
           return;
         }
         setIsMicActive(true);
+        setIsDrawerOpen(true);
+        setSearchText('');
         // Initialize SpeechRecognition
         recognition.current = new window.webkitSpeechRecognition();
         recognition.current.continuous = false;
@@ -49,11 +50,12 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
         recognition.current.lang = 'en-US';
     
         recognition.current.onresult = (event) => {
-          const transcript = event.results[0][0].transcript.trim();
-          
+           transcript = event.results[0][0].transcript.trim();
+          // var glTranscript=transcript;
+
             setSearchText(transcript);
             console.log(isOpenR)
-          setIsOpenR(true);
+          // setIsOpenR(true);
           recognition.current.stop();
     
           // Filter suggestions based on the voice input
@@ -66,12 +68,36 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
           setSuggestions(filteredSuggestions);
           // }
         };
+        // recognition.current.onend = () => {
+        //   setIsMicActive(false); // Set isMicActive to false when voice recognition ends
+        // };
         recognition.current.onend = () => {
-          setIsMicActive(false); // Set isMicActive to false when voice recognition ends
+          setIsMicActive(false);
+          // Automatically close the drawer after 2 seconds
+          console.log("njbdjbxnjcndkjkjk",searchText);
+          setTimeout(() => {
+            if(transcript){
+              console.log("n56",searchText);
+              setIsDrawerOpen(false);
+              setIsOpenR(true);
+              console.log(suggestions);
+            }
+            
+          }, 2000);
         };
       
         recognition.current.start();
       };
+      const toggleDrawer = () => {
+        if(searchText){
+          setIsOpenR(true);
+        }
+        else{
+          setIsMicActive(false);
+        }
+        setIsDrawerOpen(false);
+    }
+
       const toggleDescriptionExpansion = (itemId) => {
         setExpandedDescriptions(prevState => ({
           ...prevState,
@@ -122,10 +148,12 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
         setIsTyping(false);
         // Other blur logic
       };
-      const handleSuggestionClick = (suggestion) => {
-        setSearchText(suggestion);
-        setSuggestions([]);
-      };
+      // const handleSuggestionClick = (suggestion) => {
+      //   setSearchText(suggestion);
+      //   setSuggestions([]);
+      // };
+
+      
       const handleScroll = (event) => {
         const suggestionsDiv = event.target;
         const isBottom = suggestionsDiv.scrollHeight - suggestionsDiv.scrollTop === suggestionsDiv.clientHeight;
@@ -221,10 +249,80 @@ function SearchBox({searchText,setSearchText ,cart,setCart,isOpenR,setIsOpenR })
               animation: isMicActive ? 'pulse 1s infinite' : 'none' // Smooth transition for color change
             }} onClick={handleVoiceSearch} /> </div>
     </div>
+    {isDrawerOpen && (
+    <DrawerL 
+                    open={isDrawerOpen}
+                    onClose={toggleDrawer}
+                    direction='bottom'
+                    className='Listening Drawer'
+                    overlayOpacity='0.5'
 
-{console.log('nfejjgkjf',isOpenR,suggestions)}
+                    style={{ display: 'flex',height:'300px', width: '100vw', flexDirection: 'column',  alignItems: 'center', 
+                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 4px' ,
+    borderRadius: '25px 25px 0px 0px' ,
+                    
+                    maxWidth: '100vw' }}
+                  >
+
+<div >
+  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+  <div onClick={()=>{setIsMicActive(false);setIsDrawerOpen(false);setIsOpenR(false);setSearchText('');}}
+  
+  style={{backgroundColor:'#0d0d0d',borderRadius:'50%',width: '36px', height: '36px' ,marginTop:'-50px',marginBottom:'35px'
+,display: 'flex', justifyContent: 'center', alignItems: 'center',  boxShadow: '4px 4px 4px rgba(255, 255, 255, 0.1)'
+}}>
+  {<IconX style={{ width: '30px', height: '30px' ,color:'white'}} />}
+  </div>
+  </div>
+
+                     {isMicActive &&  (<div style={{ justifyContent: 'center', alignItems: 'center',}}>
+                      <p style={{margin:'15px 0px 50px 0px', fontSize:'25px',fontWeight:'500'}}> Listening...</p></div>)
+                     }
+                     {
+                      !isMicActive && !searchText &&(
+                        <div style={{ justifyContent: 'center', alignItems: 'center',}}>
+                        <p style={{margin:'15px 0px 50px 0px', fontSize:'17px',fontWeight:'700'}}>"Sorry, could you please repeat that?"</p>
+                        </div>
+                      )
+                     }
+                     {
+                      !isMicActive && searchText && (
+                        <p style={{margin:'20px 0px 40px 0px', fontSize:'20px',fontWeight:'700'}}>Search Text : 
+                        <span> "{searchText &&  searchText.charAt(0).toUpperCase() + searchText.slice(1)}"</span> </p>
+                      )
+                     }
+                     <div style={{
+                  display:'flex',justifyContent:'center',alignContent:'center'
+                  }}>
+<div style={{backgroundColor:'red',borderRadius:'50%',padding:'0px 0px 0px 0px',
+                  animation:isMicActive ? 'pulse 1s infinite' : 'none',
+                  display:'flex',justifyContent:'center',alignContent:'center',
+                  height:'50px',width:'50px'
+                  }}>   
+       <FaMicrophone style={{  cursor: 'pointer', fontSize: '46px', color: 'white' ,marginTop:'2px'
+            }} onClick={handleVoiceSearch} /> </div>
+            </div>
+                     {!isMicActive && !searchText &&
+                     (<div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+                       <p style={{margin:'10px 0px 0px 0px', fontSize:'15px'}}>  Tap the  microphone and say again.</p>
+                     </div>
+                     )}
+                    </div>
+                    
+                  </DrawerL>
+
+
+
+                )}
+
+{console.log('nfejjgkjf',isOpenR,suggestions)}{
+  isOpenR && !suggestions.length && (
+    <div style={{ position: 'absolute', top: '48px', width: '100%',height:'90vh',paddingBottom:'40px', backgroundColor: '#fafafa',  zIndex: '20', overflowY:'auto',overscrollBehaviorY: 'contain' ,overflowX:'hidden' ,marginRight:'5px'}} >
+  <p style={{marginTop:'5px',marginLeft:'5px'}}>No such item found in the Menu</p>
+</div>
+)}
               {isOpenR && suggestions.length > 0 && (
-                <div style={{ position: 'absolute', top: '48px', width: '100%',height:'85vh', backgroundColor: '#fafafa',  zIndex: '20', overflowY:'scroll',overflowX:'hidden' ,marginRight:'5px'}} onScroll={handleScroll}>
+                <div style={{ position: 'absolute', top: '48px', width: '100%',height:'90vh',paddingBottom:'40px', backgroundColor: '#fafafa',  zIndex: '20', overflowY:'auto',overscrollBehaviorY: 'contain' ,overflowX:'hidden' ,marginRight:'5px'}} onScroll={handleScroll}>
                   {suggestions
                   .map((menuItem,index1,array) => (<>
                     <div key={menuItem.id} className="menu-item" style={{marginLeft:'0px',paddingLeft:'10px'}}> 

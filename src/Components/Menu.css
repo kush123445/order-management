@@ -41,6 +41,15 @@ body{
   padding: 0px;
   background-color: #fdfff5 !important;
 }
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent black */
+  z-index: 21; /* Ensure the overlay is above other content */
+}
 
 @keyframes pulse {
   0% {
@@ -363,6 +372,7 @@ margin-bottom: -15px !important;
     right: 8px;
     max-height: 270px;
     overflow-y: auto;
+    overscroll-behavior: contain ;
     z-index: 1;
     /* background-image: linear-gradient(to right, #ffffff, #ffffcc);
      */
@@ -492,6 +502,7 @@ margin-bottom: -15px !important;
     list-style-type: none;
     padding: 0;
     margin: 0;
+    overscroll-behavior: contain;
   }
   
   .dropdown-list li {
@@ -577,4 +588,20 @@ margin-bottom: -15px !important;
   /* background-color: rgb(0, 0, 0); */
   /* color :black; */
   color:goldenrod;
+}
+
+.textbox {
+  display: flex;
+  /* align-items: center; */
+  margin: 0px -15px 7px -7px;
+  /* margin-right: -20px;
+  margin-left: -8px; */
+  
+}
+
+.textlin {
+  color: #59585a;
+  /* color: #000; */
+  font-weight: 400;
+  margin-left: 10px;
 }
