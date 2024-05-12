@@ -5,7 +5,9 @@ import { FaBook, FaShoppingCart } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FaAngleDown, FaAngleUp, FaPlus, FaMinus } from 'react-icons/fa';
 import { MdOutlineCancel } from 'react-icons/md';
+import pk from './pk.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import tick from './check-mark.png';
 import DrawerR from 'react-modern-drawer'
 import {
   HashLoader
@@ -34,8 +36,10 @@ const Menu = ({ cart, setCart }) => {
   const navigate = useNavigate();
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isMicActive, setIsMicActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
   const [isOpenR, setIsOpenR] = React.useState(false)
   const [isFilterSetting,setIsFilterSetting] = useState({
     isVeg: false,
@@ -207,13 +211,16 @@ const Menu = ({ cart, setCart }) => {
         </div>
       ) : (
        
-        <div>
+        <div 
+        // style={{overflowY: (isOpenR || showDropdown ) ? 'hidden' : 'scroll'}}
+        style={{backgroundColor:'#fef8f6'}}
+        >
           <div className='gradient'>
           <header style={{
             // backgroundColor: '#fff',
             color: '#333',
             padding: '20px 20px 10px 20px',
-
+           
           }}>
             <div style={{
               display: 'flex',
@@ -283,15 +290,26 @@ const Menu = ({ cart, setCart }) => {
   </div>
 // </div> */}
 {/* <div onClick={handleChipClickR} style={{marginTop:'-15px',marginBottom:'-25px',marginLeft:'7px',marginRight:'7px'}}> */}
-  <SearchBox searchText={searchText} setSearchText={setSearchText} cart={cart} setCart={setCart}  isOpenR={isOpenR} setIsOpenR={setIsOpenR}  />
+  <SearchBox searchText={searchText} setSearchText={setSearchText} 
+  cart={cart} setCart={setCart}  
+  isOpenR={isOpenR} setIsOpenR={setIsOpenR} 
+  suggestions={suggestions} setSuggestions={setSuggestions} 
+  isMicActive={isMicActive} setIsMicActive={setIsMicActive}
+  />
 {/* </div> */}
 <DrawerR
                 open={isOpenR}
                 onClose={toggleDrawerR}
                 direction='left'
                 size="100vw"
+                style={{overflowY:'auto',overscrollBehaviorY:'contain'}}
             ><div>
-                 <SearchBox searchText={searchText} setSearchText={setSearchText} cart={cart} setCart={setCart} isOpenR={isOpenR} setIsOpenR={setIsOpenR}/>
+                 <SearchBox searchText={searchText} setSearchText={setSearchText} 
+                 cart={cart} setCart={setCart} 
+                 isOpenR={isOpenR} setIsOpenR={setIsOpenR}
+                 suggestions={suggestions} setSuggestions={setSuggestions}
+                 isMicActive={isMicActive} setIsMicActive={setIsMicActive}
+                 />
             </div>
                
             </DrawerR>
@@ -317,11 +335,14 @@ const Menu = ({ cart, setCart }) => {
 <Flat isFilterSetting={isFilterSetting}  setIsFilterSetting={setIsFilterSetting}
 searchText={searchText} setSearchText={setSearchText}
 isOpenR={isOpenR} setIsOpenR={setIsOpenR}
+cart={cart} setCart={setCart}
+isMicActive={isMicActive} setIsMicActive={setIsMicActive}
+suggestions={suggestions} setSuggestions={setSuggestions} 
 />
           <div className="menu-container" style={{ paddingBottom: '80px' }}>
 
 
-            <div className="dropdown-containerk" style={{zIndex:'5'}}>
+            <div className="dropdown-containerk" >
               <button className="browse-menu-btn" onClick={toggleDropdown}>
                 <div className="icon-container">
                   <FaBook size={24} /> {/* Book icon */}
@@ -330,7 +351,9 @@ isOpenR={isOpenR} setIsOpenR={setIsOpenR}
               </button>
 
               {showDropdown && (
-                <div className="dropdown-menuk" style={{ width: "55%" }}>
+                <div>
+                <div className="overlay" onClick={toggleDropdown}></div>
+                <div className="dropdown-menuk" style={{ width: "65%",zIndex:'2200' }}>
                   {/* <button className="close-btn" onClick={toggleDropdown}><MdOutlineCancel /></button> Cross button */}
                   <ul className="dropdown-list">
                     {uniqueCategories.map((category) => (
@@ -342,6 +365,7 @@ isOpenR={isOpenR} setIsOpenR={setIsOpenR}
                       </li>
                     ))}
                   </ul>
+                </div>
                 </div>
               )}
             </div>
@@ -464,7 +488,7 @@ isOpenR={isOpenR} setIsOpenR={setIsOpenR}
                               <button className="quantity-btn" onClick={() => addToCart(menuItem)} style={{ fontSize: '18px', fontWeight: '200' }}><FaPlus /></button>
                             </div>
                           </div>
-                          {index1 !== array.length - 1 && <Divider variant="dashed" size={1} />}   
+                          {/* {index1 !== array.length - 1 && <Divider variant="dashed" size={1} />}    */}
                             </>
 
                         )
@@ -472,13 +496,53 @@ isOpenR={isOpenR} setIsOpenR={setIsOpenR}
                     </div>
                   )
                   }
-                  {index !== uniqueCategories.length - 1 && <Divider  size={2} ml={-20} mr={-20} mt={20} />}
+                  {
+                  // index !== uniqueCategories.length - 1 && 
+                  <Divider  size={4} ml={-20} mr={-20} mt={20} />}
                 </div>
               ): null;
             })}
-              {!Object.values(accordionState).some(state => state) && (
+              {/* {!Object.values(accordionState).some(state => state) && (
                 <div className="order-line">Order line content here...</div>
-              )}
+              )} */}
+              { <div style={{ display: 'flex', alignItems: 'center'  }}>
+    <img src={pk} alt='leaf' style={{ height: '60px', width: '60px', marginRight: '10px' }} />
+    <div >
+        <p style={{ margin: '0px 0px 0px 4px',color:'green',fontWeight:'700'  }} >Deliciously Green:</p>
+        <p style={{ margin: '0', marginLeft: '5px' }}><span>Where Taste Meets Sustainability!</span></p>
+    </div>
+</div>
+
+
+              }
+              {
+<div style={{marginTop:'9px'}}>
+<div className="textbox" >
+          <div>
+            <img style={{ width: '15px', height: '15px' }} src={tick} alt='tick' />
+          </div>
+          <div className="textlin">
+          Our kitchen adheres to strict hygiene standards to ensure the safety of our customers.
+          </div>
+        </div>
+        <div className="textbox" >
+        <div>
+          <img style={{ width: '15px', height: '15px' }} src={tick} alt='tick' />
+        </div>
+        <div className="textlin">
+        Our menu offers a variety of nutritious choices to support your health and well-being.
+        </div>
+      </div>
+      <div className="textbox" >
+          <div>
+            <img style={{ width: '15px', height: '15px' }} src={tick} alt='tick' />
+          </div>
+          <div className="textlin">
+          Your satisfaction and health are our top priorities. Enjoy your meal with peace of mind!
+          </div>
+        </div>
+        </div >
+}
             </div>
             <div className={`browse-menu-btnn cart-open`}>
 
