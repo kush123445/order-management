@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IconX } from '@tabler/icons-react';
 import { css } from '@emotion/react';
-import aib from './burger1.png';
 import { HashLoader } from 'react-spinners';
+import axios from 'axios'
 import './Cart.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
@@ -15,6 +14,7 @@ import { FaMinus, FaPlus } from 'react-icons/fa';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 //import Modal from 'react-modal';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
+
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Drawer, TextInput, Button, Group, Text, Divider, Textarea, Accordion, ThemeIcon, Card, Image, Notification, Badge } from '@mantine/core';
 import { Transition } from '@mantine/core';
@@ -30,6 +30,7 @@ import boopSfx from './transition.mp3';
 import useSound from 'use-sound';
 //import SlideUpModal from './SlideUpModal.js';
 import { Chip, rem } from '@mantine/core';
+import { IconX } from '@tabler/icons-react'
 import Drawerr from 'react-modern-drawer'
 import DrawerR from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
@@ -38,7 +39,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'intersection-observer';
 //import useWindowSize from 'react-use/lib/useWindowSize'
-// import Confetti from 'react-confetti'
+//import Confetti from 'react-confetti'
 import Lottie from "lottie-react";
 import ff from "./ff.json";
 
@@ -66,6 +67,9 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
 
   const [isOpen, setIsOpen] = React.useState(false)
+
+
+  // const [orderAccepted, setOrderAccepted] = useState(false);
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chat, setchat] = useState(false);
@@ -81,7 +85,16 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const [isOpenR, setIsOpenR] = React.useState(false)
   const [isDialogOpeninstruction, setisDialogOpeninstruction] = useState(false); // State to manage dialog open/close
   const [natof, setNatof] = useState(false); // Initialize natof state variable to false
-  const [timelineData, setTimelineData] = useState([]);
+  const [timelineData, setTimelineData] = useState([
+    {
+      date: "Order Placed",
+      orderAccepted: false
+    },
+    {
+      date: "Order Accepted",
+      orderAccepted: true
+    }
+  ]);
   const navigate = useNavigate();
 
 
@@ -94,11 +107,13 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
   const handleChipClickR = () => {
   setIsOpenR(true)
+  console.error("h")
   setIsOpenR(prev=>prev)
   };
  
 
   const toggleDrawerR = () => {
+    console.log("kgfjdhsbav")
     setIsOpenR((prevState) => !prevState)
 }
 
@@ -211,35 +226,20 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   };
 
   const ConfirmOrder = async () => {
+
+
+    
+var table=1;
+var tableName="kushal";
+
+    const response = await axios.post('/generateOrder', { table: tableName }); // tableName is the variable containing the table name
+    const { orderId } = response.data;
+
+    console.log(orderId)
+
     setLoading(true);
     setOrderConfirmed(true);
-// if(timelineData.length!=0){
-
-//   setTimelineData([...timelineData, {
-//     date: "Add On",
-//     orderAccepted: false
-//   }]);
-// }
-//   useEffect(()=>{
-//     if(orderConfirmed==true){
-//       if(!timelineData.length){
-
-//   setTimelineData([{
-//     date: "Order Placed",
-//     orderAccepted: false
-//   },
-//   {
-//     date: "Order Accepted",
-//     orderAccepted: true
-//   }]);
-// }else{
-//   setTimelineData([...timelineData, {
-//     date: "Add On",
-//     orderAccepted: false
-//   }]);
-// }
-//     }
-//   },[])
+  
 
     // Simulate a 2-second delay before setting orderPlaced to true
     await setTimeout(() => {
@@ -251,11 +251,17 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
       setchat(prev=>prev)
       // Hide loader after 2 seconds
       setLoading(false);
-    }, 1000);
+    }, 2000);
     
+    if(timelineData.length!=0){
+
+      setTimelineData([...timelineData, {
+        date: "Add On",
+        orderAccepted: false
+      }]);
+    }
     
   }
-
 
   // const defaultOptions = {
   //   loop: true,
@@ -268,7 +274,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   // };
   useEffect(() => {
     console.log('Chat value changed:', chat);
-      
+
     if(chat==true){
     setchat(true)}
   }, [chat]);
@@ -304,8 +310,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   };
   useEffect(() => {
     let timerInterval;
-    console.log("1");
-
     if (showCancelButton) {
       let secondsElapsed = 0; // Initialize a variable to track elapsed seconds
 
@@ -314,10 +318,10 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
           // Check if the elapsed time is 10 seconds
           if (secondsElapsed === 10) {
             clearInterval(timerInterval);
-            // setTimelineData([...timelineData, {
-            //   date: "Add on 2",
-            //   orderAccepted: false
-            // }]);
+            setTimelineData([...timelineData, {
+              date: "Add on 2",
+              orderAccepted: false
+            }]);
             setShowCancelButton(false);
       setOrderConfirmed(true);
             setAccordionOpen(!accordionOpen) // Clear the interval
@@ -362,18 +366,16 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
   const [orderAccepted, setOrderAccepted] = useState(false);
 
-  // const orderAcceptedfn = () => {
-  //   // setAccordionOpen(false) // Clear the interval
-  //   const timer = setTimeout(() => {
-  //     setOrderAccepted(true);
-  //     console.log("kushal khandelwal")
-  //   }, 10000);
-  //   return () => clearTimeout(timer);
-  // }
+  const orderAcceptedfn = () => {
+    // setAccordionOpen(false) // Clear the interval
+    const timer = setTimeout(() => {
+      setOrderAccepted(true);
+      console.log("kushal kjhkj bmh  khandelwal")
+    }, 10000);
+    return () => clearTimeout(timer);
+  }
 
   useEffect(() => {
-    console.log("2");
-
     if (orderPlaced && !showCancelButton) {
       setTimelineOpen(true);
       play()
@@ -416,28 +418,22 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   }, [orderPlaced, showCancelButton]);
 
   useEffect(()=>{
-    console.log("3");
-
     if(orderConfirmed==true){
       if(cart!=""){
     setNewCart((prev)=>[...prev,...cart]);
       }
     // setCart("");
     }
-  },[orderConfirmed])
+  },[orderConfirmed,cart])
   useEffect(()=>{
-    console.log("4");
-
     if(orderConfirmed==true){
       // if(newCart!="" && cart!=""){
     // setNewCart(cart);
     setCart([]);
       // }
     }
-  },[orderConfirmed])
+  },[orderConfirmed,cart])
   useEffect(() => {
-    console.log("5");
-
     if (cart.length > 0 && orderConfirmed!=true) {
       localStorage.setItem('orderPlaced', JSON.stringify(cart));
     }else if (cart.length !=0 && orderConfirmed==true){
@@ -446,49 +442,10 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
     }
   }, [orderConfirmed,cart])
   useEffect(() => {
-    console.log("6");
-
     if (newCart.length > 0) {
       localStorage.setItem('orderConfirmed', JSON.stringify(newCart));
     }
-  }, [orderConfirmed])
-  
-  useEffect(()=>{
-    console.log("7");
-
-    if(timelineData.length > 0 ){
-       localStorage.setItem('orderTimeline', JSON.stringify(timelineData));
-    }
-  },[timelineData]);
-  useEffect(()=>{
-    console.log("8");
-
-   if(localStorage.getItem('orderTimeline')){
-    setTimelineData(JSON.parse(localStorage.getItem('orderTimeline')));
-      }
-  },[]);
-  useEffect(()=>{
-    console.log("9");
-
-    if(orderConfirmed==true){
-    if(timelineData.length==0){
-      setTimelineData([{
-        date: "Order Placed",
-        orderAccepted: false
-      },
-      {
-        date: "Order Accepted",
-        orderAccepted: true
-      }]);
-    }else if(timelineData.length!=0){
-      setTimelineData([...timelineData, {
-        date: "Add On",
-        orderAccepted: false
-      }]);
-    }
-    // localStorage.setItem('orderTimeline', JSON.stringify(timelineData));
-    console.log(timelineData);
-  }} ,[orderConfirmed])
+  }, [orderConfirmed,cart])
 
   const saving = () => {
     close();
@@ -499,8 +456,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    console.log("10");
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -545,7 +500,6 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                   <path d="M0 0 H1000 V50 H0 Z" />
                 </svg>
               </div>
-                        <Button variant="filled" color="#11998e" radius="lg" onClick={handleChipClick}>Order Now!</Button>
             </div>
           ) : (
             <div className="cart-page" style={{ paddingBottom: '100px' }}>
@@ -555,39 +509,31 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
 
 
-                // <div style={{ marginBottom: '20px', overflow: 'hidden', height: '50px', justifyContent: 'center', alignItems: 'center' }} ref={buttonRef}>
-                //   <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block' }}>
-                //     <Button variant='light' color="yellow" fullWidth style={{ height: '49px' }}>
-                //       <span style={{ display: 'flex', alignItems: 'center', fontSize: 'small', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>
-                //         <FaGift style={{ marginRight: '5px', fontSize: '1.6em', color: 'orange' }} />
-                //         <span style={{ fontSize: '1.1em', textTransform: 'uppercase', letterSpacing: '1px', color: 'black' }}>
-                //           (Offer: 10% discount for you)
-                //         </span>
-                //       </span>
-                //     </Button>
-                //   </div>
-                // </div>
-<div>
-<div class="banner">
-    <div class="text">
-        <h2>Delicious Food on Fingertips</h2>
-     
-        <button class="clip-button" onClick={handleChipClick}>Check Menu</button>
-    </div>
-    <div class="image">
-        <img src={aib} alt="Delicious Food" />
-    </div>
-</div>
+                <div style={{ marginBottom: '20px', overflow: 'hidden', height: '50px', justifyContent: 'center', alignItems: 'center' }} ref={buttonRef}>
+                  <div style={{ animation: isVisible ? 'slideLeft 0.5s ease' : 'none', display: 'inline-block' }}>
+                    <Button variant='light' color="yellow" fullWidth style={{ height: '49px' }}>
+                      <span style={{ display: 'flex', alignItems: 'center', fontSize: 'small', color: 'white', fontWeight: 'bold', marginLeft: '5px' }}>
+                        <FaGift style={{ marginRight: '5px', fontSize: '1.6em', color: 'orange' }} />
+                        <span style={{ fontSize: '1.1em', textTransform: 'uppercase', letterSpacing: '1px', color: 'black' }}>
+                          (Offer: 10% discount for you)
+                        </span>
+                      </span>
+                    </Button>
+                  </div>
                 </div>
-
               )}
-              {/* <div style={{
+              <div style={{
                 display: 'flex', alignItems: 'center', width: '100%', height: '50px',
                 backgroundImage: 'linear-gradient(to right, #f46b45 0%, #eea849  51%)',
                 position: 'fixed', top: '0', marginLeft: '-20px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.2)', borderRadius: '0px 0px 10px 10px'
               }}>
                 <h2 className="menu-titleC">Your Orders</h2>
-              </div> */}
+              </div>
+              {/* <svg className="moving-svg" width="100%" height="50" xmlns="http://www.w3.org/2000/svg">
+
+            <path d="M0 25 C50 0, 150 50, 200 25 C250 0, 350 50, 400 25 C450 0, 550 50, 600 25 C650 0, 750 50, 800 25 C850 0, 950 50, 1000 25 L1000 50 L0 50 Z" />
+          </svg> */}
+
               <div className={`accordion-header ${!accordionOpen ? 'closed' : ''}`} onClick={() => setAccordionOpen(!accordionOpen)}>
                 <span className="accordion-icon">{accordionOpen ? <FaAngleUp /> : <FaAngleDown />}</span>
                 <h3 className="category-name">Order List</h3>
@@ -720,13 +666,13 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                 <RequestForm close={toggleDrawerR} setTimelineData={setTimelineData} timelineData={timelineData}/>
             </DrawerR>
 
-  {/* <div style={{ marginBottom: '25px', marginTop: '2px', marginLeft: '7px' }}>
+  <div style={{ marginBottom: '25px', marginTop: '2px', marginLeft: '7px' }}>
     <Text style={{ fontSize: '12px' }} c="dimmed" >
       <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
       Please note: The final bill includes additional charges such as taxes and GST.
-    </Text> */}
+    </Text>
    
-  {/* </div> */}
+  </div>
   
   </>
 
@@ -734,7 +680,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
 
 
-{(!orderPlaced && !showCancelButton && cart.length!=0) && (
+{(!orderPlaced && !showCancelButton) && (
                   <div style={{ marginBottom: '25px', marginTop: '-12px', marginLeft: '7px' }}>
                     <Text style={{ fontSize: '12px' }} c="dimmed" >
                       <span style={{ verticalAlign: 'super', color: 'red' }}>*</span>
@@ -743,7 +689,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                   </div>
 )}
 
-                  {(!orderPlaced && !showCancelButton && cart.length!=0) && (
+                  {(!orderPlaced && !showCancelButton) && (
                     <div>
                       <Card shadow="sm" padding="lg" radius="md" withBorder mt={5}>
 
@@ -754,8 +700,8 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                         </Group>
 
                         <Text size="sm" c="dimmed">
-                          <em style={{ color: 'red' }}>Note : </em>Upon placing your order, you will have a 10-second window to confirm it. After the order is confirmed, you will have the option to submit a  request. If the admin approves your request, it will be processed accordingly.
-                          Please note that no refunds will be issued for cancellations made after 10 seconds of order confirmation.
+                          <em style={{ color: 'red' }}>Note : </em>Upon placing your order, you will have a 60-second window to confirm it. After the order is confirmed, you will have the option to submit a  request. If the admin approves your request, it will be processed accordingly.
+                          Please note that no refunds will be issued for cancellations made after 60 seconds of order confirmation.
                         </Text>
 
                       </Card>
@@ -816,12 +762,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     className='bla bla bla'
                     overlayOpacity='0.5'
 
-                    style={{ display: 'flex', widh: '100vw', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', 
-                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 4px' ,
-
-    borderRadius: '25px 25px 0px 0px' ,
-                    
-                    maxWidth: '100vw' }}
+                    style={{ display: 'flex', widh: '100vw', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', boxShadow: '0px -4px 8px rgba(0, 0, 255, 0.2)', maxWidth: '100vw' }}
                   >
 
                     <div>
@@ -839,9 +780,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-around', width: '80%', marginTop: '15px', marginBottom: '15px' }}>
 
-                      <Chip 
-                      icon={<IconX style={{ width: rem(16), height: rem(16) }} />}
-                      variant='outline' defaultChecked color="red" onClick={cancelOrder}>
+                      <Chip variant='light' defaultChecked color="red" onClick={cancelOrder}>
                         Cancel Order
                       </Chip>
 
@@ -853,7 +792,7 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                     </div>
 
                     <div>
-                      <Text size="xs" mt={5}>  To ensure , please confirm your order within 10 seconds.</Text>
+                      <Text size="xs" mt={5}>  To ensure , please confirm your order within 60 seconds.</Text>
                     </div>
                   </Drawerr>
 
@@ -861,21 +800,12 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
 
                 )}
 
-                 {/* {orderPlaced && timelineOpen && (
+                {orderPlaced && timelineOpen && (
 
                   <>
-                    {/* {orderAcceptedfn()} 
-                    <Confetti
-                      width={width}
-                      height={height}
-                      recycle={false}
-                      numberOfPieces={600}
-                      tweenDuration={8000}
-
-
-                    /> 
-                    </>)}  */}
-                { (orderConfirmed || (cart.length==0 && newCart.length>0)) && timelineData.length>0  && (<div className="vertical-timeline-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    {orderAcceptedfn()}
+                  
+                    <div className="vertical-timeline-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                     <VerticalTimeline className="custom-timeline">
                       {/* <VerticalTimelineElement
                         className=""
@@ -909,12 +839,11 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
   ))}
                     </VerticalTimeline>
                     </div>
-)}
                     
 
-                  {/* </> */}
+                  </>
 
-                {/* )} */}
+                )}
               </div>
 
               <Drawer opened={opened} onClose={close} title="Cooking Instructions..." position="bottom" size="xs" maxw='100%' transitionProps={{ transition: 'slide-up', duration: 600 }} mb='2'>
@@ -938,16 +867,13 @@ const Cart = ({ cart, setCart,newCart,setNewCart }) => {
                 />
                 <Divider my="md" /> {/* Add a divider to separate input from buttons */}
                 <Group position="right">
-                  <Button onClick={() => { setCustomize("") }} variant="outline"
-                  color='#ef5504'>
+                  <Button onClick={() => { setCustomize("") }} variant="outline">
                     Clear
                   </Button>
 
 
                   {/* <Button onClick={() => setisDialogOpeninstruction(false)}>Close</Button> */}
-                  <Button type="submit" variant="filled" 
-                  color='#ef5504'
-                  onClick={saving}>
+                  <Button type="submit" variant="gradient" onClick={saving}>
                     Save
                   </Button>
                 </Group>
