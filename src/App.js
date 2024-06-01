@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Menu from "./Components/Menu.js";
+import { WebSocketProvider } from './Wsc.js';
+
 // import Dashboard from './Dashboard.js'
 import Cart from "./Components/Cart.js";
 import SplashScreen from "./Components/SplashScreen.js";
@@ -37,6 +39,8 @@ function App() {
     }
   }, []);
   return (
+    <WebSocketProvider>
+
     <Router>
       <div>
         <Routes>
@@ -91,6 +95,8 @@ function App() {
         </Routes>
       </div>
     </Router>
+    </WebSocketProvider>
+
   );
 }
 

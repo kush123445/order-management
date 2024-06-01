@@ -1,15 +1,34 @@
-import React from 'react';
+// Sidebar.js
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Sidebar.css'; // Import your sidebar styles here
-import { useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { WebSocketContext } from '../Wsc'; // Ensure the correct path
+import { FaBell } from 'react-icons/fa'; // You might need to install react-icons if not already installed
+
 const Sidebar = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { newOrdersCount, resetNewOrdersCount } = useContext(WebSocketContext);
+
+  const handleOrdersClick = () => {
+    resetNewOrdersCount();
+    navigate('/orders');
+  };
+
   return (
     <div className="sidebar">
       <h2 className="sidebar-heading">Admin Dashboard</h2>
       <ul className="sidebar-menu">
         <li>
-          <Link to="/orders">Orders</Link>
+        <Link to="/orders" onClick={handleOrdersClick}>
+            Orders
+            <span className="notification-bell">
+              <FaBell className="bell-icon" />
+              {newOrdersCount > 0 && (
+                <span className="notification-count">{newOrdersCount}</span>
+              )}
+            </span>
+          </Link>
         </li>
         <li>
           <Link to="/tables">Tables</Link>
@@ -29,12 +48,8 @@ const Sidebar = () => {
       <div className="account-info">
         <h3 className="account-heading">Account </h3>
         <ul className="account-menu">
-          {/* <li>
-            <Link to="/profile">Profile</Link>
-          </li> */}
-         
           <li>
-            <Link onClick={()=>{localStorage.removeItem("auth");  navigate('/login');}}>Logout</Link>
+            <Link onClick={() => { localStorage.removeItem("auth"); navigate('/login'); }}>Logout</Link>
           </li>
         </ul>
       </div>

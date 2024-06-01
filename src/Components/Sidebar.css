@@ -58,3 +58,27 @@
 .account-menu li a:hover {
   color: #000;
 }
+
+/* Sidebar.css */
+
+.notification-bell {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.notification-bell .bell-icon {
+  font-size: 24px;
+  color: #555; /* Default color for the bell icon */
+}
+
+.notification-bell .notification-count {
+  position: absolute;
+  top: -8px; /* Adjust the position to move it upwards */
+  right: -8px; /* Adjust the position to move it to the right */
+  background-color: #f44336; /* Red background color */
+  color: #fff; /* White text color */
+  border-radius: 50%;
+  padding: 3px 6px; /* Smaller padding */
+  font-size: 10px; /* Smaller font size */
+}
