@@ -4,6 +4,7 @@ import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import './BusinessNameForm.css'; // Import your CSS file for styling
 import { FaSpinner } from 'react-icons/fa'; // Import the spinner icon
 import { BeatLoader } from 'react-spinners';
+import logo from './flogo.png'
 
 const BusinessNameForm = () => {
     const navigate = useNavigate();
@@ -78,47 +79,56 @@ const BusinessNameForm = () => {
   };
 
   return (
-    <div className="container">
-      {!verificationSuccess ? (
-        <div>
-          <h2>Send code to login</h2>
-          <form onSubmit={handleSubmit}>
-            {/* <input
-              type="text"
-              placeholder="Enter business name"
-              value={businessName}
-              onChange={handleChange}
-              required
-            /> */}
-            {loading ? ( // Conditionally render spinner loader
-              <button type="submit" disabled>
-                <BeatLoader color={'#F98820'}  size={10} />  {/* Render spinner icon */}
-              </button>
-            ) : (
-              <button type="submit">Submit</button> 
+<div className="page-container">
+      <div className="background-banner"></div>
+      <div className="verification-container">
+        {!verificationSuccess ? (
+          <div>
+            <h2>Send Code to Login</h2>
+            <form onSubmit={handleSubmit}>
+              {/* Input field for business name */}
+              {/* <input
+                type="text"
+                placeholder="Enter business name"
+                value={businessName}
+                onChange={handleChange}
+                required
+              /> */}
+              {/* Conditional rendering for spinner loader */}
+              {loading ? (
+                <button type="submit" className="submit-button" disabled>
+                  <BeatLoader color={'#fff'} size={10} /> {/* Spinner icon */}
+                </button>
+              ) : (
+                <button type="submit" className="submit-button">Submit</button> 
+              )}
+            </form>
+            {/* Display verification message if sent */}
+            {verificationSent && (
+              <p className="verification-message">
+                Verification code has been sent to your registered email address.
+              </p>
             )}
-          </form>
-          {verificationSent && (
-            <p className="verification-message">
-              Verification code has been sent to your registered email address.
-            </p>
-          )}
-        </div>
-      ) : (
-        <div>
-          <h2>Enter Verification Code</h2>
-          <form onSubmit={handleVerificationSubmit}>
-            <input
-              type="text"
-              placeholder="Enter verification code"
-              value={verificationCode}
-              onChange={handleVerificationChange}
-              required
-            />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      )}
+          </div>
+        ) : (
+          <div>
+            <h2>Enter Verification Code</h2>
+            <form onSubmit={handleVerificationSubmit}>
+              {/* Input field for verification code */}
+              <input
+                type="text"
+                placeholder="Enter verification code"
+                value={verificationCode}
+                onChange={handleVerificationChange}
+                className="verification-input"
+                required
+              />
+              <button type="submit" className="submit-button">Submit</button> {/* Submit button */}
+            </form>
+          </div>
+        )}
+      </div>
+      <img src={logo} alt="Top Right Image" className="top-right-image" />
     </div>
   );
 };

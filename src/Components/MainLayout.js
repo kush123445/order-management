@@ -33,8 +33,10 @@ const MainLayout = ({ children }) => {
     <div className="main-layout">
       <Sidebar />
       <div className="content">
-        <h1>{getPageTitle()}</h1>
-        {children}
+        <h1 className="page-title">{getPageTitle()}</h1>
+        <div className="page-content">
+          {children}
+        </div>
       </div>
     </div>
   );

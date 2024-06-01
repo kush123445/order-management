@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import { WebSocketContext } from '../Wsc'; // Ensure the correct path
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Orderpage.css';
 
 const Orders = () => {
   const { orders, setOrders } = useContext(WebSocketContext);
@@ -14,17 +15,50 @@ const Orders = () => {
   const [comment, setComment] = useState('');
 
   const columns = [
-    { field: 'billId', headerName: 'Bill ID', width: 230, renderCell: (params) => <div style={{ cursor: 'pointer' }} onClick={() => handleOrderClick(params)}>{params.value}</div> },
-    { field: 'orderPlacedTime', headerName: 'Order Time', width: 200, renderCell: (params) => <div style={{ marginRight: 10 }}>{params.value}</div> },
-    { field: 'tableNumber', headerName: 'Table Number', width: 200, renderCell: (params) => <div style={{ marginRight: 10 }}>{params.value}</div> },
-    { field: 'totalPrice', headerName: 'Total Money', width: 200, renderCell: (params) => <div style={{ marginRight: 10 }}>{params.value}</div> },
-    { field: 'totalItems', headerName: 'Total Items', width: 200, renderCell: (params) => <div style={{ marginRight: 10 }}>{params.value}</div> },
-    {
-      field: 'status', headerName: 'Order Status', width: 150, renderCell: (params) => {
+    { 
+      field: 'billId', 
+      headerName: 'Bill ID', 
+      width: 200, 
+      headerClassName: 'header-cell', 
+      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' }}>{params.value}</div> 
+    },
+    { 
+      field: 'orderPlacedTime', 
+      headerName: 'Order Time', 
+      width: 200, 
+      headerClassName: 'header-cell', 
+      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' }}>{params.value}</div> 
+    },
+    { 
+      field: 'tableNumber', 
+      headerName: 'Table Number', 
+      width: 200, 
+      headerClassName: 'header-cell', 
+      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' }}>{params.value}</div> 
+    },
+    { 
+      field: 'totalPrice', 
+      headerName: 'Total Money', 
+      width: 200, 
+      headerClassName: 'header-cell', 
+      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' }}>{params.value}</div> 
+    },
+    { 
+      field: 'totalItems', 
+      headerName: 'Total Items', 
+      width: 200, 
+      headerClassName: 'header-cell', 
+      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' }}>{params.value}</div> 
+    },
+    { 
+      field: 'status', 
+      headerName: 'Order Status', 
+      width: 200, 
+      headerClassName: 'header-cell', 
+      renderCell: (params) => {
         let backgroundColor;
         let color;
-        let borderRadius = 5;
-
+  
         switch (params.value) {
           case 'pending':
             backgroundColor = '#fff9c4'; // light yellow
@@ -42,23 +76,14 @@ const Orders = () => {
             backgroundColor = '#fff';
             color = '#000';
         }
-
+  
         return (
-          <div
-            style={{
-              backgroundColor,
-              color,
-              borderRadius,
-              padding: '5px 10px',
-              marginRight: 10
-            }}
-          >
-            {params.value}
-          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px', backgroundColor, color }}>{params.value}</div>
         );
       }
     }
   ];
+  
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -154,6 +179,7 @@ const Orders = () => {
             },
           }}
           slots={{
+            
             toolbar: CustomToolbar,
           }}
           pageSizeOptions={[5]}

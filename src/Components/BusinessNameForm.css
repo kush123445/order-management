@@ -15,7 +15,7 @@
   }
   
   button {
-    background-color: #007bff;
+    background-color: #FF512F;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -24,11 +24,136 @@
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #FF512F;
   }
   
   .verification-message {
     margin-top: 10px;
     color: green;
+  }
+  
+
+  .page-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./burger1.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+    background-size: 90%; ; /* Ensure the background image covers the entire container */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+  
+  }
+
+  .page-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(49, 30, 24, 0.576); /* Adjust the alpha value (0.5 in this example) to control the opacity of the overlay */
+  }
+
+  .top-right-image {
+    position: absolute;
+    top: 20px; /* Adjust the distance from the top */
+    right: 20px; /* Adjust the distance from the right */
+    width: 200px; /* Adjust the width of the image */
+    height: auto; /* Maintain aspect ratio */
+    z-index: 999; /* Ensure the image stays on top of other content */
+    background-color: transparent; /* Remove any background color */
+  }
+  
+  
+  .background-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background for the banner */
+    z-index: -1; /* Ensure the banner is behind other content */
+  }
+  
+  .verification-container {
+    position: relative; /* Relative positioning to allow stacking with the background banner */
+    width: 400px;
+    padding: 30px;
+    background-color: #fff; /* Background color for the form container */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .submit-button {
+    background-color: #FF512F;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #FF512F;
+  }
+  
+  .verification-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .verification-message {
+    color: #FF512F;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .verification-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Add shadow */
+  }
+  
+  /* Style for the input field */
+  .verification-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Style for the submit button */
+  .submit-button {
+    background-color: #FF512F;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #FF512F;
+  }
+  
+  /* Style for the verification message */
+  .verification-message {
+    margin-top: 10px;
+    color: #888;
   }
   
