@@ -4,6 +4,28 @@
     /* padding: 20px; */
     display: flex
   }
+  .menu-container {
+    width: 65%;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+  
+  .menu-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .menu-container::-webkit-scrollbar-track {
+    background: #ffeaea;
+  }
+  
+  .menu-container::-webkit-scrollbar-thumb {
+    background: #b4b4b4;
+    border-radius: 4px;
+  }
+  
+  .menu-container::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+  }
   
   .menu-container {
     width: 65%;
@@ -33,6 +55,8 @@
   }
   .category-container {
     margin-bottom: 20px;
+    background-color: lemonchiffon;
+    border-radius: 7px;
   }
   
   .category-header {
@@ -105,5 +129,613 @@
   .cancel-button {
     background-color: #dc3545;
     color: #fff;
+  }
+  
+  .confirmation-popup {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .confirmation-popup h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .input-group input,
+  .input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .input-group textarea {
+    resize: vertical;
+  }
+  
+  .chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .chip-container .Chip {
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .primary-button,
+  .secondary-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .primary-button {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .primary-button:hover {
+    background-color: #45a049;
+  }
+  
+  .secondary-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .secondary-button:hover {
+    background-color: #e53935;
+  }
+
+  .edit-popup-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .edit-popup-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .edit-input-group {
+    margin-bottom: 15px;
+  }
+  
+  .edit-input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .edit-input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .edit-error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .edit-button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .edit-primary-button,
+  .edit-secondary-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-primary-button {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .edit-primary-button:hover {
+    background-color: #45a049;
+  }
+  
+  .edit-secondary-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .edit-secondary-button:hover {
+    background-color: #e53935;
+  }
+
+  .delete-popup-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .delete-popup-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .delete-input-group {
+    margin-bottom: 15px;
+  }
+  
+  .delete-input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .delete-input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f5f5f5; /* Grey background to indicate disabled field */
+  }
+  
+  .delete-button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .delete-primary-button,
+  .delete-secondary-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-primary-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .delete-primary-button:hover {
+    background-color: #e53935;
+  }
+  
+  .delete-secondary-button {
+    background-color: #9e9e9e;
+    color: #fff;
+  }
+  
+  .delete-secondary-button:hover {
+    background-color: #757575;
+  }
+
+  .add-popup-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .add-popup-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .add-input-group {
+    margin-bottom: 15px;
+  }
+  
+  .add-input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .add-input-field,
+  .add-textarea-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .add-textarea-field {
+    height: 80px;
+  }
+  
+  .add-chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+  }
+  
+  .add-chip {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  .add-error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .add-button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .add-primary-button,
+  .add-secondary-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-primary-button {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .add-primary-button:hover {
+    background-color: #45a049;
+  }
+  
+  .add-secondary-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .add-secondary-button:hover {
+    background-color: #e53935;
+  }
+
+  
+  .edit-delete-form {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .edit-delete-input-group {
+    margin-bottom: 15px;
+  }
+  
+  .edit-delete-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .edit-delete-input,
+  .edit-delete-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .edit-delete-textarea {
+    height: 80px;
+  }
+  
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+  }
+  
+  .edit-delete-chip {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .primary-button,
+  .secondary-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .primary-button {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .primary-button:hover {
+    background-color: #45a049;
+  }
+  
+  .secondary-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .secondary-button:hover {
+    background-color: #e53935;
+  }
+
+  .category-container {
+    margin-bottom: 20px;
+ 
+   
+    padding: 15px;
+  }
+  
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .category-title {
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .category-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .category-icon {
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+  }
+  
+  .category-icon:hover {
+    color: #555;
+  }
+  
+  .edit-icon {
+    color: #f0ad4e;
+  }
+  
+  .add-icon {
+    color: #5cb85c;
+  }
+  
+  .delete-icon {
+    color: #d9534f;
+  }
+  
+  .menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .menu-item {
+    background-color: #fefcf8; /* Cream-white background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1); /* 3D box shadow */
+    padding: 15px;
+    flex: 1 1 calc(33.333% - 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: calc(33.333% - 30px);
+  }
+  
+  
+  .item-name {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .item-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .item-price {
+    font-size: 1em;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  
+  .item-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .item-icon {
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+  }
+  
+  .item-icon:hover {
+    color: #555;
+  }
+
+  .animated-button {
+    background-color: #5cb85c; /* Green background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .animated-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+  }
+  
+  .animated-button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .animated-button:hover {
+    background-color: #4cae4c; /* Darker green on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+  
+  .animated-button:active {
+    background-color: #4cae4c; /* Darker green on active */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(0); /* Reset lift on active */
+  }
+  .chip-button {
+  /* Vivid red */
+    color: #fff; /* White text */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 8px 16px; /* Adjust padding as needed */
+    cursor: pointer; /* Show pointer cursor on hover */
+ /* Smooth transition on hover */
+    display: inline-flex; /* Align text horizontally and vertically */
+    align-items: center; /* Center text vertically */
+    
+  }
+  
+  
+  
+  .clickable-text {
+    font-size: 14px; /* Adjust font size as needed */
+    font-weight: 500; /* Semi-bold font weight */
+    margin-right: 8px; /* Spacing between text and icon */
+  }
+  
+
+
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chip-button {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  .clickable-text1 {
+    font-family: 'Pacifico', cursive; /* Use a cursive font */
+    font-size: 36px; /* Make the text larger */
+    color: #ff6347; /* Text color */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Color-filled shadow */
+   
+    padding: 10px 20px; /* Add some padding */
+    border-radius: 5px; /* Rounded corners */
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .chip-button:hover .clickable-text1 {
+    color: #e5533d; /* Change text color on hover */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Enhance shadow on hover */
+    transform: scale(1.05); /* Slightly enlarge text on hover */
   }
   

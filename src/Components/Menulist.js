@@ -580,358 +580,370 @@ setTimeout(() => {
   return (
     <div className="menu">
       <div className="menu-container">
-        <button
-          onClick={() => {
-            handleAddC();
-          }}
-        >
-          Add category
-        </button>
+      <div className="button-container">
+  <div
+    className="chip-button"
+    onClick={() => {
+      handleAddC();
+    }}
+  
+  >
+    <span className="clickable-text1">Add category</span>
+  </div>
+</div>
+
+
         {Object.entries(groupedMenuItems).map(([category, items]) => (
-          <div key={category} className="category-container">
-            <div className="category-header">
-              <h3>{category}</h3>
-              <div className="category-buttons">
-                <FontAwesomeIcon
-                  style={{ color: "orange" }}
-                  icon={faEdit}
-                  onClick={() => {
-                    handleClick("EDIT", category);
-                  }}
-                />
-                <FontAwesomeIcon
-                  style={{ color: "green" }}
-                  icon={faPlus}
-                  onClick={() => {
-                    handleClick("ADD", category);
-                  }}
-                />
-                <FontAwesomeIcon
-                  style={{ color: "red" }}
-                  icon={faTrash}
-                  onClick={() => {
-                    handleClick("DELETE", category);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="menu-items">
-              {items.map((item) => (
-                <div key={item.id} className="menu-item">
-                  <h4>{item.name}</h4>
-                  <p>{item.description}</p>
-                  <p>Price: ${item.price}</p>
-                  <div className="item-buttons">
-                    <FontAwesomeIcon
-                      style={{ color: "orange" }}
-                      icon={faEdit}
-                      onClick={() => handleEditClick(item, "edit")}
-                    />
-                    <FontAwesomeIcon
-                      style={{ color: "red" }}
-                      icon={faTrash}
-                      onClick={() => handleEditClick(item, "delete")}
-                    />
-                  </div>
-                  {/* Add more details as needed */}
-                </div>
-              ))}
-            </div>
+  <div key={category} className="category-container">
+    <div className="category-header">
+      <h3 className="category-title">{category}</h3>
+      <div className="category-buttons">
+        <FontAwesomeIcon
+          className="category-icon edit-icon"
+          icon={faEdit}
+          onClick={() => {
+            handleClick("EDIT", category);
+          }}
+        />
+        <FontAwesomeIcon
+          className="category-icon add-icon"
+          icon={faPlus}
+          onClick={() => {
+            handleClick("ADD", category);
+          }}
+        />
+        <FontAwesomeIcon
+          className="category-icon delete-icon"
+          icon={faTrash}
+          onClick={() => {
+            handleClick("DELETE", category);
+          }}
+        />
+      </div>
+    </div>
+    <div className="menu-items">
+      {items.map((item) => (
+        <div key={item.id} className="menu-item">
+          <h4 className="item-name">{item.name}</h4>
+        
+          <p className="item-price">Price: ₹{item.price}</p>
+          <div className="item-buttons">
+            <FontAwesomeIcon
+              className="item-icon edit-icon"
+              icon={faEdit}
+              onClick={() => handleEditClick(item, "edit")}
+            />
+            <FontAwesomeIcon
+              className="item-icon delete-icon"
+              icon={faTrash}
+              onClick={() => handleEditClick(item, "delete")}
+            />
           </div>
-        ))}
+        </div>
+      ))}
+    </div>
+  </div>
+))}
+
       </div>
       <div className="remaining-space" style={{ width: "30%" }}>
-        {selectedItem && (
-          <div className="edit-form">
-            {!deleteItem ? <h3>Edit Item</h3> : <h3>Delete Item</h3>}
-            <div className="input-group">
-              <label htmlFor="name">* Name:</label>
-              <input
-                type="text"
-                id="name"
-                disabled={deleteItem ? true :false}
-                value={formData.name}
-                onChange={(event) =>
-                  handleChangename("name", event.target.value)
-                }
-              />
-            </div>
-            <div className="input-group">
-              <label htmlFor="description">Description:</label>
-              <textarea
-                id="description"
-                value={formData.description}
-                disabled={deleteItem ? true :false}
-                onChange={(event) =>
-                  handleChangedescription("description", event.target.value)
-                }
-              ></textarea>
-            </div>
-            <div className="input-group">
-              <label htmlFor="price">* Price:</label>
-              <input
-                type="number"
-                id="price"
-                value={formData.price}
-                disabled={deleteItem ? true :false}
-                onChange={(event) =>
-                  handleChangeprice("price", event.target.value)
-                }
-              />
-            </div>
-           
-            {!deleteItem ? (
-              <div>
-               <div style={{display:'flex',direction:'row'}}>
-               {textArray.map((text, index) => (
-                
-         <Chip
-         key={index}
-         color="red"// Change color based on state
-         variant="filled"
-         checked={text=='veg'?state.veg :state[text]}
-         onClick={() => handleChipClick(text)}
-         style={{ marginRight: '8px', marginBottom: '8px' }}
-         >
-           {text}
-         </Chip>
-         
-       ))}
- </div>
- {ErrorV.name && ErrorV.price && (
-  <p style={{color:'red'}}>please first fill mandatory fields</p>
-)}
-              <div className="button-group">
-                <button
-                  className="submit-button"
-                  onClick={() => {
-                    handleSubmit(formData);
-                  }}
-                >
-                  Submit
-                </button>
-                <button className="cancel-button" onClick={handleCloseModal}>
-                  Cancel
-                </button>
-              </div>
-              </div>
-            ) : (
-              <div className="button-group">
-                <button
-                  className="submit-button"
-                  onClick={() => {
-                    handledeleteitem(selectedItem);
-                  }}
-                >
-                  Delete
-                </button>
-                <button className="cancel-button" onClick={handleCloseModal}>
-                  Cancel
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {Addc && (
-          <div className="confirmation-popup">
-            <h3>Add New Item</h3>
-            <form
-              onSubmit={(e) => {
-                handleAddConfirmedC(formDataC, e, Edit);
-              }}
+      {selectedItem && (
+  <div className="edit-delete-form">
+    <h3 className="form-title">{!deleteItem ? "Edit Item" : "Delete Item"}</h3>
+    <div className="edit-delete-input-group">
+      <label htmlFor="name" className="edit-delete-label">* Name:</label>
+      <input
+        type="text"
+        id="name"
+        className="edit-delete-input"
+        disabled={deleteItem}
+        value={formData.name}
+        onChange={(event) =>
+          handleChangename("name", event.target.value)
+        }
+      />
+    </div>
+    <div className="edit-delete-input-group">
+      <label htmlFor="description" className="edit-delete-label">Description:</label>
+      <textarea
+        id="description"
+        className="edit-delete-textarea"
+        value={formData.description}
+        disabled={deleteItem}
+        onChange={(event) =>
+          handleChangedescription("description", event.target.value)
+        }
+      ></textarea>
+    </div>
+    <div className="edit-delete-input-group">
+      <label htmlFor="price" className="edit-delete-label">* Price:</label>
+      <input
+        type="number"
+        id="price"
+        className="edit-delete-input"
+        value={formData.price}
+        disabled={deleteItem}
+        onChange={(event) =>
+          handleChangeprice("price", event.target.value)
+        }
+      />
+    </div>
+    {!deleteItem ? (
+      <div>
+        <div className="chip-group">
+          {textArray.map((text, index) => (
+            <Chip
+              key={index}
+              color="red" // Change color based on state
+              variant="filled"
+              checked={text === 'veg' ? state.veg : state[text]}
+              onClick={() => handleChipClick(text)}
+              className="edit-delete-chip"
             >
-              <div className="input-group">
-                <label htmlFor="newName">* Category:</label>
-                <input
-                  type="text"
-                  id="newName"
-                  value={formDataC.category}
-                  onChange={(e) =>
-                    setFormDataC({ ...formDataC, category: e.target.value })
-                  }
-                />
-              </div>
-              <div className="input-group">
-                <label htmlFor="newName">* Name:</label>
-                <input
-                  type="text"
-                  id="newName"
-                  value={formDataC.name}
-                  onChange={(e) =>
-                    setFormDataC({ ...formDataC, name: e.target.value })
-                  }
-                />
-              </div>
-              <div className="input-group">
-                <label htmlFor="newDescription">Description:</label>
-                <textarea
-                  id="newDescription"
-                  value={formDataC.description}
-                  onChange={(e) =>
-                    setFormDataC({ ...formDataC, description: e.target.value })
-                  }
-                ></textarea>
-              </div>
-              <div className="input-group">
-                <label htmlFor="newPrice">* Price:</label>
-                <input
-                  type="number"
-                  id="newPrice"
-                  value={formDataC.price}
-                  onChange={(e) =>
-                    setFormDataC({ ...formDataC, price: e.target.value })
-                  }
-                />
-              </div>
-             
-
-              <div style={{display:'flex',direction:'row'}}>
-              {textArray.map((text, index) => (
-               
-        <Chip
-        key={index}
-        color="red"// Change color based on state
-        variant="filled"
-        checked={text=='veg'?state.veg :state[text]}
-        onClick={() => handleChipClick(text)}
-        style={{ marginRight: '8px', marginBottom: '8px' }}
+              {text}
+            </Chip>
+          ))}
+        </div>
+        {ErrorV.name && ErrorV.price && (
+          <p className="error-message">Please fill mandatory fields</p>
+        )}
+        <div className="button-group">
+          <button
+            className="primary-button animated-button"
+            onClick={() => {
+              handleSubmit(formData);
+            }}
+          >
+            Submit
+          </button>
+          <button className="secondary-button animated-button"  onClick={handleCloseModal}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    ) : (
+      <div className="button-group">
+        <button
+          className="primary-button animated-button"
+          onClick={() => {
+            handledeleteitem(selectedItem);
+          }}
         >
-          {text}
-        </Chip>
-        
-      ))}
-</div>
-
-
-
-
-
-{ErrorV.name && ErrorV.price && ErrorV.category && (
-  <p style={{color:'red'}}>please first fill mandatory fields</p>
+          Delete
+        </button>
+        <button className="secondary-button animated-button" onClick={handleCloseModal}>
+          Cancel
+        </button>
+      </div>
+    )}
+  </div>
 )}
 
-        
-              <div className="button-group">
-                <button type="submit">Add Item</button>
-                <button onClick={handleCloseModal}>Cancel</button>
-              </div>
-            </form>
-          </div>
-        )}
+
+{Addc && (
+  <div className="add-popup-container">
+    <h3 className="add-popup-title">Add New Item</h3>
+    <form
+      onSubmit={(e) => {
+        handleAddConfirmedC(formDataC, e, Edit);
+      }}
+    >
+      <div className="add-input-group">
+        <label htmlFor="newCategory" className="add-input-label">* Category:</label>
+        <input
+          type="text"
+          id="newCategory"
+          className="add-input-field"
+          value={formDataC.category}
+          onChange={(e) =>
+            setFormDataC({ ...formDataC, category: e.target.value })
+          }
+        />
+      </div>
+      <div className="add-input-group">
+        <label htmlFor="newName" className="add-input-label">* Name:</label>
+        <input
+          type="text"
+          id="newName"
+          className="add-input-field"
+          value={formDataC.name}
+          onChange={(e) =>
+            setFormDataC({ ...formDataC, name: e.target.value })
+          }
+        />
+      </div>
+      <div className="add-input-group">
+        <label htmlFor="newDescription" className="add-input-label">Description:</label>
+        <textarea
+          id="newDescription"
+          className="add-textarea-field"
+          value={formDataC.description}
+          onChange={(e) =>
+            setFormDataC({ ...formDataC, description: e.target.value })
+          }
+        ></textarea>
+      </div>
+      <div className="add-input-group">
+        <label htmlFor="newPrice" className="add-input-label">* Price:</label>
+        <input
+          type="number"
+          id="newPrice"
+          className="add-input-field"
+          value={formDataC.price}
+          onChange={(e) =>
+            setFormDataC({ ...formDataC, price: e.target.value })
+          }
+        />
+      </div>
+      <div className="add-chip-group">
+        {textArray.map((text, index) => (
+          <Chip
+            key={index}
+            color="red" // Change color based on state
+            variant="filled"
+            checked={text === 'veg' ? state.veg : state[text]}
+            onClick={() => handleChipClick(text)}
+            className="add-chip"
+          >
+            {text}
+          </Chip>
+        ))}
+      </div>
+      {ErrorV.name && ErrorV.price && ErrorV.category && (
+        <p className="add-error-message">Please fill in all mandatory fields</p>
+      )}
+      <div className="add-button-group">
+        <button type="submit" className="add-primary-button animated-button">Add Item</button>
+        <button type="button" className="add-secondary-button animated-button" onClick={handleCloseModal}>Cancel</button>
+      </div>
+    </form>
+  </div>
+)}
+
         
         {showConfirmation == "DELETE" && (
-          <div className="confirmation-popup">
-            <div className="input-group">
-              <label htmlFor="newName">Name</label>
-              <input
-                type="text"
-                id="newName"
-                value={Edit}
-                disabled
-                onChange={(e) => setEdit(e.target.value)}
-              />
-            </div>
-            <button
-              onClick={() => {
-                handleDeleteConfirmed(Edit);
-              }}
-            >
-              Yes
-            </button>
-            <button onClick={handleCloseModal}>No</button>
-          </div>
-        )}
-        {showConfirmation == "EDIT" && (
-          <div className="confirmation-popup">
-            <div className="input-group">
-              <label htmlFor="newName">* Name</label>
-              <input
-                type="text"
-                id="newName"
-                value={Edit}
-                onChange={(e) => setEdit(e.target.value)}
-              />
-            </div>
-            {ErrorV.editCategory && (
-              <p style={{color:'red'}}>Please first give category name </p>
-            )}
-            <button
-              onClick={() => {
-                handleEditConfirmed(Edit);
-              }}
-            >
-              Yes
-            </button>
-            <button onClick={handleCloseModal}>No</button>
-          </div>
-        )}
-        {showConfirmation == "ADD" && (
-          <div className="confirmation-popup">
-            <h3>Add New Item</h3>
-            <form
-              onSubmit={(e) => {
-                handleAddConfirmed(formData, e, Edit);
-              }}
-            >
-              <div className="input-group">
-                <label htmlFor="newName"> * Name:</label>
-                <input
-                  type="text"
-                  id="newName"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                />
-              </div>
-              <div className="input-group">
-                <label htmlFor="newDescription">Description:</label>
-                <textarea
-                  id="newDescription"
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                ></textarea>
-              </div>
-              <div className="input-group">
-                <label htmlFor="newPrice">* Price:</label>
-                <input
-                  type="number"
-                  id="newPrice"
-                  value={formData.price}
-                  onChange={(e) =>
-                    setFormData({ ...formData, price: e.target.value })
-                  }
-                />
-              </div>
-              <div style={{display:'flex',direction:'row'}}>
-              {textArray.map((text, index) => (
-               
-        <Chip
-        key={index}
-        color="red"// Change color based on state
-        variant="filled"
-        checked={text=='veg'?state.veg :state[text]}
-        onClick={() => handleChipClick(text)}
-        style={{ marginRight: '8px', marginBottom: '8px' }}
-        >
-          {text}
-        </Chip>
-        
-      ))}
-</div>
-{ErrorV.name && ErrorV.price && (
-  <p style={{color:'red'}}>please first fill mandatory fields</p>
+  <div className="delete-popup-container">
+    <h3 className="delete-popup-title">Delete Item</h3>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleDeleteConfirmed(Edit);
+      }}
+    >
+      <div className="delete-input-group">
+        <label htmlFor="deleteName" className="delete-input-label">Name</label>
+        <input
+          type="text"
+          id="deleteName"
+          className="delete-input-field"
+          value={Edit}
+          disabled
+          onChange={(e) => setEdit(e.target.value)}
+        />
+      </div>
+      <div className="delete-button-group">
+        <button type="submit" className=" animated-button delete-primary-button">Yes</button>
+        <button type="button" className=" animated-button delete-secondary-button" onClick={handleCloseModal}>No</button>
+      </div>
+    </form>
+  </div>
 )}
-              <div className="button-group">
-                <button type="submit">Add Item</button>
-                <button onClick={handleCloseModal}>Cancel</button>
-              </div>
-            </form>
-          </div>
-        )}
+
+      {showConfirmation == "EDIT" && (
+  <div className="edit-popup-container">
+    <h3 className="edit-popup-title">Edit Item</h3>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleEditConfirmed(Edit);
+      }}
+    >
+      <div className="edit-input-group">
+        <label htmlFor="editName" className="edit-input-label">* Name</label>
+        <input
+          type="text"
+          id="editName"
+          className="edit-input-field"
+          value={Edit}
+          onChange={(e) => setEdit(e.target.value)}
+        />
+      </div>
+      {ErrorV.editCategory && (
+        <p className="edit-error-message">Please first give category name</p>
+      )}
+      <div className="edit-button-group">
+        <button type="submit" className=" animated-button edit-primary-button">Yes</button>
+        <button type="button" className=" animated-button edit-secondary-button" onClick={handleCloseModal}>No</button>
+      </div>
+    </form>
+  </div>
+)}
+
+      {showConfirmation == "ADD" && (
+  <div className="confirmation-popup">
+    <h3>Add New Item</h3>
+    <form
+      onSubmit={(e) => {
+        handleAddConfirmed(formData, e, Edit);
+      }}
+    >
+      <div className="input-group">
+        <label htmlFor="newName">* Name:</label>
+        <input
+          type="text"
+          id="newName"
+          value={formData.name}
+          onChange={(e) =>
+            setFormData({ ...formData, name: e.target.value })
+          }
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="newDescription">Description:</label>
+        <textarea
+          id="newDescription"
+          value={formData.description}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
+        ></textarea>
+      </div>
+      <div className="input-group">
+        <label htmlFor="newPrice">* Price:</label>
+        <input
+          type="number"
+          id="newPrice"
+          value={formData.price}
+          onChange={(e) =>
+            setFormData({ ...formData, price: e.target.value })
+          }
+        />
+      </div>
+      <div className="chip-container">
+        {textArray.map((text, index) => (
+          <Chip
+            key={index}
+            color="red"
+            variant="filled"
+            checked={text == 'veg' ? state.veg : state[text]}
+            onClick={() => handleChipClick(text)}
+            style={{ marginRight: '8px', marginBottom: '8px' }}
+          >
+            {text}
+          </Chip>
+        ))}
+      </div>
+      {ErrorV.name && ErrorV.price && (
+        <p className="error-message">Please first fill mandatory fields</p>
+      )}
+      <div className="button-group">
+        <button type="submit" className=" animated-button primary-button">Add Item</button>
+        <button type="button" className=" animated-button secondary-button" onClick={handleCloseModal} style={{backgroundColor:'red'}}>Cancel</button>
+      </div>
+    </form>
+  </div>
+)}
+
       </div>
     </div>
   );
