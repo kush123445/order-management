@@ -82,3 +82,18 @@
   padding: 3px 6px; /* Smaller padding */
   font-size: 10px; /* Smaller font size */
 }
+
+.connect-bell {
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  margin-left: 10px;
+  position: relative;
+}
+
+

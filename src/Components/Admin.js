@@ -8,13 +8,16 @@ import { FaBell } from 'react-icons/fa'; // You might need to install react-icon
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const { newOrdersCount, resetNewOrdersCount } = useContext(WebSocketContext);
+  const { newOrdersCount, resetNewOrdersCount,connectsCount,setconnectsCount } = useContext(WebSocketContext);
 
   const handleOrdersClick = () => {
     resetNewOrdersCount();
     navigate('/orders');
   };
-
+  const handleOrdersClickconnect = () => {
+    setconnectsCount();
+    navigate('/rq');
+  };
   return (
     <div className="sidebar">
       <h2 className="sidebar-heading">Admin Dashboard</h2>
@@ -40,7 +43,13 @@ const Sidebar = () => {
           <Link to="/qr">Qr-Code</Link>
         </li>
         <li>
-          <Link to="/request">Request</Link>
+          <Link to="/request" onClick={handleOrdersClickconnect}>Request
+          <span className="notification-bell">
+            
+              {connectsCount > 0 && (
+                <span className="connect-bell">{connectsCount}</span>
+              )}
+            </span></Link>
         </li>
         {/* Add more links for other sections as needed */}
       </ul>

@@ -8,11 +8,14 @@ export const WebSocketProvider = ({ children }) => {
   const [play] = useSound(bellSound, { volume: 0.4 });
 
   // State to manage orders and new orders count
+  const [feedbackData, setFeedbackData] = useState([]);
+
   const [orders, setOrders] = useState(() => {
     const localData = localStorage.getItem('table-order');
     return localData ? JSON.parse(localData) : [];
   });
   const [newOrdersCount, setNewOrdersCount] = useState(0);
+  const [connectsCount, setconnectsCount] = useState(0);
 
   useEffect(() => {
     // Establish WebSocket connection
@@ -35,12 +38,28 @@ export const WebSocketProvider = ({ children }) => {
         
         console.log('Received message:', event.data);
         const newOrder = JSON.parse(event.data);
+
+        console.log(newOrder)
+
+        if(newOrder.title){
+
+          setFeedbackData((prevFeedbackData) => {
+            const updatedFeedbackData = [...prevFeedbackData, { ...newOrder, id: prevFeedbackData.length + 1 }];
+            localStorage.setItem('feedback-data', JSON.stringify(updatedFeedbackData));
+            return updatedFeedbackData;
+          });
+          setconnectsCount((prevCount) => prevCount + 1);
+           
+        }
+        else{
+          console.log("jjjjjjyyyyyyyyyyyyjjjjjjj")
         setOrders((prevOrders) => {
           const updatedOrders = [...prevOrders, newOrder];
           localStorage.setItem('table-order', JSON.stringify(updatedOrders));
           return updatedOrders;
         });
         setNewOrdersCount((prevCount) => prevCount + 1);
+      }
       } catch (error) {
         console.error('Error playing sound:', error);
       }
@@ -67,7 +86,7 @@ export const WebSocketProvider = ({ children }) => {
 
   // Provide context value to child components
   return (
-    <WebSocketContext.Provider value={{ orders, setOrders, newOrdersCount, resetNewOrdersCount }}>
+    <WebSocketContext.Provider value={{ orders, setOrders, newOrdersCount, resetNewOrdersCount ,feedbackData,setFeedbackData,connectsCount,setconnectsCount}}>
       {children}
     </WebSocketContext.Provider>
   );

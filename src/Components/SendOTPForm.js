@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import './requestfeed.css'
+import { WebSocketContext } from '../Wsc'; 
 
 const SendOTPForm = () => {
-  const [feedbackData, setFeedbackData] = useState([
-    { id: 1, title: 'Waiter Call', description: 'Need assistance with the order.', tableNo: 5, remark: null },
-    { id: 2, title: 'Feedback', description: 'Excellent service!', tableNo: 8, remark: 'excellent' },
-    { id: 3, title: 'Feedback', description: 'Food was cold.', tableNo: 3, remark: 'poor' },
-    { id: 4, title: 'Waiter Call', description: 'Requesting the bill.', tableNo: 7, remark: null },
-    { id: 5, title: 'Feedback', description: 'Wait time was too long.', tableNo: 12, remark: 'good' },
-  ]);
+  const { feedbackData, setFeedbackData } = useContext(WebSocketContext);
+ 
+
+  
 
   const getRowClassName = (params) => {
 
@@ -34,8 +32,8 @@ const SendOTPForm = () => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'title', headerName: 'Title', width: 200 },
-    { field: 'description', headerName: 'Description', width: 400 },
-    { field: 'tableNo', headerName: 'Table No.', width: 150 },
+    { field: 'message', headerName: 'Description', width: 400 },
+    { field: 'tableNumber', headerName: 'Table No.', width: 150 },
     { field: 'remark', headerName: 'Remark', width: 150 },
   ];
 
