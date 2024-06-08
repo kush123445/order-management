@@ -1,84 +1,107 @@
 .scan-container {
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Heading styling */
-  .heading {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  /* Input container styling */
-  .input-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Input field styling */
-  .url-input {
-    width: 300px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  /* Error message styling */
-  .error-text {
-    color: red;
-    margin: 0;
-  }
-  
-  /* Close button styling */
-  .close-btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
-  }
-  
-  /* Generate button styling */
-  .generate-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .generate-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  /* QR code container styling */
-  .qrcode-container {
-    margin: 20px auto;
-  }
-  
-  /* Instructions styling */
-  .instructions {
-    margin-bottom: 10px;
-  }
-  
-  /* Download button styling */
-  .download-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .download-btn:hover {
-    background-color: #45a049;
-  }
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  font-size: 24px;
+  color: #333; /* Dark gray text color */
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.input-container input.error {
+  border-color: #ff0000; /* Red border color for invalid input */
+}
+
+.error-text {
+  color: #ff0000; /* Red error text color */
+  margin-top: 5px;
+}
+
+.close-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.generate-btn {
+  background-color: #007bff; /* Blue generate button color */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.qrcode-container {
+  margin-bottom: 20px;
+}
+
+.instructions {
+  color: #333; /* Dark gray text color */
+  margin-bottom: 10px;
+}
+
+.download-btn {
+  background-color: #28a745; /* Green download button color */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the input horizontally */
+  margin-bottom: 20px;
+}
+
+.scan-container {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #ffebb1;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.generate-btn.disabled {
+  background-color: #ccc; /* Grey background color */
+  color: #999; /* Light grey text color */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
+
+
+
+
+
+
+
+
+
+
+

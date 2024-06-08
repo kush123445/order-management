@@ -1,0 +1,15 @@
+.poor-row {
+    background-color: #b2b2b2; /* Light red */
+  }
+  
+  .good-row {
+    background-color: #8afaa4; /* Light green */
+  }
+  
+  .excellent-row {
+    background-color: #ffe283; /* Light yellow */
+  }
+
+  .waiter-call-row {
+    background-color: #ffcdd2; /* Light red */
+  }

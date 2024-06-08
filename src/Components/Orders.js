@@ -20,7 +20,7 @@ const Orders = () => {
       headerName: 'Bill ID', 
       width: 200, 
       headerClassName: 'header-cell', 
-      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' }}>{params.value}</div> 
+      renderCell: (params) => <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: 'auto', padding: '5px 10px' ,cursor: 'pointer' }}>{params.value}</div> 
     },
     { 
       field: 'orderPlacedTime', 
@@ -185,35 +185,42 @@ const Orders = () => {
           pageSizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
+          onCellClick={handleOrderClick} 
         />
       </Box>
 
       {selectedOrder && (
-        <Modal opened onClose={handleCloseModal}>
-          <div style={{ padding: 20 }}>
-            <h2>Order Details</h2>
-            <p>Order ID: {selectedOrder.billId}</p>
-            <p>Table Number: {selectedOrder.tableNumber}</p>
-            <p>Order Placed Time: {new Date(selectedOrder.orderPlacedTime).toLocaleString()}</p>
-            <h3>Food Items</h3>
-            <ul>
-              {selectedOrder.foodItems.map((item, index) => (
-                <li key={index}>
-                  {item.name} - ${item.price.toFixed(2)} (Quantity: {item.quantity})
-                </li>
-              ))}
-            </ul>
-            <p>Total Price: ${selectedOrder.totalPrice.toFixed(2)}</p>
-            <p>Total Items: {selectedOrder.totalItems}</p>
-
-            <div style={{ display: 'flex', marginTop: 20 }}>
-              <Button onClick={() => acceptOrder(selectedOrder.billId)} style={{ marginRight: 10, backgroundColor: '#4caf50', color: '#fff', order: 2 }}>Accept</Button>
-              <Button onClick={() => rejectOrder(selectedOrder.billId)} style={{ marginRight: 10, backgroundColor: '#f44336', color: '#fff', order: 1 }}>Reject</Button>
-            </div>
-
-            {selectedOrder.isRejected && actionsContent}
-          </div>
-        </Modal>
+       <Modal opened onClose={handleCloseModal} styles={{ overlay: { background: 'rgba(0, 0, 0, 0.5)' } }}>
+       <div style={{ padding: 20, backgroundColor: '#fff', borderRadius: 8 }}>
+         <h2 style={{ textAlign: 'center', marginBottom: 20, color: '#ea7c1c' }}>Order Details</h2>
+         <div style={{ marginBottom: 20 }}>
+           <p style={{ marginBottom: 5, color: '#333' }}>Order ID: <strong>{selectedOrder.billId}</strong></p>
+           <p style={{ marginBottom: 5, color: '#333' }}>Table Number: <strong>{selectedOrder.tableNumber}</strong></p>
+           <p style={{ marginBottom: 5, color: '#333' }}>Order Placed Time: <strong>{new Date(selectedOrder.orderPlacedTime).toLocaleString()}</strong></p>
+         </div>
+         <h3 style={{ marginBottom: 10, color: '#ea7c1c' }}>Food Items</h3>
+         <ul style={{ marginBottom: 20 }}>
+           {selectedOrder.foodItems.map((item, index) => (
+             <li key={index} style={{ color: '#333' }}>
+               <span style={{ marginRight: 10, fontWeight: 'bold' }}>{item.name}</span>
+               <span style={{ color: '#888' }}>Quantity: {item.quantity}</span>
+               <span style={{ float: 'right', fontWeight: 'bold' }}>₹{item.price.toFixed(2)}</span>
+             </li>
+           ))}
+         </ul>
+         <div style={{ marginBottom: 20 }}>
+           <p style={{ textAlign: 'right', fontWeight: 'bold', fontSize: 18, color: '#333' }}>Total Price: ₹{selectedOrder.totalPrice.toFixed(2)}</p>
+           <p style={{ textAlign: 'right', fontSize: 16, color: '#333' }}>Total Items: {selectedOrder.totalItems}</p>
+         </div>
+         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+           <Button onClick={() => acceptOrder(selectedOrder.billId)} style={{ marginRight: 10, backgroundColor: '#4caf50', color: '#fff', order: 2 }}>Accept</Button>
+           <Button onClick={() => rejectOrder(selectedOrder.billId)} style={{ backgroundColor: '#f44336', color: '#fff', order: 1 }}>Reject</Button>
+         </div>
+         {selectedOrder.isRejected && actionsContent}
+       </div>
+     </Modal>
+     
+      
       )}
     </div>
   );
